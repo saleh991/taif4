@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'tourism_guiding_detailes_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
+import 'all_guide_screen.dart';
 
 class TourismGuidingScreen extends StatelessWidget {
   @override
@@ -63,7 +64,7 @@ class TourismGuidingScreen extends StatelessWidget {
                                   Icons.add,
                                 ),
                                 function: () {
-                                  Navigator.pushNamed(context, addressConditionRoute);
+
                                 },
                                 color: Color(0xFF007C9D),
                               )),
@@ -76,7 +77,8 @@ class TourismGuidingScreen extends StatelessWidget {
                               child: languagesButton(
                                 title:  "عرض كل المرشدين",
                                 function: () {
-                                  Navigator.pushNamed(context, addressConditionRoute);
+                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                                      AllGuideScreen()));
                                 },
                                 color: Color(0xFF4CBB17),
                               )),
@@ -92,7 +94,6 @@ class TourismGuidingScreen extends StatelessWidget {
                     ListView.builder(
                         itemCount: guidingCubit.data!.length,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return Container(
                             width: 394.w,

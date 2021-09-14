@@ -14,6 +14,7 @@ import 'package:taif/models/locations_category.dart';
 import 'package:taif/models/offer_section.dart';
 import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/user_data_model.dart';
+import 'package:taif/models/guide_model.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
 
@@ -23,6 +24,7 @@ class LocationsCubit extends Cubit<LocationsState> {
   static LocationsCubit get(context) => BlocProvider.of(context);
   LocationModel locationModel = LocationModel();
   GuidingModel guidingModel= GuidingModel();
+  GuideModel guideModel=GuideModel();
   HarajModel harajModel = HarajModel();
   EventModel eventModel = EventModel();
   EventSections eventSections = EventSections();
@@ -79,6 +81,22 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(GuidingSuccessState());
     }).catchError((e) {
       print('Guiding error $e');
+      emit(LocationsErrorState());
+    });
+  }
+
+  void getAllGuide() {
+    emit(GuidingLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'guides').then((value) {
+      if (value.statusCode == 200) {
+        print('Guide ID USER ${AppController.instance.getId()}');
+        print(value.data);
+        guideModel = GuideModel.fromJson(value.data);
+      }
+      emit(GuidingSuccessState());
+    }).catchError((e) {
+      print('guides error $e');
       emit(LocationsErrorState());
     });
   }

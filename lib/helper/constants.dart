@@ -9,7 +9,8 @@ String fontName = "JF Flat";
 
 //API
 int userId = AppController.instance.getId();
-const String URL = 'https://opencart3.const-tech.biz/tf/api/';
+//https://opencart3.const-tech.biz/tf/api
+const String URL = 'https://taif-app.com/api/';
 const String LOGIN = 'login';
 const String COMMENT = 'comments';
 const String REGISTER = 'register';
@@ -67,15 +68,15 @@ String favoriteRoute = "/favorite_screen";
 String membershipRoute = "/membership_screen";
 String estateDetailsRoute = "/estate_details_screen";
 String adsConditionRoute = "/ads_condition_screen";
-String addAdRoute3 = "/add_ad_screen";
+String addAdRoute3 = "/add_ad_screen"; //1
 String memberDetailsRoute = "/member_details_screen";
 String privateChatScreenRoute = "/private_chat_screen";
 String registerRoute = "/register_screen";
 String privateChatRoute = "/private_chat_screen";
-String addAdRoute1 = "/add_ad_screen1";
-String addAdRoute2 = "/add_ad_screen2";
+String addAdRoute1 = "/add_ad_screen1";//2
+String addAdRoute2 = "/add_ad_screen2";//3
 String addressRoute = "/address_screen";
-String addAddressRoute = "/add_address_screen";
+String addAddressRoute = "/add_address_screen";//4
 String addressConditionRoute = "/address_condition_screen";
 String addedSuccefullyRoute = "/added_succefully_screen";
 String addressDetailsRoute = "/address_details_screen";
@@ -85,3 +86,5 @@ String requestRentalRightRoute = "/request_rental_right_screen";
 String contractsRoute = "/contracts_screen";
 String documentationRoute = "/documentation_screen";
 String taifRoute = "/taif_screen";
+String tourismGuidingRoute = "/tourism_guiding_screen";
+

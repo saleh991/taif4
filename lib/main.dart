@@ -17,6 +17,7 @@ import 'package:taif/screens/primary_screens/membership_screen/membership_screen
 import 'package:taif/screens/primary_screens/search_screen.dart';
 import 'package:taif/screens/secondary_screens/add_ad_screen3.dart';
 import 'package:taif/screens/secondary_screens/add_ad_screen1.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/tourism_guiding_screen.dart';
 import 'package:taif/screens/secondary_screens/add_ad_screen2.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/add_address_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/addedd_succefully_screen.dart';
@@ -93,6 +94,8 @@ class _MainAppState extends State<MainApp> {
           initialRoute: launchScreenRoute,
           routes: {
             launchScreenRoute: (context) => LaunchScreen(),
+
+
             chooseLanguageRoute: (context) => ChooseLanguageScreen(),
             outBoardingRoute: (context) => OutBoardingScreen(),
             welcomeRoute: (context) => WelcomeScreen(),
@@ -133,6 +136,7 @@ class _MainAppState extends State<MainApp> {
             contractsRoute: (context) => ContractsScreen(),
             documentationRoute: (context) => DocumentationScreen(),
             taifRoute: (context) => KnowTaifScreen(),
+            tourismGuidingRoute: (context) => TourismGuidingScreen(),
             '/test': (context) => Test()
           },
         ),

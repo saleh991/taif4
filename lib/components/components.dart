@@ -20,6 +20,7 @@ Widget languagesButton({
   required String title,
   required VoidCallback function,
   required Color color,
+
 }) =>
     ElevatedButton(
       onPressed: function,
@@ -31,6 +32,39 @@ Widget languagesButton({
           color: Colors.white,
         ),
         textAlign: TextAlign.center,
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 0,
+      ),
+    );
+
+Widget languagesButtonWithIcon({
+  required String title,
+  required VoidCallback function,
+  required Color color,
+  required Icon icon,
+
+}) =>
+    ElevatedButton(
+      onPressed: function,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'JF Flat',
+              fontSize: 16.sp,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          icon
+        ],
       ),
       style: ElevatedButton.styleFrom(
         primary: color,
@@ -1278,6 +1312,116 @@ InkWell secondlistViewItem(
                   ],
                 ),
               )
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+InkWell tourismGuidingViewItem(
+    {required VoidCallback function,
+      required LocationModel locationModel,
+      required int index}) {
+  return InkWell(
+    onTap: function,
+    child: Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            backgroundImage: AssetImage('images/circle_img.png'),
+            maxRadius: 35,
+          ),
+          SizedBox(
+            width: 30.w,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                locationModel.data![index].title.toString(),
+                style: TextStyle(
+                  fontFamily: 'JF Flat',
+                  fontSize: 18.sp,
+                  color: const Color(0xff003e4f),
+                ),
+                textAlign: TextAlign.right,
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              SizedBox(
+                width: 220.w,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'images/save.png',
+                          height: 18.h,
+                          width: 12.w,
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 13.sp,
+                            color: const Color(0xff7a90b7),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
+
+                      style: TextStyle(
+                        fontFamily: 'Tahoma',
+                        fontSize: 13.sp,
+                        color: const Color(0xff007c9d),
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'images/eye.png',
+                          height: 18.h,
+                          width: 20.w,
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          '200',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 13.sp,
+                            color: const Color(0xff7a90b7),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+
             ],
           )
         ],

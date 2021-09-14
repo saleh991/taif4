@@ -4,9 +4,15 @@ class LocationsInitState extends LocationsState{}
 
 class LocationsLoadingState extends LocationsState{}
 
+class GuidingLoadingState extends LocationsState{}
+
 class LocationsSuccessState extends LocationsState{}
 
+class GuidingSuccessState extends LocationsState{}
+
 class LocationsErrorState extends LocationsState{}
+
+class GuidingErrorState extends LocationsState{}
 
 class GetLocationsCategoryLoadingState extends LocationsState{}
 

@@ -29,16 +29,16 @@ class TourismGuidingScreen extends StatelessWidget {
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: BlocProvider(
         create:
-            (context) => LocationsCubit()..getLocationsCategory()..getUserData(),
+            (context) => LocationsCubit()..getGuiding()..getUserData(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
           listener: (context, state) {},
           builder: (context, state) {
-            var locationsCubit = LocationsCubit
+            var guidingCubit = LocationsCubit
                 .get(context)
-                .locationModel;
+                .guidingModel;
 
 
-            if ((state is LocationsSuccessState && locationsCubit.data != null)
+            if ((state is GuidingSuccessState && guidingCubit.data != null)
             ) {
               return SingleChildScrollView(
               child: SizedBox(
@@ -90,7 +90,7 @@ class TourismGuidingScreen extends StatelessWidget {
                       height: 25.h,
                     ),
                     ListView.builder(
-                        itemCount: locationsCubit.data!.length,
+                        itemCount: guidingCubit.data!.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
@@ -110,10 +110,10 @@ class TourismGuidingScreen extends StatelessWidget {
                               ],
                             ),
                             child: tourismGuidingViewItem(
-                                locationModel: locationsCubit,
+                              guidingModel: guidingCubit,
                                 index: index,
                                 function: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>TourismGuidingDetailsScreen(data: locationsCubit.data![index],)));
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>TourismGuidingDetailsScreen(data: guidingCubit.data![index],)));
                             }),
                           );
                         })

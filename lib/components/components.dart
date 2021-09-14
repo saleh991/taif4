@@ -8,6 +8,7 @@ import 'package:taif/models/chat_model.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/event_model.dart';
 import 'package:taif/models/favorite_model.dart';
+import 'package:taif/models/guiding_model.dart';
 import 'package:taif/models/haraj_model.dart';
 import 'package:taif/models/location_model.dart';
 import 'package:taif/models/notification_model.dart';
@@ -1322,7 +1323,7 @@ InkWell secondlistViewItem(
 
 InkWell tourismGuidingViewItem(
     {required VoidCallback function,
-      required LocationModel locationModel,
+      required GuidingModel guidingModel,
       required int index}) {
   return InkWell(
     onTap: function,
@@ -1345,7 +1346,7 @@ InkWell tourismGuidingViewItem(
                 height: 16.h,
               ),
               Text(
-                locationModel.data![index].title.toString(),
+                guidingModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
                   fontSize: 18.sp,
@@ -1373,7 +1374,7 @@ InkWell tourismGuidingViewItem(
                           width: 5.w,
                         ),
                         Text(
-                          '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                          '${guidingModel.data![index].guide == null?'': guidingModel.data![index].guide!.name}',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
                             fontSize: 13.sp,
@@ -1384,7 +1385,7 @@ InkWell tourismGuidingViewItem(
                       ],
                     ),
                     Text(
-                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
+                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse(guidingModel.data![index].createdAt.toString())),
 
                       style: TextStyle(
                         fontFamily: 'Tahoma',

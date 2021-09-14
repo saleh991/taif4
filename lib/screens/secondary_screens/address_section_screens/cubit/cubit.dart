@@ -9,17 +9,20 @@ import 'package:taif/models/haraj_category.dart';
 import 'package:taif/models/haraj_model.dart';
 import 'package:taif/models/haraj_only_category.dart';
 import 'package:taif/models/location_model.dart';
+import 'package:taif/models/guiding_model.dart';
 import 'package:taif/models/locations_category.dart';
 import 'package:taif/models/offer_section.dart';
 import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
+
 class LocationsCubit extends Cubit<LocationsState> {
   LocationsCubit() : super(LocationsInitState());
 
   static LocationsCubit get(context) => BlocProvider.of(context);
   LocationModel locationModel = LocationModel();
+  GuidingModel guidingModel= GuidingModel();
   HarajModel harajModel = HarajModel();
   EventModel eventModel = EventModel();
   EventSections eventSections = EventSections();
@@ -39,6 +42,7 @@ class LocationsCubit extends Cubit<LocationsState> {
       print('user id ${AppController.instance.getId()}');
       if (value.statusCode == 200) {
         print('here profile ');
+        print(value.data);
         userDataModel = UserDataModel.fromJson(value.data);
       }
       emit(UserDataSuccessState());
@@ -47,6 +51,7 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(UserDataErrorState());
     });
   }
+
   void getLocations() {
     emit(LocationsLoadingState());
     DioHelper.init();
@@ -58,6 +63,22 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(LocationsSuccessState());
     }).catchError((e) {
       print('LOCATIONS error $e');
+      emit(LocationsErrorState());
+    });
+  }
+
+  void getGuiding() {
+    emit(GuidingLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'guide_posts').then((value) {
+      if (value.statusCode == 200) {
+        print('Guiding ID USER ${AppController.instance.getId()}');
+        print(value.data);
+        guidingModel = GuidingModel.fromJson(value.data);
+      }
+      emit(GuidingSuccessState());
+    }).catchError((e) {
+      print('Guiding error $e');
       emit(LocationsErrorState());
     });
   }

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
@@ -15,6 +19,7 @@ import 'package:taif/models/offer_section.dart';
 import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/models/guide_model.dart';
+import 'package:taif/models/add_guide_model.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
 
@@ -24,6 +29,7 @@ class LocationsCubit extends Cubit<LocationsState> {
   static LocationsCubit get(context) => BlocProvider.of(context);
   LocationModel locationModel = LocationModel();
   GuidingModel guidingModel= GuidingModel();
+  AddGuideModel addGuideModel=AddGuideModel();
   GuideModel guideModel=GuideModel();
   HarajModel harajModel = HarajModel();
   EventModel eventModel = EventModel();
@@ -274,6 +280,45 @@ var value = 0;
     }).catchError((e) {
       print('getOffer error $e');
       emit(OfferErrorState());
+    });
+  }
+
+
+  Future<void> addGuid({
+    required String name,
+    required String phone,
+    required String password,
+    required String experience_years,
+    required String notes,
+    required String email,
+    required File image
+  }) async {
+    emit(AddGuideLoadingState());
+    DioHelper.init();
+
+    String fileName = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "image":
+      await MultipartFile.fromFile(image.path, filename:fileName),
+      'name': name,
+      'phone': phone,
+      'password': password,
+      'experience_years': experience_years,
+      'email': email,
+      'notes': notes,
+    });
+    DioHelper.postData(url: 'guides',
+        data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+        addGuideModel = AddGuideModel.fromJson(value.data);
+        emit(AddGuideSuccessState(addGuideModel));
+      }
+    }).catchError((e) {
+      print('Error   $e');
+      emit(AddGuideErrorState());
     });
   }
 }

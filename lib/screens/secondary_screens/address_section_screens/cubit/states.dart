@@ -1,6 +1,20 @@
-abstract class LocationsState {}
 
-class LocationsInitState extends LocationsState{}
+import 'package:equatable/equatable.dart';
+
+import '../../../../models/add_guide_model.dart';
+abstract class LocationsState extends Equatable{
+
+  @override
+
+  List<Object?> get props =>[];
+
+}
+
+class LocationsInitState extends LocationsState{
+
+
+
+}
 
 class LocationsLoadingState extends LocationsState{}
 
@@ -60,6 +74,15 @@ class EventSectionsErrorState extends LocationsState{}
 class OfferSectionsLoadingState extends LocationsState{}
 
 class OfferSectionsSuccessState extends LocationsState{}
+
+class AddGuideLoadingState extends LocationsState{}
+
+class AddGuideSuccessState extends LocationsState{
+  AddGuideModel addGuideModel;
+  AddGuideSuccessState(this.addGuideModel);
+}
+
+class AddGuideErrorState extends LocationsState{}
 
 class OfferSectionsErrorState extends LocationsState{}
 

@@ -30,9 +30,13 @@ class TourismGuidingScreen extends StatelessWidget {
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: BlocProvider(
         create:
-            (context) => LocationsCubit()..getGuiding()..getUserData(),
+            (context) => LocationsCubit()..getGuiding(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            print("state");
+            print(state);
+            print("state");
+          },
           builder: (context, state) {
             var guidingCubit = LocationsCubit
                 .get(context)
@@ -64,6 +68,7 @@ class TourismGuidingScreen extends StatelessWidget {
                                   Icons.add,
                                 ),
                                 function: () {
+                                  Navigator.pushNamed(context, addGuideRoute);
 
                                 },
                                 color: Color(0xFF007C9D),
@@ -91,33 +96,39 @@ class TourismGuidingScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    ListView.builder(
-                        itemCount: guidingCubit.data!.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 394.w,
-                            height: 120.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(
-                                  width: 1.0, color:  Color(0xffcee3fb)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color:  Color(0x1fd5ddeb),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 6,
-                                ),
-                              ],
-                            ),
-                            child: tourismGuidingViewItem(
-                              guidingModel: guidingCubit,
-                                index: index,
-                                function: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>TourismGuidingDetailsScreen(data: guidingCubit.data![index],)));
-                            }),
-                          );
-                        })
+                    SizedBox(
+                      height: 660.h,
+                      child: ListView.builder(
+                          itemCount: guidingCubit.data!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              width: 394.w,
+                              height: 120.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                    width: 1.0, color:  Color(0xffcee3fb)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color:  Color(0x1fd5ddeb),
+                                    offset: Offset(0, 3),
+                                    blurRadius: 6,
+                                  ),
+                                ],
+                              ),
+                              child: tourismGuidingViewItem(
+                                guidingModel: guidingCubit,
+                                  index: index,
+                                  function: () {
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>TourismGuidingDetailsScreen(data: guidingCubit.data![index],)));
+                              }),
+                            );
+                          }),
+                    ),
+                    SizedBox(
+                      height: 66.h,
+                    ),
                   ],
                 ),
               ),

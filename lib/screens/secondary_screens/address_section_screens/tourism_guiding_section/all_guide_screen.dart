@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'tourism_guiding_detailes_screen.dart';
+import 'guide_detailes_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
@@ -29,7 +29,7 @@ class AllGuideScreen extends StatelessWidget {
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: BlocProvider(
         create:
-            (context) => LocationsCubit()..getAllGuide()..getUserData(),
+            (context) => LocationsCubit()..getAllGuide(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -88,7 +88,6 @@ class AllGuideScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w600,
                                           color: const Color(0xff003e4f),
                                         ),
-
                                       ),
                                       SizedBox(
                                         height: 6.h,
@@ -149,6 +148,12 @@ class AllGuideScreen extends StatelessWidget {
                                   languagesButton(
                                     title:  "عرض",
                                     function: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => GuideDetailsScreen(
+                                          data: guideCubit.data![index],
+                                        )),
+                                      );
                                     },
                                     color: Color(0xFF007CfD),
                                   ),

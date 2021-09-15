@@ -290,6 +290,50 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
               SizedBox(
                 height:35.h,
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 31.h,
+                      width: 31.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.0, color: const Color(0x5c06a1cb)),
+                      ),
+                      child: Image.asset('images/flag.png'),
+                    ),
+                    SizedBox(
+                      width: 17.w,
+                    ),
+                    Container(
+                      height: 31.h,
+                      width: 31.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.0, color: const Color(0x5c06a1cb)),
+                      ),
+                      child: Image.asset('images/heart.png'),
+                    ),
+                    SizedBox(
+                      width: 17.w,
+                    ),
+                    Container(
+                      height: 31.h,
+                      width: 31.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.0, color: const Color(0x5c06a1cb)),
+                      ),
+                      child: Image.asset('images/share.png'),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height:35.h,
+              ),
 
             ],
           ),

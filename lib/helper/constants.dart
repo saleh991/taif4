@@ -10,6 +10,8 @@ String fontName = "JF Flat";
 //API
 int userId = AppController.instance.getId();
 //https://opencart3.const-tech.biz/tf/api
+//https://taif-app.com/api/
+
 const String URL = 'https://taif-app.com/api/';
 const String LOGIN = 'login';
 const String COMMENT = 'comments';
@@ -89,4 +91,5 @@ String contractsRoute = "/contracts_screen";
 String documentationRoute = "/documentation_screen";
 String taifRoute = "/taif_screen";
 String tourismGuidingRoute = "/tourism_guiding_screen";
+String addGuideRoute="/add_guide_screen";
 

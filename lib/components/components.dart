@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -251,6 +253,33 @@ Widget contactItem({
       ),
     );
 
+Widget contactTextFieldWithHintColor({
+  required String hint,
+  TextInputType keyboardType = TextInputType.text,
+  required TextEditingController controller,
+  int line = 1,
+}) =>
+    TextField(
+      maxLines: line,
+      controller: controller,
+      style: TextStyle(
+          fontFamily: 'JF Flat', fontSize: 20.sp, color: Colors.black),
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+
+        border: OutlineInputBorder(
+          borderSide:
+              BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
+        ),
+        hintText: hint,
+        hintStyle: TextStyle(
+          fontFamily: 'JF Flat',
+          fontSize: 20.sp,
+          color: const Color(0xff25afff),
+        ),
+      ),
+    );
+
 Widget contactTextField({
   required String hint,
   TextInputType keyboardType = TextInputType.text,
@@ -261,18 +290,20 @@ Widget contactTextField({
       maxLines: line,
       controller: controller,
       style: TextStyle(
-          fontFamily: 'JF Flat', fontSize: 15.sp, color: Colors.black),
+          fontFamily: 'JF Flat', fontSize: 20.sp, color: Colors.black),
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: hint,
         border: OutlineInputBorder(
           borderSide:
-              BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
+          BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
         ),
         hintText: hint,
         hintStyle: TextStyle(
           fontFamily: 'JF Flat',
-          fontSize: 15.sp,
+
+
+          fontSize: 20.sp,
           color: const Color(0x853a3a3a),
         ),
       ),
@@ -1207,7 +1238,7 @@ InkWell secondlistViewItem(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 16.h,
+                height: 6.h,
               ),
               Text(
                 locationModel.data![index].title.toString(),

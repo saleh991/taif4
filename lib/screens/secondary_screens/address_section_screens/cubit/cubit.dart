@@ -75,6 +75,24 @@ class LocationsCubit extends Cubit<LocationsState> {
     });
   }
 
+  void getLocationsEn() {
+    emit(LocationsLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'en_location_services').then((value) {
+      if (value.statusCode == 200) {
+        print('en_location_services');
+        print(value.data);
+        print('en_location_services');
+        print('LOCATIONS ID USER ${AppController.instance.getId()}');
+        locationModel = LocationModel.fromJson(value.data);
+      }
+      emit(LocationsSuccessState());
+    }).catchError((e) {
+      print('LOCATIONS error $e');
+      emit(LocationsErrorState());
+    });
+  }
+
   void getGuiding() {
     emit(GuidingLoadingState());
     DioHelper.init();
@@ -122,6 +140,8 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(GetLocationsCategoryErrorState());
     });
   }
+
+
 
   void getHarajCategoryById({required int id}){
     emit(GetHarajCategoryIdLoadingState());
@@ -321,4 +341,39 @@ var value = 0;
       emit(AddGuideErrorState());
     });
   }
+
+  Future<void> addReportTourism({
+    required String report_title,
+    required String report_content,
+
+
+
+  }) async {
+
+    DioHelper.init();
+    FormData formData = FormData.fromMap({
+
+      'report_title': report_title,
+      'report_content': report_content,
+      'report_by': '6',
+      'report_on': '1',
+      'report_on_class': 'App\\Models\\Estate',
+
+    });
+    DioHelper.postData(url: 'reports',
+        data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+
+
+
+
 }

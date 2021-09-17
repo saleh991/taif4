@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/screens/secondary_screens/english_section_screens/english_section_screen.dart';
 import 'package:taif/screens/auth_screen/activation_screen.dart';
 import 'package:taif/screens/auth_screen/edit_first_time.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/cubit.dart';
@@ -46,6 +47,7 @@ import 'package:taif/screens/secondary_screens/public_services_screens/services_
 import 'package:taif/screens/secondary_screens/public_services_screens/services_providers_screen.dart';
 import 'package:taif/screens/test.dart';
 import 'package:taif/screens/auth_screen/welcome_screen.dart';
+import 'package:taif/screens/secondary_screens/add_subject_to_toursim/add_subject_conditon_screen.dart';
 
 import 'cubit/bloc_observer.dart';
 
@@ -107,6 +109,8 @@ class _MainAppState extends State<MainApp> {
             editProfileRoute: (context) => EditProfileScreen(),
             // editFirstProfileRoute: (context) => EditFirstProfileScreen(),
             bottomNavRoute: (context) => BottomNavigationController(),
+            englishSectionRoute: (context) => EnglishSectionScreen(),
+             addSubjectCondtionsRoute: (context) => AddSubjectCondtionsScreen(),
             contactRoute: (context) => ContactScreen(),
             notificationsRoute: (context) => NotificationsScreen(),
             profileRoute: (context) => ProfileScreen(),

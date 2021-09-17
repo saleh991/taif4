@@ -1258,52 +1258,95 @@ InkWell secondlistViewItem(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Column(
                       children: [
-                        Image.asset(
-                          'images/save.png',
-                          height: 18.h,
-                          width: 12.w,
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/save.png',
+                              height: 18.h,
+                              width: 12.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                             '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 14.sp,
+                                color: const Color(0xff7a90b7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          width: 15.w,
+                          height: 14.h,
                         ),
                         Text(
-                         '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                          DateFormat('yyyy-MM-dd','en').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
+
                           style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 10.sp,
-                            color: const Color(0xff7a90b7),
+                            fontFamily: 'Tahoma',
+                            fontSize: 13.sp,
+                            color: const Color(0xff007c9d),
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.right,
                         ),
                       ],
                     ),
-                    Row(
+                    Column(
                       children: [
-                        Image.asset(
-                          'images/eye.png',
-                          height: 18.h,
-                          width: 20.w,
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/eye.png',
+                              height: 18.h,
+                              width: 20.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                              '50',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 14.sp,
+                                color: const Color(0xff7a90b7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          width: 15.w,
+                          height: 14.h,
                         ),
-                        Text(
-                          '50',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 12.sp,
-                            color: const Color(0xff7a90b7),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '18k.m',
+                            style: TextStyle(
+                              fontFamily: 'Noto Kufi Arabic',
+                              fontSize: 14.sp,
+                              color: const Color(0xff003e4f),
+                            ),
+                            textAlign: TextAlign.right,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
-                    Image.asset(
-                      'images/map.png',
-                      width: 25.w,
-                      height: 25.h,
+                    Column(
+                      children: [
+                        Image.asset(
+                          'images/map.png',
+                          width: 25.w,
+                          height: 25.h,
+                        ),
+                        SizedBox(
+                          height: 14.h,
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -1316,31 +1359,11 @@ InkWell secondlistViewItem(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                    DateFormat('yyyy-MM-dd').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
 
-                      style: TextStyle(
-                        fontFamily: 'Tahoma',
-                        fontSize: 10,
-                        color: const Color(0xff007c9d),
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
                     SizedBox(
                       width: 10,
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '18k.m',
-                        style: TextStyle(
-                          fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14,
-                          color: const Color(0xff003e4f),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
+
                   ],
                 ),
               )

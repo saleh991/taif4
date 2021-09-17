@@ -1,14 +1,24 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/guiding_model.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 
+// ignore: must_be_immutable
 class TourismGuidingDetailsScreen extends StatelessWidget {
 
   final Data data;
   TourismGuidingDetailsScreen({required this.data});
+  TextEditingController _causeController=TextEditingController(
+    text: ''
+  );
+  TextEditingController _detailsController=TextEditingController(
+      text: ''
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -295,14 +305,80 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      height: 31.h,
-                      width: 31.w,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1.0, color: const Color(0x5c06a1cb)),
+                    InkWell(
+                      onTap: (){
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.WARNING,
+                          animType: AnimType.SCALE,
+
+                          body: Padding(
+                            padding:  EdgeInsets.all(12.0.w),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+
+                                    Text(
+                                      'سبب البلاغ',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 16.sp,
+                                        color: const Color(0xff003e4f),
+                                      ),
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 4.h,),
+                                contactTextFieldWithHintColor(
+                                  hint: '',
+                                  controller: _causeController
+                                ),
+                                SizedBox(height: 12.h,),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'تفاصيل البلاغ',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 16.sp,
+                                        color: const Color(0xff003e4f),
+                                      ),
+                                      textAlign: TextAlign.right,
+                                    ),
+
+
+                                  ],
+                                ),
+                                SizedBox(height: 4.h,),
+                                contactTextFieldWithHintColor(
+                                    hint: '',
+                                    controller: _detailsController
+                                ),
+                              ],
+                            ),
+                          ),
+                          btnCancelOnPress: () {
+
+                          },
+                          btnOkText: 'ابلاغ',
+                          btnCancelText: 'الغاء',
+                          btnOkOnPress: () {
+                            LocationsCubit()..addReportTourism(report_title: _causeController.text,
+                                report_content: _detailsController.text);
+                          },
+                        )..show();
+                      },
+                      child: Container(
+                        height: 31.h,
+                        width: 31.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.0, color: const Color(0x5c06a1cb)),
+                        ),
+                        child: Image.asset('images/flag.png'),
                       ),
-                      child: Image.asset('images/flag.png'),
                     ),
                     SizedBox(
                       width: 17.w,

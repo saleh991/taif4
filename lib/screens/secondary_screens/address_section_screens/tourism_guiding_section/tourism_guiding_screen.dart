@@ -7,6 +7,7 @@ import 'tourism_guiding_detailes_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'all_guide_screen.dart';
+import 'add_guide_conditon_screen.dart';
 
 class TourismGuidingScreen extends StatelessWidget {
   @override
@@ -68,7 +69,11 @@ class TourismGuidingScreen extends StatelessWidget {
                                   Icons.add,
                                 ),
                                 function: () {
-                                  Navigator.pushNamed(context, addGuideRoute);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => AddGuideCondtionsScreen()),
+                                  );
+
 
                                 },
                                 color: Color(0xFF007C9D),

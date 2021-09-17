@@ -59,6 +59,9 @@ String activationRoute = "/activation_screen";
 String editProfileRoute = "/edit_profile_screen";
 String editFirstProfileRoute = "/edit_first_profile_screen";
 String bottomNavRoute = "/bottom_nav_screen";
+String englishSectionRoute = "/english_Section_Route";
+String addSubjectCondtionsRoute = "/addSubject_Condtions_Route";
+
 String contactRoute = "/contact_screen";
 String notificationsRoute = "/notifications_screen";
 String profileRoute = "/profile_screen";

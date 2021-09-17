@@ -84,6 +84,13 @@ class AddGuideSuccessState extends LocationsState{
 
 class AddGuideErrorState extends LocationsState{}
 
+class AddLocationLoadingState extends LocationsState{}
+
+class AddLocationSuccessState extends LocationsState{
+}
+
+class AddLocationErrorState extends LocationsState{}
+
 class OfferSectionsErrorState extends LocationsState{}
 
 class HarajsSectionsLoadingState extends LocationsState{}

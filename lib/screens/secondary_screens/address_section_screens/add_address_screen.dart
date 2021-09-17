@@ -465,6 +465,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         child: languagesButton(
                           title: 'إضافة ونشر',
                           function: () {
+                            LocationsCubit()..addLocation(
+                                title: 'اضافة موقع',
+                                phone: '1234',
+                                content: _detailsController.text,
+                                location_service_category_id: '1',
+                                location_lat: lat!,
+                                location_lng: long!,
+                                image: profileImage!);
                             Navigator.pushReplacementNamed(
                                 context, addedSuccefullyRoute);
                           },

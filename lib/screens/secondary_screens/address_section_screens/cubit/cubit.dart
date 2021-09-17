@@ -141,8 +141,6 @@ class LocationsCubit extends Cubit<LocationsState> {
     });
   }
 
-
-
   void getHarajCategoryById({required int id}){
     emit(GetHarajCategoryIdLoadingState());
     DioHelper.init();
@@ -339,6 +337,45 @@ var value = 0;
     }).catchError((e) {
       print('Error   $e');
       emit(AddGuideErrorState());
+    });
+  }
+
+
+  Future<void> addLocation({
+    required String title,
+    required String phone,
+    required String content,
+    required String location_service_category_id,
+    required String location_lat,
+    required String location_lng,
+    required File image
+  }) async {
+    emit(AddLocationLoadingState());
+    DioHelper.init();
+
+    String fileName = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "image":
+      await MultipartFile.fromFile(image.path, filename:fileName),
+      'title': title,
+      'phone': phone,
+      'content': content,
+      'location_service_category_id': location_service_category_id,
+      'location_lat': location_lat,
+      'location_lng': location_lng,
+    });
+    DioHelper.postData(url: 'location_services',
+        data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+        addGuideModel = AddGuideModel.fromJson(value.data);
+        emit(AddLocationSuccessState());
+      }
+    }).catchError((e) {
+      print('Error   $e');
+      emit(AddLocationErrorState());
     });
   }
 

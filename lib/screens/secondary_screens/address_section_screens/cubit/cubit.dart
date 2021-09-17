@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
@@ -9,17 +13,24 @@ import 'package:taif/models/haraj_category.dart';
 import 'package:taif/models/haraj_model.dart';
 import 'package:taif/models/haraj_only_category.dart';
 import 'package:taif/models/location_model.dart';
+import 'package:taif/models/guiding_model.dart';
 import 'package:taif/models/locations_category.dart';
 import 'package:taif/models/offer_section.dart';
 import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/user_data_model.dart';
+import 'package:taif/models/guide_model.dart';
+import 'package:taif/models/add_guide_model.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
+
 
 class LocationsCubit extends Cubit<LocationsState> {
   LocationsCubit() : super(LocationsInitState());
 
   static LocationsCubit get(context) => BlocProvider.of(context);
   LocationModel locationModel = LocationModel();
+  GuidingModel guidingModel= GuidingModel();
+  AddGuideModel addGuideModel=AddGuideModel();
+  GuideModel guideModel=GuideModel();
   HarajModel harajModel = HarajModel();
   EventModel eventModel = EventModel();
   EventSections eventSections = EventSections();
@@ -39,6 +50,7 @@ class LocationsCubit extends Cubit<LocationsState> {
       print('user id ${AppController.instance.getId()}');
       if (value.statusCode == 200) {
         print('here profile ');
+        print(value.data);
         userDataModel = UserDataModel.fromJson(value.data);
       }
       emit(UserDataSuccessState());
@@ -47,6 +59,7 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(UserDataErrorState());
     });
   }
+
   void getLocations() {
     emit(LocationsLoadingState());
     DioHelper.init();
@@ -58,6 +71,56 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(LocationsSuccessState());
     }).catchError((e) {
       print('LOCATIONS error $e');
+      emit(LocationsErrorState());
+    });
+  }
+
+  void getLocationsEn() {
+    emit(LocationsLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'en_location_services').then((value) {
+      if (value.statusCode == 200) {
+        print('en_location_services');
+        print(value.data);
+        print('en_location_services');
+        print('LOCATIONS ID USER ${AppController.instance.getId()}');
+        locationModel = LocationModel.fromJson(value.data);
+      }
+      emit(LocationsSuccessState());
+    }).catchError((e) {
+      print('LOCATIONS error $e');
+      emit(LocationsErrorState());
+    });
+  }
+
+  void getGuiding() {
+    emit(GuidingLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'guide_posts').then((value) {
+      if (value.statusCode == 200) {
+        print('Guiding ID USER ${AppController.instance.getId()}');
+        print(value.data);
+        guidingModel = GuidingModel.fromJson(value.data);
+      }
+      emit(GuidingSuccessState());
+    }).catchError((e) {
+      print('Guiding error $e');
+      emit(LocationsErrorState());
+    });
+  }
+
+  void getAllGuide() {
+    emit(GuidingLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'guides').then((value) {
+      if (value.statusCode == 200) {
+        print('Guide ID USER ${AppController.instance.getId()}');
+        print(value.data);
+        guideModel = GuideModel.fromJson(value.data);
+      }
+      emit(GuidingSuccessState());
+    }).catchError((e) {
+      print('guides error $e');
       emit(LocationsErrorState());
     });
   }
@@ -237,4 +300,117 @@ var value = 0;
       emit(OfferErrorState());
     });
   }
+
+
+  Future<void> addGuid({
+    required String name,
+    required String phone,
+    required String password,
+    required String experience_years,
+    required String notes,
+    required String email,
+    required File image
+  }) async {
+    emit(AddGuideLoadingState());
+    DioHelper.init();
+
+    String fileName = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "image":
+      await MultipartFile.fromFile(image.path, filename:fileName),
+      'name': name,
+      'phone': phone,
+      'password': password,
+      'experience_years': experience_years,
+      'email': email,
+      'notes': notes,
+    });
+    DioHelper.postData(url: 'guides',
+        data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+        addGuideModel = AddGuideModel.fromJson(value.data);
+        emit(AddGuideSuccessState(addGuideModel));
+      }
+    }).catchError((e) {
+      print('Error   $e');
+      emit(AddGuideErrorState());
+    });
+  }
+
+
+  Future<void> addLocation({
+    required String title,
+    required String phone,
+    required String content,
+    required String location_service_category_id,
+    required String location_lat,
+    required String location_lng,
+    required File image
+  }) async {
+    emit(AddLocationLoadingState());
+    DioHelper.init();
+
+    String fileName = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "image":
+      await MultipartFile.fromFile(image.path, filename:fileName),
+      'title': title,
+      'phone': phone,
+      'content': content,
+      'location_service_category_id': location_service_category_id,
+      'location_lat': location_lat,
+      'location_lng': location_lng,
+    });
+    DioHelper.postData(url: 'location_services',
+        data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+        addGuideModel = AddGuideModel.fromJson(value.data);
+        emit(AddLocationSuccessState());
+      }
+    }).catchError((e) {
+      print('Error   $e');
+      emit(AddLocationErrorState());
+    });
+  }
+
+  Future<void> addReportTourism({
+    required String report_title,
+    required String report_content,
+
+
+
+  }) async {
+
+    DioHelper.init();
+    FormData formData = FormData.fromMap({
+
+      'report_title': report_title,
+      'report_content': report_content,
+      'report_by': '6',
+      'report_on': '1',
+      'report_on_class': 'App\\Models\\Estate',
+
+    });
+    DioHelper.postData(url: 'reports',
+        data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+
+
+
+
 }

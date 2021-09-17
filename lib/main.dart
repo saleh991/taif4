@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/screens/secondary_screens/english_section_screens/english_section_screen.dart';
 import 'package:taif/screens/auth_screen/activation_screen.dart';
 import 'package:taif/screens/auth_screen/edit_first_time.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/cubit.dart';
@@ -17,6 +18,7 @@ import 'package:taif/screens/primary_screens/membership_screen/membership_screen
 import 'package:taif/screens/primary_screens/search_screen.dart';
 import 'package:taif/screens/secondary_screens/add_ad_screen3.dart';
 import 'package:taif/screens/secondary_screens/add_ad_screen1.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/tourism_guiding_screen.dart';
 import 'package:taif/screens/secondary_screens/add_ad_screen2.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/add_address_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/addedd_succefully_screen.dart';
@@ -39,11 +41,13 @@ import 'package:taif/screens/secondary_screens/documentation_screen/documentatio
 import 'package:taif/screens/secondary_screens/favorite_screen.dart';
 import 'package:taif/screens/secondary_screens/know_taif/know_taif.dart';
 import 'package:taif/screens/secondary_screens/my_ads_screen.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/add_guide_screen.dart';
 import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/services_provider_details_screen.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/services_providers_screen.dart';
 import 'package:taif/screens/test.dart';
 import 'package:taif/screens/auth_screen/welcome_screen.dart';
+import 'package:taif/screens/secondary_screens/add_subject_to_toursim/add_subject_conditon_screen.dart';
 
 import 'cubit/bloc_observer.dart';
 
@@ -93,6 +97,8 @@ class _MainAppState extends State<MainApp> {
           initialRoute: launchScreenRoute,
           routes: {
             launchScreenRoute: (context) => LaunchScreen(),
+
+
             chooseLanguageRoute: (context) => ChooseLanguageScreen(),
             outBoardingRoute: (context) => OutBoardingScreen(),
             welcomeRoute: (context) => WelcomeScreen(),
@@ -103,6 +109,8 @@ class _MainAppState extends State<MainApp> {
             editProfileRoute: (context) => EditProfileScreen(),
             // editFirstProfileRoute: (context) => EditFirstProfileScreen(),
             bottomNavRoute: (context) => BottomNavigationController(),
+            englishSectionRoute: (context) => EnglishSectionScreen(),
+             addSubjectCondtionsRoute: (context) => AddSubjectCondtionsScreen(),
             contactRoute: (context) => ContactScreen(),
             notificationsRoute: (context) => NotificationsScreen(),
             profileRoute: (context) => ProfileScreen(),
@@ -126,6 +134,8 @@ class _MainAppState extends State<MainApp> {
             addressConditionRoute: (context) => AddressCondtionsScreen(),
             addedSuccefullyRoute: (context) => AddedSuccefullyScreen(),
             // addressDetailsRoute: (context) => AddressDetailsScreen(),
+            addGuideRoute: (context) => AddGuideScreen(),
+
             servicesProvidersRoute: (context) => ServicesProviderScreen(),
             servicesProviderDetailsRoute: (context) =>
                 ServicesProviderDetailsScreen(),
@@ -133,6 +143,7 @@ class _MainAppState extends State<MainApp> {
             contractsRoute: (context) => ContractsScreen(),
             documentationRoute: (context) => DocumentationScreen(),
             taifRoute: (context) => KnowTaifScreen(),
+            tourismGuidingRoute: (context) => TourismGuidingScreen(),
             '/test': (context) => Test()
           },
         ),

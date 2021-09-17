@@ -23,7 +23,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _nameController = TextEditingController();
     _phoneController = TextEditingController();
@@ -34,7 +33,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _nameController.dispose();
     _phoneController.dispose();

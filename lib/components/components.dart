@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:taif/models/chat_model.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/event_model.dart';
 import 'package:taif/models/favorite_model.dart';
+import 'package:taif/models/guiding_model.dart';
 import 'package:taif/models/haraj_model.dart';
 import 'package:taif/models/location_model.dart';
 import 'package:taif/models/notification_model.dart';
@@ -20,6 +23,7 @@ Widget languagesButton({
   required String title,
   required VoidCallback function,
   required Color color,
+
 }) =>
     ElevatedButton(
       onPressed: function,
@@ -31,6 +35,39 @@ Widget languagesButton({
           color: Colors.white,
         ),
         textAlign: TextAlign.center,
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 0,
+      ),
+    );
+
+Widget languagesButtonWithIcon({
+  required String title,
+  required VoidCallback function,
+  required Color color,
+  required Icon icon,
+
+}) =>
+    ElevatedButton(
+      onPressed: function,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'JF Flat',
+              fontSize: 16.sp,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          icon
+        ],
       ),
       style: ElevatedButton.styleFrom(
         primary: color,
@@ -216,6 +253,33 @@ Widget contactItem({
       ),
     );
 
+Widget contactTextFieldWithHintColor({
+  required String hint,
+  TextInputType keyboardType = TextInputType.text,
+  required TextEditingController controller,
+  int line = 1,
+}) =>
+    TextField(
+      maxLines: line,
+      controller: controller,
+      style: TextStyle(
+          fontFamily: 'JF Flat', fontSize: 20.sp, color: Colors.black),
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+
+        border: OutlineInputBorder(
+          borderSide:
+              BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
+        ),
+        hintText: hint,
+        hintStyle: TextStyle(
+          fontFamily: 'JF Flat',
+          fontSize: 20.sp,
+          color: const Color(0xff25afff),
+        ),
+      ),
+    );
+
 Widget contactTextField({
   required String hint,
   TextInputType keyboardType = TextInputType.text,
@@ -226,18 +290,20 @@ Widget contactTextField({
       maxLines: line,
       controller: controller,
       style: TextStyle(
-          fontFamily: 'JF Flat', fontSize: 15.sp, color: Colors.black),
+          fontFamily: 'JF Flat', fontSize: 20.sp, color: Colors.black),
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: hint,
         border: OutlineInputBorder(
           borderSide:
-              BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
+          BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
         ),
         hintText: hint,
         hintStyle: TextStyle(
           fontFamily: 'JF Flat',
-          fontSize: 15.sp,
+
+
+          fontSize: 20.sp,
           color: const Color(0x853a3a3a),
         ),
       ),
@@ -1172,7 +1238,7 @@ InkWell secondlistViewItem(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 16.h,
+                height: 6.h,
               ),
               Text(
                 locationModel.data![index].title.toString(),
@@ -1192,52 +1258,95 @@ InkWell secondlistViewItem(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Column(
                       children: [
-                        Image.asset(
-                          'images/save.png',
-                          height: 18.h,
-                          width: 12.w,
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/save.png',
+                              height: 18.h,
+                              width: 12.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                             '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 14.sp,
+                                color: const Color(0xff7a90b7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          width: 15.w,
+                          height: 14.h,
                         ),
                         Text(
-                         '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                          DateFormat('yyyy-MM-dd','en').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
+
                           style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 10.sp,
-                            color: const Color(0xff7a90b7),
+                            fontFamily: 'Tahoma',
+                            fontSize: 13.sp,
+                            color: const Color(0xff007c9d),
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.right,
                         ),
                       ],
                     ),
-                    Row(
+                    Column(
                       children: [
-                        Image.asset(
-                          'images/eye.png',
-                          height: 18.h,
-                          width: 20.w,
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/eye.png',
+                              height: 18.h,
+                              width: 20.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                              '50',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 14.sp,
+                                color: const Color(0xff7a90b7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          width: 15.w,
+                          height: 14.h,
                         ),
-                        Text(
-                          '50',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 12.sp,
-                            color: const Color(0xff7a90b7),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '18k.m',
+                            style: TextStyle(
+                              fontFamily: 'Noto Kufi Arabic',
+                              fontSize: 14.sp,
+                              color: const Color(0xff003e4f),
+                            ),
+                            textAlign: TextAlign.right,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
-                    Image.asset(
-                      'images/map.png',
-                      width: 25.w,
-                      height: 25.h,
+                    Column(
+                      children: [
+                        Image.asset(
+                          'images/map.png',
+                          width: 25.w,
+                          height: 25.h,
+                        ),
+                        SizedBox(
+                          height: 14.h,
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -1250,34 +1359,124 @@ InkWell secondlistViewItem(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+
+                    SizedBox(
+                      width: 10,
+                    ),
+
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+InkWell tourismGuidingViewItem(
+    {required VoidCallback function,
+      required GuidingModel guidingModel,
+      required int index}) {
+  return InkWell(
+    onTap: function,
+    child: Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            backgroundImage: AssetImage('images/circle_img.png'),
+            maxRadius: 35,
+          ),
+          SizedBox(
+            width: 30.w,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                guidingModel.data![index].title.toString(),
+                style: TextStyle(
+                  fontFamily: 'JF Flat',
+                  fontSize: 18.sp,
+                  color: const Color(0xff003e4f),
+                ),
+                textAlign: TextAlign.right,
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              SizedBox(
+                width: 220.w,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'images/save.png',
+                          height: 18.h,
+                          width: 12.w,
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          '${guidingModel.data![index].guide == null?'': guidingModel.data![index].guide!.name}',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 13.sp,
+                            color: const Color(0xff7a90b7),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                     Text(
-                    DateFormat('yyyy-MM-dd').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
+                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse(guidingModel.data![index].createdAt.toString())),
 
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 10,
+                        fontSize: 13.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '18k.m',
-                        style: TextStyle(
-                          fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14,
-                          color: const Color(0xff003e4f),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'images/eye.png',
+                          height: 18.h,
+                          width: 20.w,
                         ),
-                        textAlign: TextAlign.right,
-                      ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Text(
+                          '200',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 13.sp,
+                            color: const Color(0xff7a90b7),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
+
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+
             ],
           )
         ],

@@ -171,6 +171,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               profileItem(
                 function: () {
+                  Navigator.pushNamed(context, englishSectionRoute);
+                },
+                title: 'القسم الانكليزي',
+                icon: 'images/terms.png',
+              ),
+              Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+              profileItem(
+                function: () {
                   Navigator.pushNamed(context, chatsRoute);
                 },
                 title: 'المحادثات',

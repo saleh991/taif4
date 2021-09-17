@@ -12,6 +12,7 @@ class DioHelper {
       BaseOptions(
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           'lang': 'ar',
         },
         baseUrl: URL,
@@ -32,21 +33,18 @@ class DioHelper {
 
   static Future<Response> postData({
     required String url,
-    required Map<String, dynamic> data,
+    required var data,
     Map<String, dynamic>? query,
     String token = '',
   }) async {
     return await dio.post(
       url,
       data: data,
-      options: Options(
-        headers: {
-          //'Authorization': token,
-        },
-      ),
       queryParameters: query,
     );
   }
+
+
 
   static Future<Response> putData({
     required String url,

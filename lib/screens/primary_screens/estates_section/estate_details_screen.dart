@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/cubit.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EstateDetailsScreen extends StatefulWidget {
@@ -36,12 +38,14 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
   final CarouselController _controller = CarouselController();
   late TextEditingController _detailsController;
   late TextEditingController _commentController;
+  late TextEditingController _causeController;
 
   @override
   void initState() {
     super.initState();
     _detailsController = TextEditingController();
     _commentController = TextEditingController();
+    _causeController=TextEditingController();
   }
 
   @override
@@ -49,6 +53,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
     super.dispose();
     _detailsController.dispose();
     _commentController.dispose();
+    _causeController.dispose();
   }
 
   @override
@@ -330,14 +335,81 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                            height: 31.h,
-                            width: 31.w,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1.0, color: const Color(0x5c06a1cb)),
+                          InkWell(
+                            onTap: (){
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.WARNING,
+                                animType: AnimType.SCALE,
+
+                                body: Padding(
+                                  padding:  EdgeInsets.all(12.0.w),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+
+                                          Text(
+                                            'سبب البلاغ',
+                                            style: TextStyle(
+                                              fontFamily: 'JF Flat',
+                                              fontSize: 16.sp,
+                                              color: const Color(0xff003e4f),
+                                            ),
+                                            textAlign: TextAlign.right,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 4.h,),
+                                      contactTextFieldWithHintColor(
+                                          hint: '',
+                                          controller: _causeController
+                                      ),
+                                      SizedBox(height: 12.h,),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'تفاصيل البلاغ',
+                                            style: TextStyle(
+                                              fontFamily: 'JF Flat',
+                                              fontSize: 16.sp,
+                                              color: const Color(0xff003e4f),
+                                            ),
+                                            textAlign: TextAlign.right,
+                                          ),
+
+
+                                        ],
+                                      ),
+                                      SizedBox(height: 4.h,),
+                                      contactTextFieldWithHintColor(
+                                          hint: '',
+                                          controller: _detailsController
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                btnCancelOnPress: () {
+
+                                },
+                                btnOkText: 'ابلاغ',
+                                btnCancelText: 'الغاء',
+                                btnOkOnPress: () {
+                                  LocationsCubit()..addReportTourism(report_title:
+                                  _causeController.text,
+                                      report_content: _detailsController.text);
+                                },
+                              )..show();
+                            },
+                            child: Container(
+                              height: 31.h,
+                              width: 31.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.0, color: const Color(0x5c06a1cb)),
+                              ),
+                              child: Image.asset('images/flag.png'),
                             ),
-                            child: Image.asset('images/flag.png'),
                           ),
                           SizedBox(
                             width: 17.w,

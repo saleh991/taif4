@@ -33,8 +33,7 @@ class AddressScreen extends StatelessWidget {
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: BlocProvider(
         create:
-            (context) => LocationsCubit()..getLocationsCategory()..getUserData()
-             ,
+            (context) => LocationsCubit()..getLocationsCategory()..getUserData(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -105,17 +104,53 @@ class AddressScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    if (userCubit.data!.currentSub != null)
-                      if (userCubit.data!.currentSub!.remainningAds != 0)
+                   // if (userCubit.data!.currentSub != null)
+                   //   if (userCubit.data!.currentSub!.remainningAds != 0)
+                    Column(
+                      children: [
+                        SizedBox(
+                            width: 354.w,
+                            height: 51.h,
+                            child: languagesButton(
+                              title:  "طلب إضافة موقع سياحي جديد",
+                              function: () {
+                                Navigator.pushNamed(context, addressConditionRoute);
+                              },
+                              color: Color(0xFF007C9D),
+                            )),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                      ],
+                    ),
+
+                    Column(
+                      children: [
+                        SizedBox(
+                            width: 354.w,
+                            height: 51.h,
+                            child: languagesButton(
+                              title:  "طلب إضافة موضوع سياحي جديد",
+                              function: () {
+                                Navigator.pushNamed(context, addSubjectCondtionsRoute);
+                              },
+                              color: Color(0xFF007C9D),
+                            )),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                      ],
+                    ),
+
                     SizedBox(
                         width: 354.w,
                         height: 51.h,
                         child: languagesButton(
-                          title:  "طلب إضافة موقع سياحي جديد",
+                          title:  "الارشاد السياحي",
                           function: () {
-                            Navigator.pushNamed(context, addressConditionRoute);
+                            Navigator.pushNamed(context, tourismGuidingRoute);
                           },
-                          color: Color(0xFF007C9D),
+                          color: Color(0xFFFFBF00),
                         )),
                     SizedBox(
                       height: 25.h,

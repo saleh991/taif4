@@ -183,13 +183,13 @@ class User {
   String? start;
   String? end;
   int? active;
-  String? image;
+  String? main_image;
   String ?code;
   String? apiToken;
   String? name;
   String? email;
-  String? packageAds;
-  String? packageComments;
+  int? packageAds;
+  int? packageComments;
 
   User(
       {this.id,
@@ -200,7 +200,7 @@ class User {
         this.start,
         this.end,
         this.active,
-        this.image,
+        this.main_image,
         this.code,
         this.apiToken,
         this.name,
@@ -217,7 +217,7 @@ class User {
     start = json['start'];
     end = json['end'];
     active = json['active'];
-    image = json['image'];
+    main_image = json['main_image'];
     code = json['code'];
     apiToken = json['api_token'];
     name = json['name'];
@@ -236,7 +236,7 @@ class User {
     data['start'] = this.start;
     data['end'] = this.end;
     data['active'] = this.active;
-    data['image'] = this.image;
+    data['main_image'] = this.main_image;
     data['code'] = this.code;
     data['api_token'] = this.apiToken;
     data['name'] = this.name;

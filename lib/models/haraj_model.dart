@@ -65,7 +65,7 @@ class Data {
   String? _message;
   String? _createdAt;
   String? _updatedAt;
-  String? _image;
+  String? _main_image;
   dynamic? _locationLat;
   dynamic? _locationLng;
   int? _views;
@@ -77,7 +77,7 @@ class Data {
   String? get message => _message;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
-  String? get image => _image;
+  String? get main_image => _main_image;
   dynamic? get locationLat => _locationLat;
   dynamic? get locationLng => _locationLng;
   int? get views => _views;
@@ -90,7 +90,7 @@ class Data {
       String? message, 
       String? createdAt, 
       String? updatedAt, 
-      String? image, 
+      String? main_image,
       dynamic? locationLat, 
       dynamic? locationLng, 
       int? views}){
@@ -101,7 +101,7 @@ class Data {
     _message = message;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-    _image = image;
+    _main_image = main_image;
     _locationLat = locationLat;
     _locationLng = locationLng;
     _views = views;
@@ -115,7 +115,7 @@ class Data {
     _message = json['message'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    _image = json['image'];
+    _main_image = json['main_image'];
     _locationLat = json['location_lat'];
     _locationLng = json['location_lng'];
     _views = json['views'];
@@ -130,7 +130,7 @@ class Data {
     map['message'] = _message;
     map['created_at'] = _createdAt;
     map['updated_at'] = _updatedAt;
-    map['image'] = _image;
+    map['main_image'] = _main_image;
     map['location_lat'] = _locationLat;
     map['location_lng'] = _locationLng;
     map['views'] = _views;

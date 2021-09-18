@@ -104,8 +104,8 @@ class AddressScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                   // if (userCubit.data!.currentSub != null)
-                   //   if (userCubit.data!.currentSub!.remainningAds != 0)
+                   if (userCubit.data!.currentSub != null)
+                      if (userCubit.data!.currentSub!.remainningAds != 0)
                     Column(
                       children: [
                         SizedBox(

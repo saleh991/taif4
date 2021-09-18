@@ -76,7 +76,7 @@ class HarajDetailsScreen extends StatelessWidget {
               height: 23.h,
             ),
             Image.network(
-              'https://opencart3.const-tech.biz/tf/storage/app/${data.image}',
+              'https://opencart3.const-tech.biz/tf/storage/app/${data.main_image}',
               height: 178.h,
               width: 246.w,
               fit: BoxFit.contain,
@@ -85,7 +85,7 @@ class HarajDetailsScreen extends StatelessWidget {
               height: 35.h,
             ),
             Image.network(
-              'https://opencart3.const-tech.biz/tf/storage/app/${data.image}',
+              'https://opencart3.const-tech.biz/tf/storage/app/${data.main_image}',
               height: 219.h,
               width: 380.w,
               fit: BoxFit.contain,

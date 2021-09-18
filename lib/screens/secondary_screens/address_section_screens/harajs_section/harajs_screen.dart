@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:taif/models/haraj_category.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/haraj_detailes_screen.dart';
+import 'haraj_conditon_screen.dart';
+
 
 class HarajsScreen extends StatelessWidget {
 
@@ -121,6 +122,27 @@ class HarajsScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
+
+                    SizedBox(
+                        width: 354.w,
+                        height: 51.h,
+                        child: languagesButton(
+                          title:'أضافة حراج',
+                          function: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HarajCondtionsScreen(
+                                harajCategory: categoryCubit,
+                              )),
+                            );
+                          },
+                          color: Color(0xFF007C9D),
+                        )),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+
+
                     ListView.builder(
                         itemCount: harajsCubit.data!.length,
                         shrinkWrap: true,
@@ -154,6 +176,7 @@ class HarajsScreen extends StatelessWidget {
                                         index: index,
                                         //screenType: screenType,
                                         function: () {
+
                                           Navigator.push(context,MaterialPageRoute(builder: (context)=>HarajDetailsScreen(data: harajsCubit.data![index],)));
                                         }),
                                   );

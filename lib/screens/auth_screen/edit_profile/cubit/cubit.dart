@@ -38,6 +38,9 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       if (value.statusCode == 200) {
         print('here profile');
+        print(value.data);
+
+        print('here profile');
         userDataModel = UserDataModel.fromJson(value.data);
         print('user data ${userDataModel.data!.id}');
       }

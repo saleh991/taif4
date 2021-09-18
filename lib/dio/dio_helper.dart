@@ -17,6 +17,7 @@ class DioHelper {
         },
         baseUrl: URL,
         receiveDataWhenStatusError: true,
+
       ),
     );
   }

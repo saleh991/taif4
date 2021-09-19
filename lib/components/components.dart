@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/chat_model.dart';
+import 'package:taif/models/english_section_model.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/event_model.dart';
 import 'package:taif/models/favorite_model.dart';
@@ -1380,6 +1381,185 @@ InkWell secondlistViewItem(
       ),
     ),
   );
+
+}
+
+InkWell englishListViewItem(
+    {required VoidCallback function,
+      required EnglishSectionModel englishModel,
+      required int index}) {
+  return InkWell(
+    onTap: function,
+    child: Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if(englishModel.data![index].image!=null)
+            CircleAvatar(
+              backgroundImage:
+              NetworkImage(
+                'https://taif-app.com/storage/app/${englishModel.data![index].image!}',
+              ),
+
+              maxRadius: 35,
+            )else
+            CircleAvatar(
+              backgroundImage:
+              AssetImage('images/circle_img.png'),
+
+              maxRadius: 35,
+            ),
+          SizedBox(
+            width: 30.w,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 6.h,
+              ),
+              Text(
+                englishModel.data![index].title.toString(),
+                style: TextStyle(
+                  fontFamily: 'JF Flat',
+                  fontSize: 18,
+                  color: const Color(0xff003e4f),
+                ),
+                textAlign: TextAlign.right,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                width: 220.w,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/save.png',
+                              height: 18.h,
+                              width: 12.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                              '',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 14.sp,
+                                color: const Color(0xff7a90b7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 14.h,
+                        ),
+                        Text(
+                          DateFormat('yyyy-MM-dd','en').format(DateTime.parse(englishModel.data![index].createdAt.toString())),
+
+                          style: TextStyle(
+                            fontFamily: 'Tahoma',
+                            fontSize: 13.sp,
+                            color: const Color(0xff007c9d),
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/eye.png',
+                              height: 18.h,
+                              width: 20.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                              englishModel.data![index].views.toString(),
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 14.sp,
+                                color: const Color(0xff7a90b7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 14.h,
+                        ),
+                        Text(
+                          'علي احمد',
+                          style: TextStyle(
+                            fontFamily: 'Noto Kufi Arabic',
+                            fontSize: 13.sp,
+                            color: const Color(0xff003e4f),
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'images/map.png',
+                          width: 25.w,
+                          height: 25.h,
+                        ),
+                        SizedBox(
+                          height: 14.h,
+                        ),
+                        Text(
+                          '18k.m',
+                          style: TextStyle(
+                            fontFamily: 'Noto Kufi Arabic',
+                            fontSize: 14.sp,
+                            color: const Color(0xff003e4f),
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              SizedBox(
+                width: 220.w + 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+
+                    SizedBox(
+                      width: 10,
+                    ),
+
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+
 }
 
 InkWell tourismGuidingViewItem(
@@ -1393,10 +1573,21 @@ InkWell tourismGuidingViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage('images/circle_img.png'),
-            maxRadius: 35,
-          ),
+          if(guidingModel.data![index].image!=null)
+            CircleAvatar(
+              backgroundImage:
+              NetworkImage(
+                'https://taif-app.com/storage/app/${guidingModel.data![index].image!}',
+              ),
+
+              maxRadius: 35,
+            )else
+            CircleAvatar(
+              backgroundImage:
+              AssetImage('images/circle_img.png'),
+
+              maxRadius: 35,
+            ),
           SizedBox(
             width: 30.w,
           ),

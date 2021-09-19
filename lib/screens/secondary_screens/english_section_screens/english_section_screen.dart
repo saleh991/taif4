@@ -7,6 +7,8 @@ import 'package:taif/screens/secondary_screens/address_section_screens/address_d
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
+import 'english_detailes_screen.dart';
+
 class EnglishSectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class EnglishSectionScreen extends StatelessWidget {
           builder: (context, state) {
             var locationsCubit = LocationsCubit
                 .get(context)
-                .locationModel;
+                .englishSectionModel;
             if ((state is LocationsSuccessState && locationsCubit.data != null)
             ) {
               return SingleChildScrollView(
@@ -55,7 +57,7 @@ class EnglishSectionScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return Container(
                               width: 394.w,
-                              height: 120.h,
+                              height: 130.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8.0),
                                 border: Border.all(
@@ -68,11 +70,12 @@ class EnglishSectionScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              child: secondlistViewItem(
-                                  locationModel: locationsCubit,
+                              child: englishListViewItem(
+                                 englishModel: locationsCubit,
                                   index: index,
                                   function: () {
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>AddressDetailsScreen(data: locationsCubit.data![index],)));
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                                        EnglishDetailsScreen(data: locationsCubit.data![index],)));
                                   }),
                             );
                           })

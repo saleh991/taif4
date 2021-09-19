@@ -146,8 +146,12 @@ class HarajsScreen extends StatelessWidget {
                     ListView.builder(
                         itemCount: harajsCubit.data!.length,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
+                          print(harajsCubit.data!.length);
+                          print(harajsCubit.data!.length);
+                          print(harajsCubit.data!.length);
+                          print(harajsCubit.data!.length);
+
                           return BlocProvider(
                             create: (context)=>LocationsCubit()..getHarajCategoryById(id: cubitG.harajModel.data![index].id!),
                             child: BlocConsumer<LocationsCubit,LocationsState>(

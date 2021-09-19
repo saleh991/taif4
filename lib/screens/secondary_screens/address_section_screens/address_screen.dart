@@ -162,7 +162,7 @@ class AddressScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Container(
                             width: 394.w,
-                            height: 120.h,
+                            height: 130.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
                               border: Border.all(

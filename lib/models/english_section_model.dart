@@ -1,11 +1,11 @@
-class GuideModel {
+class EnglishSectionModel {
   bool? status;
   int? code;
   List<Data>? data;
 
-  GuideModel({this.status, this.code, this.data});
+  EnglishSectionModel({this.status, this.code, this.data});
 
-  GuideModel.fromJson(Map<String, dynamic> json) {
+  EnglishSectionModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     code = json['code'];
     if (json['data'] != null) {
@@ -29,49 +29,48 @@ class GuideModel {
 
 class Data {
   int? id;
-  int? experience_years;
   String? title;
-  String? name;
   String? phone;
-  String? notes;
   String? content;
   String ?createdAt;
-  String? updated_at;
-  String ?status;
-  String ?image;
-
+  String? locationLat;
+  String? locationLng;
+  String? image;
+  String? media;
+  int? views;
 
 
   Data(
       {this.id,
         this.title,
         this.phone,
-        this.name,
-        this.experience_years,
-        this.createdAt,
-        this.notes,
-        this.status,
         this.content,
-        this.updated_at,
-        this.image
-
-
-    });
+        this.createdAt,
+        this.locationLat,
+        this.locationLng,
+        this.image,
+        this.media,
+        this.views,
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
+
     phone = json['phone'];
     content = json['content'];
     createdAt = json['created_at'];
-    experience_years = json['experience_years'];
-    status = json['status'];
-    notes = json['notes'];
-    updated_at = json['updated_at'];
-    name = json['name'];
+    locationLat = json['location_lat'];
+    locationLng = json['location_lng'];
     image = json['image'];
 
-
+    views = json['views'];
+    // if (json['comments'] != null) {
+    //   comments =  <String>[];
+    //   json['comments'].forEach((v) {
+    //     comments!.add(String.fromJson(v));
+    //   });
+    // }
 
   }
 
@@ -79,21 +78,26 @@ class Data {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['title'] = this.title;
+
     data['phone'] = this.phone;
     data['content'] = this.content;
     data['created_at'] = this.createdAt;
-    data['name'] = this.name;
-    data['updated_at'] = this.updated_at;
-    data['notes'] = this.notes;
-    data['status'] = this.status;
+    data['location_lat'] = this.locationLat;
+    data['location_lng'] = this.locationLng;
     data['image'] = this.image;
-    data['experience_years'] = this.experience_years;
 
-
+    data['views'] = this.views;
+    // if (this.comments != null) {
+    //  // data['comments'] = this.comments!.map((v) => v.toJson()).toList();
+    // }
 
     return data;
   }
 }
+
+
+
+
 
 
 

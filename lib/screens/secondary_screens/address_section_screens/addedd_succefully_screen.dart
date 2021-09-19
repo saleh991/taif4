@@ -13,10 +13,8 @@ class AddedSuccefullyScreen extends StatelessWidget {
         body: Center(
           child: Column(children: [
             SizedBox(height: 100.h,),
-            PositionedDirectional(
-                top: 180.h,
-                start: 0,
-                end: 0,
+            Container(
+                height: 180.h,
                 child: Center(child: Image.asset('images/checked.png'))),
             SizedBox(height: 50.h,),
             Center(

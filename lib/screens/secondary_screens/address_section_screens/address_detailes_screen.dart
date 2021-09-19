@@ -82,7 +82,7 @@ class AddressDetailsScreen extends StatelessWidget {
               height: 35.h,
             ),
             Image.network(
-              'https://opencart3.const-tech.biz/tf/storage/app/${data.images![0].path}',
+              'https://opencart3.const-tech.biz/tf/storage/app/${data.mainImage!}',
               height: 219.h,
               width: 380.w,
               fit: BoxFit.contain,

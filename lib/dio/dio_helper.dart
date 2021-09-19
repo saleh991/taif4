@@ -38,9 +38,12 @@ class DioHelper {
     Map<String, dynamic>? query,
     String token = '',
   }) async {
+
+
     return await dio.post(
       url,
       data: data,
+
       queryParameters: query,
     );
   }

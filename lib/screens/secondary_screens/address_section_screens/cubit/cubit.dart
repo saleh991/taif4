@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/models/english_section_model.dart';
 import 'package:taif/models/event_model.dart';
 import 'package:taif/models/event_sections.dart';
 import 'package:taif/models/haraj_category.dart';
@@ -40,6 +42,7 @@ class LocationsCubit extends Cubit<LocationsState> {
   HarajOnlyCategory harajOnlyCategory = HarajOnlyCategory();
   UserDataModel userDataModel = UserDataModel();
   LocationsCategory locationsCategory = LocationsCategory();
+  EnglishSectionModel englishSectionModel=EnglishSectionModel();
 
   void getUserData() {
     emit(UserDataLoadingState());
@@ -87,7 +90,7 @@ class LocationsCubit extends Cubit<LocationsState> {
         print(value.data);
         print('en_location_services');
         print('LOCATIONS ID USER ${AppController.instance.getId()}');
-        locationModel = LocationModel.fromJson(value.data);
+        englishSectionModel = EnglishSectionModel.fromJson(value.data);
       }
       emit(LocationsSuccessState());
     }).catchError((e) {
@@ -398,44 +401,101 @@ var value = 0;
   }) async {
     List<String> fileImagesName=[];
     List<String> videoImagesName=[];
-    for(var im in images!){
-      fileImagesName.add(im.path.split('/').last);
+    List imagesFile=[];
+    List <MultipartFile>videosFile=[];
+
+    for(int i=0;i<images!.length;i++){
+      fileImagesName.add(images[i].path.split('/').last);
+      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
     }
-    for(var ve in videos!){
-      videoImagesName.add(ve.path.split('/').last);
+    for(int i=0;i<videos!.length;i++){
+      videoImagesName.add(videos[i].path.split('/').last);
+      videosFile.add( await MultipartFile.fromFile(videos[i].path, filename:videoImagesName[i]));
     }
     String fileName = '';
     if(image!=null)
       fileName =image.path.split('/').last;
+
     DioHelper.init();
-    FormData formData = FormData.fromMap({
+    var formData = FormData.fromMap({
       "user_id":user_id,
       'haraj_category_id': haraj_category_id,
       if(image!=null)
           "image":
           await MultipartFile.fromFile(image.path, filename:fileName),
-      if(images.length>0)
-        "images":
-            [
-              for(int i=0;i<images.length;i++)
-              await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i]),
-            ],
-      if(videos.length>0)
-        "videos":
-        [
-          for(int i=0;i<videos.length;i++)
-            await MultipartFile.fromFile(videos[i].path, filename:videoImagesName[i]),
-        ],
-
+      for(int i=0;i<imagesFile.length;i++)
+        "images[$i]":
+       imagesFile[i],
+      for(int i=0;i<videosFile.length;i++)
+        "videos[$i]": videosFile[i],
       'title': title,
-
       'message': message,
     });
 
 
-
-
     DioHelper.postData(url: 'harajs',
+        data: formData).then((value) {
+      print("value.data");
+      print(value.data);
+      print("value.data");
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+
+
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+  Future<void> addTouristShow({
+
+
+    required String title,
+    File? image,
+    List<File>? images,
+    List<File>? videos,
+
+    required String content,
+    required String guide_id,
+  }) async {
+    List<String> fileImagesName=[];
+    List<String> videoImagesName=[];
+    List imagesFile=[];
+    List <MultipartFile>videosFile=[];
+
+    for(int i=0;i<images!.length;i++){
+      fileImagesName.add(images[i].path.split('/').last);
+      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+    }
+    for(int i=0;i<videos!.length;i++){
+      videoImagesName.add(videos[i].path.split('/').last);
+      videosFile.add( await MultipartFile.fromFile(videos[i].path, filename:videoImagesName[i]));
+    }
+    String fileName = '';
+    if(image!=null)
+      fileName =image.path.split('/').last;
+
+    DioHelper.init();
+    var formData = FormData.fromMap({
+      "guide_id":"9",
+
+      if(image!=null)
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      for(int i=0;i<imagesFile.length;i++)
+        "images[$i]":
+        imagesFile[i],
+      for(int i=0;i<videosFile.length;i++)
+        "videos[$i]": videosFile[i],
+      'title': title,
+      'content': content,
+    });
+
+
+    DioHelper.postData(url: 'guide_posts',
         data: formData).then((value) {
       print("value.data");
       print(value.data);

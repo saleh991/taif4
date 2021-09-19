@@ -12,21 +12,19 @@ import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cub
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:video_player/video_player.dart';
 
-import '../addedd_succefully_screen.dart';
+import '../../addedd_succefully_screen.dart';
 
-class AddHarajsScreen extends StatefulWidget {
-  late  HarajCategory harajCategory;
-  AddHarajsScreen({
-    required this.harajCategory
-});
+
+
+class AddTouristShowScreen extends StatefulWidget {
+
 
   @override
-  _AddHarajsScreenState createState() => _AddHarajsScreenState();
+  _AddTouristShowScreenState createState() => _AddTouristShowScreenState();
 }
 
-class _AddHarajsScreenState extends State<AddHarajsScreen> {
-  var value = 'اختر القسم';
-  int id=0;
+class _AddTouristShowScreenState extends State<AddTouristShowScreen> {
+
   late TextEditingController _titleController;
   late TextEditingController _messageController;
   late TextEditingController _harajCategoryController;
@@ -135,7 +133,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'إضافة حراج',
+          'إضافة عرض سياحي',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -328,70 +326,8 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
 
-                    Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Text(
-                        'الفئة',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 15.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Container(
-                      width: ScreenUtil().screenWidth - 40,
-                      height: 55.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: const Color(0xffffffff),
-                        border:
-                        Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
-                      ),
-                      child: Center(
-                        child: ListTile(
-                          leading: Image.asset('images/placeholder.png'),
-                          title: StatefulBuilder(
-                            builder: (context, setState){
-                              return DropdownButton<String>(
-                                isExpanded: true,
-                                iconSize: 35,
-                                iconEnabledColor: Color(0xFF007C9D),
-                                hint: Text(
-                                  '$value',
-                                  style: TextStyle(color: Color(0xFF06A1CB)),
-                                ),
-                                items: widget.harajCategory.data!.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.name,
-                                    child: new Text('${value.name}'),
-                                    onTap: (){
-                                      id = value.id!;
-                                      print(id);
-                                    },
-                                  );
 
-                                }).toList(),
-                                onChanged: (value1) {
-                                  setState(() {
-                                    value = value1!;
-                                  });
-
-                                },
-                              );
-                            },
-
-                          ),
-                        ),
-                      ),
-                    ),
 
                     SizedBox(
                       height: 12.h,
@@ -423,7 +359,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                     Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
-                        'رسالة',
+                        'التفاصيل',
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 15.sp,
@@ -466,17 +402,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
 
                                 btnOkOnPress: () {},
                               )..show();
-                            else   if(id==0)
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.INFO,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: 'نقص في المعلومات',
-                                desc: 'يجب اختيار فئة',
-                                btnOkText: 'تم',
 
-                                btnOkOnPress: () {},
-                              )..show();
                             else   if(_titleController.text.length==0||_titleController.text.trim()=='')
                               AwesomeDialog(
                                 context: context,
@@ -494,7 +420,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                                 dialogType: DialogType.INFO,
                                 animType: AnimType.BOTTOMSLIDE,
                                 title: 'نقص في المعلومات',
-                                desc: 'يجب اضافة رسالة',
+                                desc: 'يجب اضافة تفاصيل',
                                 btnOkText: 'تم',
 
                                 btnOkOnPress: () {},
@@ -504,23 +430,14 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                                 List<File> videos=[];
                                 if(video!=null)
                                 videos.add(video!);
-                                cu.addHaraj(haraj_category_id: id.toString(),
-                                    user_id: userCubit.data!.id!.toString(),
+                                cu.addTouristShow(
+                                    guide_id: userCubit.data!.id!.toString(),
                                     title: _titleController.text,
                                     image: profileImage,
                                     images: otherImage,
                                     videos: videos,
-                                    message: _messageController.text);
-                                 Navigator.push(
-                                   context,
-                                 MaterialPageRoute(builder: (context) => AddedSuccefullyScreen()),
-                                  );
+                                    content: _messageController.text);
                               }
-
-
-
-
-
                           },
                           color: Color(0xFF007C9D),
                         )),

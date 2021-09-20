@@ -423,7 +423,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                     Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
-                        'رسالة',
+                        'تفاصيل',
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 15.sp,
@@ -494,7 +494,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                                 dialogType: DialogType.INFO,
                                 animType: AnimType.BOTTOMSLIDE,
                                 title: 'نقص في المعلومات',
-                                desc: 'يجب اضافة رسالة',
+                                desc: 'يجب اضافة تفاصيل',
                                 btnOkText: 'تم',
 
                                 btnOkOnPress: () {},

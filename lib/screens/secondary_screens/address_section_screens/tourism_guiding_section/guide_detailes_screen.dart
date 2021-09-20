@@ -45,11 +45,21 @@ class GuideDetailsScreen extends StatelessWidget {
                 height: 23.h,
               ),
 
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://via.placeholder.com/350x200',),
-                maxRadius: 35,
-              ),
+              if(data.image!=null)
+                CircleAvatar(
+                  backgroundImage:
+                  NetworkImage(
+                    'https://taif-app.com/storage/app/${data.image}',
+                  ),
+
+                  maxRadius: 35,
+                )else
+                CircleAvatar(
+                  backgroundImage:
+                  AssetImage('images/circle_img.png'),
+
+                  maxRadius: 35,
+                ),
               SizedBox(
                 height: 35.h,
               ),

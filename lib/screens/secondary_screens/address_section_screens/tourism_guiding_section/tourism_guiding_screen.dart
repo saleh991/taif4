@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'add_tourist_show/add_tourism_conditon_screen.dart';
 import 'tourism_guiding_detailes_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
@@ -98,11 +99,39 @@ class TourismGuidingScreen extends StatelessWidget {
                     ),
 
 
-                    SizedBox(
-                      height: 25.h,
+
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: languagesButtonWithIcon(
+                                title:  "عرض سياحي جديد",
+                                icon: Icon(
+                                  Icons.add,
+                                ),
+                                function: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => addTourismCondtionsScreen()),
+                                  );
+
+
+                                },
+                                color: Color(0xFF007C9D),
+                              )),
+
+
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: 660.h,
+                      height: 20.h,
+                    ),
+                    SizedBox(
+                      height: 600.h,
                       child: ListView.builder(
                           itemCount: guidingCubit.data!.length,
                           shrinkWrap: true,

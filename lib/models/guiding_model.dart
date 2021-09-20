@@ -34,6 +34,7 @@ class Data {
   String? phone;
   String? content;
   String ?createdAt;
+  String ?image;
 
 
 
@@ -43,6 +44,7 @@ class Data {
         this.guide,
         this.content,
         this.createdAt,
+        this.image
 
     });
 
@@ -55,7 +57,7 @@ class Data {
     phone = json['phone'];
     content = json['content'];
     createdAt = json['created_at'];
-
+    image = json['image'];
 
 
   }
@@ -70,6 +72,7 @@ class Data {
     data['phone'] = this.phone;
     data['content'] = this.content;
     data['created_at'] = this.createdAt;
+    data['image'] = this.image;
 
 
 
@@ -87,6 +90,7 @@ class Guide {
   String? notes;
   String? status;
   String? updatedAt;
+
 
   Guide({this.id, this.name, this.createdAt, this.updatedAt,
     this.phone,this.status,

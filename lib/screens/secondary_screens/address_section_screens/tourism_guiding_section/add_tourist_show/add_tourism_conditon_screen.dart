@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taif/models/haraj_category.dart';
+import 'package:taif/models/haraj_category.dart';
 
-class AddressCondtionsScreen extends StatelessWidget {
-  const AddressCondtionsScreen({Key? key}) : super(key: key);
+import 'add_tourism_screen.dart';
+
+
+class addTourismCondtionsScreen extends StatelessWidget {
+
+  const addTourismCondtionsScreen({Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ class AddressCondtionsScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'شروط إضافة إعلان',
+          'شروط إضافة عرض سياحي',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -94,7 +101,11 @@ class AddressCondtionsScreen extends StatelessWidget {
                 child: languagesButton(
                   title: 'أتعهد وأوافق على الشروط',
                   function: () {
-                    Navigator.pushNamed(context, addAddressRoute);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddTouristShowScreen(
+                      )),
+                    );
                   },
                   color: Color(0xFF007C9D),
                 )),

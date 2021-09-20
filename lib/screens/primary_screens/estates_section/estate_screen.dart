@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
@@ -46,6 +47,7 @@ class _EstateScreenState extends State<EstateScreen> {
             }
             if(state is GoToDocumentationState){
               Navigator.popAndPushNamed(context, documentationRoute);
+
             }
           },
           builder: (context, state) {
@@ -67,16 +69,48 @@ class _EstateScreenState extends State<EstateScreen> {
                           width: 414.w,
                           fit: BoxFit.contain,
                         ),
-                        if (userCubit.data!.currentSub != null)
-                          if (userCubit.data!.currentSub!.remainningAds != 0)
+
                             PositionedDirectional(
                               bottom: 15.h,
                               end: 20.w,
                               child: languagesButton(
                                 title: 'اضف اعلانك  +',
                                 function: () {
-                                  Navigator.pushNamed(
-                                      context, adsConditionRoute);
+                                  if (userCubit.data!.currentSub != null)
+                                    {
+                                      if (userCubit.data!.currentSub!.remainningAds != 0)
+                                      {
+                                        Navigator.pushNamed(
+                                            context, adsConditionRoute);
+                                      }
+                                      else{
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.INFO,
+                                          animType: AnimType.BOTTOMSLIDE,
+                                          title: 'الاشتراك',
+                                          desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في العقار يمكنك الاشتراك بأحد الباقات',
+                                          btnCancelOnPress: () {},
+                                          btnOkOnPress: () {},
+                                        )..show();
+                                      }
+                                    }
+
+                                    else{
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.INFO,
+                                        animType: AnimType.BOTTOMSLIDE,
+                                        title: 'الاشتراك',
+                                        desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في العقار يمكنك الاشتراك بأحد الباقات',
+                                        btnCancelOnPress: () {},
+                                        btnOkText: 'الاشتراك الان',
+                                        btnOkOnPress: () {
+                                          Navigator.pushNamed(context, membershipRoute);
+                                        },
+                                        btnCancelText: 'الاشتراك لاحقا',
+                                      )..show();
+                                    }
                                 },
                                 color: Color.fromRGBO(87, 195, 77, 1),
                               ),

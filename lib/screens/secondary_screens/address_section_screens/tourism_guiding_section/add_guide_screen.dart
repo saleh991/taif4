@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -236,16 +237,83 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
                             title: 'ارسال الطلب',
                             function: () {
                               if(profileImage==null)
-                                {
-                                  Fluttertoast.showToast(
-                                      msg: 'يرجى ملأ البيانات بشكل كامل ووضع صورة شخصية',
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.grey,
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
-                                }
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يجب اضافة صورة شخصية',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+                            else  if(_nameController.text.length==0||_nameController.text.trim()=='')
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يرجى ادخال الاسم',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+                              else  if(_emailController.text.length==0||_emailController.text.trim()=='')
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يرجى ادخال الايميل',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+                              else  if(_phoneController.text.length==0||_phoneController.text.trim()=='')
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يرجى ادخال رقم الجوال',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+                              else  if(_passwordController.text.length==0||_passwordController.text.trim()=='')
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يرجى ادخال كلمة سر',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+                              else  if(_expController.text.length==0||_expController.text.trim()=='')
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يرجى ادخال سنين الخبرة',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+                              else  if(_detailsController.text.length==0||_detailsController.text.trim()=='')
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يرجى ادخال نبذة عنك في الارشاد السياحي',
+                                  btnOkText: 'تم',
+
+                                  btnOkOnPress: () {},
+                                )..show();
+
                               else{
                                 cu..addGuid(
                                     name: _nameController.text,

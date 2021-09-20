@@ -2,12 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/helper/constants.dart';
-import 'package:taif/models/offers_model.dart';
+import 'package:taif/models/english_section_model.dart';
 
-class OfferDetailsScreen extends StatelessWidget {
+class EnglishDetailsScreen extends StatelessWidget {
 
   final Data data;
-  OfferDetailsScreen({required this.data});
+  EnglishDetailsScreen({required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class OfferDetailsScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'العروض التجارية',
+          'Taif events',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -29,8 +29,7 @@ class OfferDetailsScreen extends StatelessWidget {
           Navigator.pushNamed(context, notificationsRoute);
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: SizedBox(
+       child: SizedBox(
           width: ScreenUtil().screenWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,7 +50,7 @@ class OfferDetailsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${data.title}',
+                      data.title.toString(),
                       style: TextStyle(
                         fontFamily: fontName,
                         fontSize: 18.sp,
@@ -93,7 +92,7 @@ class OfferDetailsScreen extends StatelessWidget {
                 height: 35.h,
               ),
               Text(
-             '${data.content}',
+                data.content.toString(),
                 style: TextStyle(
                   fontFamily: fontName,
                   fontSize: 15.sp,
@@ -101,10 +100,90 @@ class OfferDetailsScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(
+                height: 35.h,
+              ),
+
+
+              SizedBox(
+                height:20.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(12.w)
+                        ),
+                        border: Border.all(
+                            color: Color(0xff007c9d)
+                        )
+                    ),
+                    child:   Padding(
+                      padding:  EdgeInsets.symmetric(
+                          vertical: 2.h,
+                          horizontal: 12.w
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            data.phone.toString(),
+                            style: TextStyle(
+                              fontFamily: 'JF Flat',
+                              fontSize: 28.sp,
+                              color: const Color(0xff007c9d),
+                              letterSpacing: -0.76,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            width: 16.w,
+                          ),
+                          Image.asset('images/phone2.png')
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(16.w),
+                          right: Radius.circular(16.w),
+                        ),
+                        color: Color(0xff4CBB17)
+                    ),
+                    child: Padding(
+                      padding:  EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 12.h
+                      ),
+                      child: Text(
+                        'View Map',
+                        style: TextStyle(
+                          fontFamily:fontName,
+                          fontSize: 16.sp,
+                          color:  Color(0xfffffffa),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+
+
+                ],
+              ),
+              SizedBox(
+                height:35.h,
+              ),
             ],
           ),
         ),
       ),
+
     );
   }
 }

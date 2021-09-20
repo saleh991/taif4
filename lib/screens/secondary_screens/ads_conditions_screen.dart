@@ -35,51 +35,48 @@ class AdsConditionScreen extends StatelessWidget {
             height: 681.h,
             child: Stack(children: [
               Center(
-                child: Positioned(
-                  // top: 10,
-                  child: Container(
-                    width: 383.w,
-                    height: 601.h,
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xffd5ddeb),
-                          offset: Offset(0, 3),
-                          blurRadius: 6,
+                child: Container(
+                  width: 383.w,
+                  height: 601.h,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xffd5ddeb),
+                        offset: Offset(0, 3),
+                        blurRadius: 6,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'دفع الرسوم والشروط',
+                        style: TextStyle(
+                          fontFamily: 'JF Flat',
+                          fontSize: 22,
+                          color: const Color(0xff002a36),
+                          decoration: TextDecoration.underline,
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'دفع الرسوم والشروط',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 22,
-                            color: const Color(0xff002a36),
-                            decoration: TextDecoration.underline,
-                          ),
-                          textAlign: TextAlign.right,
+                        textAlign: TextAlign.right,
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Text(
+                        'الشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا',
+                        style: TextStyle(
+                          fontFamily: 'JF Flat',
+                          fontSize: 16,
+                          color: const Color(0xff003e4f),
                         ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Text(
-                          'الشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 16,
-                            color: const Color(0xff003e4f),
-                          ),
-                          textAlign: TextAlign.right,
-                        )
-                      ],
-                    ),
+                        textAlign: TextAlign.right,
+                      )
+                    ],
                   ),
                 ),
               ),

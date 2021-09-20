@@ -74,7 +74,7 @@ class TaifDetailsScreen extends StatelessWidget {
                 height: 23.h,
               ),
               Image.network(
-                'https://opencart3.const-tech.biz/tf/storage/app/${data.image}',
+                'https://taif-app.com/storage/app/${data.image}',
                 height: 178.h,
                 width: 246.w,
                 fit: BoxFit.contain,
@@ -83,7 +83,7 @@ class TaifDetailsScreen extends StatelessWidget {
                 height: 35.h,
               ),
               Image.network(
-                'https://opencart3.const-tech.biz/tf/storage/app/${data.image}',
+                'https://taif-app.com/storage/app/${data.image}',
                 height: 219.h,
                 width: 380.w,
                 fit: BoxFit.contain,

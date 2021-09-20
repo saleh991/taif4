@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:taif/models/haraj_category.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/haraj_detailes_screen.dart';
+import 'haraj_conditon_screen.dart';
+
 
 class HarajsScreen extends StatelessWidget {
 
@@ -121,52 +122,60 @@ class HarajsScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    ListView.builder(
-                        itemCount: harajsCubit.data!.length,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return BlocProvider(
-                            create: (context)=>LocationsCubit()..getHarajCategoryById(id: cubitG.harajModel.data![index].id!),
-                            child: BlocConsumer<LocationsCubit,LocationsState>(
-                              listener: (context, state){},
-                              builder: (context, state){
-                                var cubit = LocationsCubit.get(context).harajOnlyCategory;
-                                if(state is GetHarajCategoryIdSuccessState){
-                                  return Container(
-                                    width: 394.w,
-                                    height: 120.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      border: Border.all(
-                                          width: 1.0, color: const Color(0xffcee3fb)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: const Color(0x1fd5ddeb),
-                                          offset: Offset(0, 3),
-                                          blurRadius: 6,
-                                        ),
-                                      ],
-                                    ),
-                                    child: harajslistViewItem(
-                                        categoryName: cubit.data!.name!,
-                                        harajModel: harajsCubit,
-                                        index: index,
-                                        //screenType: screenType,
-                                        function: () {
-                                          Navigator.push(context,MaterialPageRoute(builder: (context)=>HarajDetailsScreen(data: harajsCubit.data![index],)));
-                                        }),
-                                  );
 
-                                }else{
-                                  return Center(
-                                    child: SizedBox(),
-                                  );
-                                }
-                              },
+                    SizedBox(
+                        width: 354.w,
+                        height: 51.h,
+                        child: languagesButton(
+                          title:'أضافة حراج',
+                          function: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HarajCondtionsScreen(
+                                harajCategory: categoryCubit,
+                              )),
+                            );
+                          },
+                          color: Color(0xFF007C9D),
+                        )),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+
+
+                            for(int index=0;index<harajsCubit.data!.length;index++)
+
+                              Container(
+                              width: 394.w,
+                              height: 135.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                    width: 1.0, color: const Color(0xffcee3fb)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0x1fd5ddeb),
+                                    offset: Offset(0, 3),
+                                    blurRadius: 6,
+                                  ),
+                                ],
+                              ),
+                              child: harajslistViewItem(
+                                  categoryName:harajsCubit.data![index].category!.name!,
+                                  harajModel: harajsCubit,
+                                  index: index,
+                                  //screenType: screenType,
+                                  function: () {
+
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>HarajDetailsScreen(data: harajsCubit.data![index],)));
+                                  }),
                             ),
-                          );
-                        })
+
+                    SizedBox(
+                      height: 25.h,
+                    ),
+
+
                   ],
                 ),
               ),

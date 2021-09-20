@@ -21,7 +21,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ProfileCubit.get(context).getUserData();
     Future.delayed(Duration(seconds: 3), () {
@@ -58,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             CircleAvatar(
                               maxRadius: 50.h,
                               backgroundImage: NetworkImage(
-                                'https://opencart3.const-tech.biz/tf/storage/app/${cubit.data!.image ?? 'events/-1630236184.jfif'}',
+                                'https://taif-app.com/storage/app/${cubit.data!.image ?? 'events/-1630236184.jfif'}',
                               ),
                             ),
                             SizedBox(
@@ -76,18 +75,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 textAlign: TextAlign.center,
                               ),
                             if (state is ProfileSuccessState)
-                              Text(
-                                '${cubit.data!.name}',
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 29.sp,
-                                  color: const Color(0xff003e4f),
-                                  letterSpacing: -0.58,
-                                ),
-                                textAlign: TextAlign.center,
+                              Column(
+                                children: [
+
+                                  Text(
+                                    '${cubit.data!.name}',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 29.sp,
+                                      color: const Color(0xff003e4f),
+                                      letterSpacing: -0.58,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: 14.h,
+                                  ),
+                                  if (cubit.data!.currentSub!=null)
+                                    Text(
+                                      'مشترك',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 23.sp,
+                                        color: const Color(0xff003e4f),
+                                        letterSpacing: -0.58,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    )
+                                  else
+                                    Text(
+                                      'غير مشترك',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 23.sp,
+                                        color: const Color(0xff003e4f),
+                                        letterSpacing: -0.58,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                ],
                               ),
                             SizedBox(
-                              height: 14.h,
+                              height: 3.h,
                             ),
                             if (cubit.data!.currentSub != null)
                               Text(
@@ -107,6 +136,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Color.fromRGBO(149, 160, 178, 1),
                                 ),
                               ),
+                            if (cubit.data!.currentSub != null)
+                              Row(
+                                children: [
+                                  Text(
+                                    'عدد الاعلانات المتبقي: ',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 19.sp,
+                                      color: Color.fromRGBO(149, 160, 178, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${cubit.data!.currentSub!.package!.adsCount}',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 19.sp,
+                                      color: Color.fromRGBO(149, 160, 178, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       );
@@ -119,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               SizedBox(
-                height: 54.h,
+                height: 24.h,
               ),
               profileItem(
                   function: () {

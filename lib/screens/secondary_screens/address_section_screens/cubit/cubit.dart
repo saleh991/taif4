@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/models/english_section_model.dart';
 import 'package:taif/models/event_model.dart';
 import 'package:taif/models/event_sections.dart';
 import 'package:taif/models/haraj_category.dart';
@@ -40,6 +42,7 @@ class LocationsCubit extends Cubit<LocationsState> {
   HarajOnlyCategory harajOnlyCategory = HarajOnlyCategory();
   UserDataModel userDataModel = UserDataModel();
   LocationsCategory locationsCategory = LocationsCategory();
+  EnglishSectionModel englishSectionModel=EnglishSectionModel();
 
   void getUserData() {
     emit(UserDataLoadingState());
@@ -47,10 +50,12 @@ class LocationsCubit extends Cubit<LocationsState> {
     DioHelper.getData(url: 'users/${AppController.instance.getId()}')
         .then((value) {
       print('i am here  ');
-      print('user id ${AppController.instance.getId()}');
+      print(value.data);
+      print('i am here  ');
       if (value.statusCode == 200) {
-        print('here profile ');
+        print(' profile ');
         print(value.data);
+        print(' profile ');
         userDataModel = UserDataModel.fromJson(value.data);
       }
       emit(UserDataSuccessState());
@@ -67,8 +72,9 @@ class LocationsCubit extends Cubit<LocationsState> {
       if (value.statusCode == 200) {
         print('LOCATIONS ID USER ${AppController.instance.getId()}');
         locationModel = LocationModel.fromJson(value.data);
+        emit(LocationsSuccessState());
       }
-      emit(LocationsSuccessState());
+
     }).catchError((e) {
       print('LOCATIONS error $e');
       emit(LocationsErrorState());
@@ -84,7 +90,7 @@ class LocationsCubit extends Cubit<LocationsState> {
         print(value.data);
         print('en_location_services');
         print('LOCATIONS ID USER ${AppController.instance.getId()}');
-        locationModel = LocationModel.fromJson(value.data);
+        englishSectionModel = EnglishSectionModel.fromJson(value.data);
       }
       emit(LocationsSuccessState());
     }).catchError((e) {
@@ -161,8 +167,10 @@ class LocationsCubit extends Cubit<LocationsState> {
     DioHelper.init();
     DioHelper.getData(url: harajs).then((value) {
       if (value.statusCode == 200) {
-        print('harajs ID USER ${AppController.instance.getId()}');
         harajModel =HarajModel.fromJson(value.data);
+        print('haraj');
+        print(value.data);
+        print('haraj');
       }
       emit(HarajsSuccessState());
     }).catchError((e) {
@@ -379,12 +387,136 @@ var value = 0;
     });
   }
 
+
+  Future<void> addHaraj({
+    required String haraj_category_id,
+
+    required String title,
+     File? image,
+     List<File>? images,
+     List<File>? videos,
+
+    required String message,
+    required String user_id,
+  }) async {
+    List<String> fileImagesName=[];
+    List<String> videoImagesName=[];
+    List imagesFile=[];
+    List <MultipartFile>videosFile=[];
+
+    for(int i=0;i<images!.length;i++){
+      fileImagesName.add(images[i].path.split('/').last);
+      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+    }
+    for(int i=0;i<videos!.length;i++){
+      videoImagesName.add(videos[i].path.split('/').last);
+      videosFile.add( await MultipartFile.fromFile(videos[i].path, filename:videoImagesName[i]));
+    }
+    String fileName = '';
+    if(image!=null)
+      fileName =image.path.split('/').last;
+
+    DioHelper.init();
+    var formData = FormData.fromMap({
+      "user_id":user_id,
+      'haraj_category_id': haraj_category_id,
+      if(image!=null)
+          "image":
+          await MultipartFile.fromFile(image.path, filename:fileName),
+      for(int i=0;i<imagesFile.length;i++)
+        "images[$i]":
+       imagesFile[i],
+      for(int i=0;i<videosFile.length;i++)
+        "videos[$i]": videosFile[i],
+      'title': title,
+      'message': message,
+    });
+
+
+    DioHelper.postData(url: 'harajs',
+        data: formData).then((value) {
+      print("value.data");
+      print(value.data);
+      print("value.data");
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+
+
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+  Future<void> addTouristShow({
+
+
+    required String title,
+    File? image,
+    List<File>? images,
+    List<File>? videos,
+
+    required String content,
+    required String guide_id,
+  }) async {
+    List<String> fileImagesName=[];
+    List<String> videoImagesName=[];
+    List imagesFile=[];
+    List <MultipartFile>videosFile=[];
+
+    for(int i=0;i<images!.length;i++){
+      fileImagesName.add(images[i].path.split('/').last);
+      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+    }
+    for(int i=0;i<videos!.length;i++){
+      videoImagesName.add(videos[i].path.split('/').last);
+      videosFile.add( await MultipartFile.fromFile(videos[i].path, filename:videoImagesName[i]));
+    }
+    String fileName = '';
+    if(image!=null)
+      fileName =image.path.split('/').last;
+
+    DioHelper.init();
+    var formData = FormData.fromMap({
+      "guide_id":"9",
+
+      if(image!=null)
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      for(int i=0;i<imagesFile.length;i++)
+        "images[$i]":
+        imagesFile[i],
+      for(int i=0;i<videosFile.length;i++)
+        "videos[$i]": videosFile[i],
+      'title': title,
+      'content': content,
+    });
+
+
+    DioHelper.postData(url: 'guide_posts',
+        data: formData).then((value) {
+      print("value.data");
+      print(value.data);
+      print("value.data");
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+
+
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+
   Future<void> addReportTourism({
     required String report_title,
     required String report_content,
-
-
-
+    required String user_id,
   }) async {
 
     DioHelper.init();
@@ -392,7 +524,7 @@ var value = 0;
 
       'report_title': report_title,
       'report_content': report_content,
-      'report_by': '6',
+      'report_by': user_id,
       'report_on': '1',
       'report_on_class': 'App\\Models\\Estate',
 

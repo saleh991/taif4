@@ -613,6 +613,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                     return ListView.builder(
                                         itemCount: widget.estateData.comments!.length,
                                         shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
                                           return BlocProvider(
                                             create: (context) => EstatesCubit()

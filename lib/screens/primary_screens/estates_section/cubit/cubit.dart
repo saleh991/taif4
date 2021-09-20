@@ -31,6 +31,8 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
     DioHelper.getData(url: ESTATE).then((value) {
       if (value.statusCode == 200) {
         print('ESTATES');
+        print(value.data);
+        print('ESTATES');
         estateModel = EstateModel.fromJson(value.data);
       }
       emit(EstatesSuccessState());

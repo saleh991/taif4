@@ -434,10 +434,10 @@ ListView itemsListView({
                 CircleAvatar(
                   backgroundImage: estateModel.data![index].mainImage != null
                       ? NetworkImage(
-                          'https://opencart3.const-tech.biz/tf/storage/app/${estateModel.data![index].mainImage}',
+                          'https://taif-app.com/storage/app/${estateModel.data![index].mainImage}',
                         )
                       : NetworkImage(
-                          'https://opencart3.const-tech.biz/tf/public/taaef/images/logo-l.png'),
+                          'https://taif-app.com/api/public/taaef/images/logo-l.png'),
                   maxRadius: 35.h,
                 ),
                 SizedBox(
@@ -562,17 +562,47 @@ ListView itemsListView({
                           SizedBox(
                             width: 10,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
+                          Text(
+                            'عروض العقار',
+                            style: TextStyle(
+                              fontFamily: 'JF Flat',
+                              fontSize: 11,
+                              color: const Color(0xff007c9d),
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
                             child: Text(
-                              'عروض العقار',
+                              DateFormat('yyyy-MM-dd','en').format(DateTime.parse(estateModel.data![index].
+                              createdAt.toString())),
                               style: TextStyle(
                                 fontFamily: 'JF Flat',
-                                fontSize: 11,
+                                fontSize: 13.sp,
                                 color: const Color(0xff007c9d),
                               ),
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.center,
                             ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              estateModel.data![index].user!.name!,
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 13.sp,
+                                color: const Color(0xff007c9d),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16.w,
                           ),
                         ],
                       ),
@@ -586,17 +616,46 @@ ListView itemsListView({
                             SizedBox(
                               width: 10,
                             ),
-                            Align(
-                              alignment: Alignment.centerLeft,
+                            Text(
+                              'طلبات العقار',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 11,
+                                color: const Color(0xff007c9d),
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
                               child: Text(
-                                'طلبات العقار',
+                                DateFormat('yyyy-MM-dd','en').format(DateTime.parse(estateModel.data![index].
+                                createdAt.toString())),
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
-                                  fontSize: 11,
+                                  fontSize: 13.sp,
                                   color: const Color(0xff007c9d),
                                 ),
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.center,
                               ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                estateModel.data![index].user!.name!,
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 13.sp,
+                                  color: const Color(0xff007c9d),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 16.w,
                             ),
                           ],
                         )
@@ -651,10 +710,10 @@ ListView favoriteItem({
                   backgroundImage: favoriteModel.data!.appModelsEstate![index].favorite!.image !=
                           null
                       ? NetworkImage(
-                          'https://opencart3.const-tech.biz/tf/storage/app/${favoriteModel.data!.appModelsEstate![index].favorite!.image}',
+                          'https://taif-app.com/storage/app/${favoriteModel.data!.appModelsEstate![index].favorite!.image}',
                         )
                       : NetworkImage(
-                          'https://opencart3.const-tech.biz/tf/public/taaef/images/logo-l.png'),
+                          'https://taif-app.com/public/taaef/images/logo-l.png'),
                   maxRadius: 35.h,
                 ),
                 SizedBox(
@@ -1228,10 +1287,21 @@ InkWell secondlistViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage('images/circle_img.png'),
-            maxRadius: 35,
-          ),
+          if(locationModel.data![index].mainImage!=null)
+            CircleAvatar(
+              backgroundImage:
+              NetworkImage(
+                'https://taif-app.com/storage/app/${locationModel.data![index].mainImage!}',
+              ),
+
+              maxRadius: 35,
+            )else
+            CircleAvatar(
+              backgroundImage:
+              AssetImage('images/circle_img.png'),
+
+              maxRadius: 35,
+            ),
           SizedBox(
             width: 30.w,
           ),
@@ -1774,7 +1844,7 @@ InkWell harajslistViewItem(
                               DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
                               style: TextStyle(
                                 fontFamily: 'Tahoma',
-                                fontSize: 10,
+                                fontSize: 12.sp,
                                 color: const Color(0xff007c9d),
                               ),
                               textAlign: TextAlign.right,
@@ -1816,7 +1886,7 @@ InkWell harajslistViewItem(
                           SizedBox(
 
                             child: Text(
-                             'علي احمد',
+                              harajModel.data![index].user!.name!,
                               style: TextStyle(
                                 fontFamily: 'Tahoma',
                                 fontSize: 13.sp,
@@ -1886,7 +1956,7 @@ InkWell eventListViewItem(
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://opencart3.const-tech.biz/tf/storage/app/${eventModel.data![index].image}'),
+                'https://taif-app.com/storage/app/${eventModel.data![index].image}'),
             maxRadius: 35,
           ),
           SizedBox(
@@ -1997,7 +2067,7 @@ InkWell offerListViewItem(
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://opencart3.const-tech.biz/tf/storage/app/${offerModel.data![index].image}'),
+                'https://taif-app.com/storage/app/${offerModel.data![index].image}'),
             maxRadius: 35,
           ),
           SizedBox(
@@ -2108,7 +2178,7 @@ InkWell taifListViewItem(
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://opencart3.const-tech.biz/tf/storage/app/${taifModel.data![index].image}'),
+                'https://taif-app.com/storage/app/${taifModel.data![index].image}'),
             maxRadius: 35,
           ),
           SizedBox(

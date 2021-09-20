@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/guiding_model.dart';
@@ -382,7 +383,16 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                                   LocationsCubit()..addReportTourism(report_title: _causeController.text,
                                       report_content: _detailsController.text
                                       ,user_id: user.data!.id.toString()
-                                  );
+                                  ).then((value) {
+                                    Fluttertoast.showToast(
+                                        msg: 'تم ارسال البلاغ',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.grey,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  });
                                 },
                               )..show();
                             },

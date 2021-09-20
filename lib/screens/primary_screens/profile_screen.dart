@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             CircleAvatar(
                               maxRadius: 50.h,
                               backgroundImage: NetworkImage(
-                                'https://opencart3.const-tech.biz/tf/storage/app/${cubit.data!.image ?? 'events/-1630236184.jfif'}',
+                                'https://taif-app.com/storage/app/${cubit.data!.image ?? 'events/-1630236184.jfif'}',
                               ),
                             ),
                             SizedBox(

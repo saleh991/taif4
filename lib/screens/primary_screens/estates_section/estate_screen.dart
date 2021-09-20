@@ -47,6 +47,7 @@ class _EstateScreenState extends State<EstateScreen> {
             }
             if(state is GoToDocumentationState){
               Navigator.popAndPushNamed(context, documentationRoute);
+
             }
           },
           builder: (context, state) {

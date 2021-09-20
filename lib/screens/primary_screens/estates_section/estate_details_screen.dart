@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -122,7 +123,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                       EdgeInsets.symmetric(horizontal: 5.0),
                                       // decoration: BoxDecoration(color: Colors.amber),
                                       child: Image.network(
-                                        'https://opencart3.const-tech.biz/tf/storage/app/${id.path}',
+                                        'https://taif-app.com/storage/app/${id.path}',
                                         fit: BoxFit.cover,
                                       ));
                                 },
@@ -409,7 +410,16 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                         _causeController.text,
                                             report_content: _detailsController.text,
                                             user_id: user.data!.id.toString()
-                                        );
+                                        ).then((value) {
+                                          Fluttertoast.showToast(
+                                              msg: 'تم ارسال البلاغ',
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 2,
+                                              backgroundColor: Colors.grey,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                        });
                                       },
                                     )..show();
                                   },
@@ -456,7 +466,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           CircleAvatar(
                             maxRadius: 35,
                             backgroundImage: NetworkImage(
-                                'https://opencart3.const-tech.biz/tf/storage/app/${widget.estateData.user!.image == null ? 'users/D1T_miAWwAE6KhM.jpg-4-1629048410.jpg':widget.estateData.user!.image },'),
+                                'https://taif-app.com/storage/app/${widget.estateData.user!.image == null ? 'users/D1T_miAWwAE6KhM.jpg-4-1629048410.jpg':widget.estateData.user!.image },'),
                           ),
                           SizedBox(
                             height: 10.h,

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,7 +79,7 @@ class _FavoriteDetailsScreenState extends State<FavoriteDetailsScreen> {
                 //crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Image.network(
-                    'https://opencart3.const-tech.biz/tf/storage/app/${widget.favoriteData.favorite!.image}',
+                    'https://taif-app.com/storage/app/${widget.favoriteData.favorite!.image}',
                     height: 230.h,
                     width: 414.w,
                   ),
@@ -258,7 +259,16 @@ class _FavoriteDetailsScreenState extends State<FavoriteDetailsScreen> {
                                 LocationsCubit()..addReportTourism(report_title: _causeController.text,
                                     report_content: _detailsController.text
                                     ,user_id: user.data!.id.toString()
-                                );
+                                ).then((value) {
+                                  Fluttertoast.showToast(
+                                      msg: 'تم ارسال البلاغ',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 2,
+                                      backgroundColor: Colors.grey,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                });
                               },
                             )..show();
                           },

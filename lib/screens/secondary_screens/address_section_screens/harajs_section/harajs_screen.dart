@@ -143,57 +143,39 @@ class HarajsScreen extends StatelessWidget {
                     ),
 
 
-                    ListView.builder(
-                        itemCount: harajsCubit.data!.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          print(harajsCubit.data!.length);
-                          print(harajsCubit.data!.length);
-                          print(harajsCubit.data!.length);
-                          print(harajsCubit.data!.length);
+                            for(int index=0;index<harajsCubit.data!.length;index++)
 
-                          return BlocProvider(
-                            create: (context)=>LocationsCubit()..getHarajCategoryById(id: cubitG.harajModel.data![index].id!),
-                            child: BlocConsumer<LocationsCubit,LocationsState>(
-                              listener: (context, state){},
-                              builder: (context, state){
-                                var cubit = LocationsCubit.get(context).harajOnlyCategory;
-                                if(state is GetHarajCategoryIdSuccessState){
-                                  return Container(
-                                    width: 394.w,
-                                    height: 120.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      border: Border.all(
-                                          width: 1.0, color: const Color(0xffcee3fb)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: const Color(0x1fd5ddeb),
-                                          offset: Offset(0, 3),
-                                          blurRadius: 6,
-                                        ),
-                                      ],
-                                    ),
-                                    child: harajslistViewItem(
-                                        categoryName: cubit.data!.name!,
-                                        harajModel: harajsCubit,
-                                        index: index,
-                                        //screenType: screenType,
-                                        function: () {
+                              Container(
+                              width: 394.w,
+                              height: 135.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                    width: 1.0, color: const Color(0xffcee3fb)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0x1fd5ddeb),
+                                    offset: Offset(0, 3),
+                                    blurRadius: 6,
+                                  ),
+                                ],
+                              ),
+                              child: harajslistViewItem(
+                                  categoryName:harajsCubit.data![index].category!.name!,
+                                  harajModel: harajsCubit,
+                                  index: index,
+                                  //screenType: screenType,
+                                  function: () {
 
-                                          Navigator.push(context,MaterialPageRoute(builder: (context)=>HarajDetailsScreen(data: harajsCubit.data![index],)));
-                                        }),
-                                  );
-
-                                }else{
-                                  return Center(
-                                    child: SizedBox(),
-                                  );
-                                }
-                              },
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>HarajDetailsScreen(data: harajsCubit.data![index],)));
+                                  }),
                             ),
-                          );
-                        })
+
+                    SizedBox(
+                      height: 25.h,
+                    ),
+
+
                   ],
                 ),
               ),

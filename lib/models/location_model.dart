@@ -28,6 +28,7 @@ class LocationModel {
 }
 
 class Data {
+  double? km;
   int? id;
   String? title;
   Category? category;
@@ -44,6 +45,7 @@ class Data {
 
   Data(
       {this.id,
+        this.km,
         this.title,
         this.category,
         this.phone,

@@ -47,6 +47,7 @@ dependencies:
   video_player: ^2.2.3
   location: ^4.2.0
   awesome_dialog: ^2.1.1
+  geolocator: ^7.6.2
 
 
 dev_dependencies:

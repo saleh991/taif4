@@ -7,6 +7,7 @@ import 'package:taif/models/estate_comment_model.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/estate_only_model.dart';
 import 'package:taif/models/map_model.dart';
+import 'package:taif/models/terms_model.dart';
 import 'package:taif/models/user_comment.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
@@ -17,6 +18,7 @@ class EstatesCubit extends Cubit<EstatesState> {
   static EstatesCubit get(context) => BlocProvider.of(context);
 
   EstateModel estateModel = EstateModel();
+  TermsModel termsModel = TermsModel();
   EstateModel myEstateModel = EstateModel();
   UserCommentModel userCommentModel = UserCommentModel();
   List<UserCommentModel> commentList = [];
@@ -59,6 +61,7 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
       emit(EstateOnlyErrorState());
     });
   }
+
   void getMyEstates() {
     emit(MyEstatesLoadingState());
     DioHelper.init();
@@ -201,6 +204,24 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
   });
 }
 
+  Future<void> getTermsAndAgreements({
+    required int id,
+  }) async {
+    emit(GetTermsLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'pages/$id').then((value) {
+      if (value.statusCode == 200) {
+        print('getTerms');
+
+        termsModel = TermsModel.fromJson(value.data);
+        emit(GetTermsSuccessState());
+      }
+    }).catchError((e) {
+      print('error $e');
+      emit(GetTermsErrorState());
+    });
+  }
+
   void addComment({
     required String content,
     required int estateId,
@@ -220,23 +241,6 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
     });
   }
 
-//   void getUserData({
-//     required int id,
-//   }) {
-//     emit(UserDataWithCommentLoadingState());
-//     DioHelper.init();
-//     DioHelper.getData(url: getAnyUserData(id)).then((value) {
-//       if (value.statusCode == 200) {
-//         print('valueeee ${value.data}');
-//         userDataModel = UserDataModel.fromJson(value.data);
-// estateModel.data!
-//         commentList.add(EstateModel.fromJson(us.data.));
-//       }
-//       emit(UserDataWithCommentSuccessState());
-//     }).catchError((e) {
-//       print('user Comment error ');
-//       emit(UserDataWithCommentErrorState());
-//     });
-//   }
+
 
 }

@@ -1318,7 +1318,7 @@ InkWell secondlistViewItem(
                   fontSize: 18,
                   color: const Color(0xff003e4f),
                 ),
-                textAlign: TextAlign.right,
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 10.h,
@@ -1329,102 +1329,115 @@ InkWell secondlistViewItem(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'images/save.png',
-                              height: 18.h,
-                              width: 12.w,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text(
-                             '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 14.sp,
-                                color: const Color(0xff7a90b7),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                'images/save.png',
+                                height: 18.h,
+                                width: 12.w,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        Text(
-                          DateFormat('yyyy-MM-dd','en').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
-
-                          style: TextStyle(
-                            fontFamily: 'Tahoma',
-                            fontSize: 13.sp,
-                            color: const Color(0xff007c9d),
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'images/eye.png',
-                              height: 18.h,
-                              width: 20.w,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text(
-                              '50',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 14.sp,
-                                color: const Color(0xff7a90b7),
+                              SizedBox(
+                                width: 5.w,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        Text(
-                          'علي احمد',
-                          style: TextStyle(
-                            fontFamily: 'Noto Kufi Arabic',
-                            fontSize: 13.sp,
-                            color: const Color(0xff003e4f),
+                              Text(
+                               '${locationModel.data![index].category == null?'': locationModel.data![index].category!.name}',
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff7a90b7),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.right,
-                        ),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          Text(
+                            DateFormat('yyyy-MM-dd','en').format(DateTime.parse(locationModel.data![index].createdAt.toString())),
 
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Image.asset(
-                          'images/map.png',
-                          width: 25.w,
-                          height: 25.h,
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        Text(
-                          '18k.m',
-                          style: TextStyle(
-                            fontFamily: 'Noto Kufi Arabic',
-                            fontSize: 14.sp,
-                            color: const Color(0xff003e4f),
+                            style: TextStyle(
+                              fontFamily: 'Tahoma',
+                              fontSize: 13.sp,
+                              color: const Color(0xff007c9d),
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.right,
-                        ),
-                      ],
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 15.w,),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/eye.png',
+                                height: 18.h,
+                                width: 20.w,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Text(
+                                '50',
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff7a90b7),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          if(locationModel.data![index].user!=null)
+                          Text(
+                            locationModel.data![index].user!.name!,
+                            style: TextStyle(
+                              fontFamily: 'Noto Kufi Arabic',
+                              fontSize: 13.sp,
+                              color: const Color(0xff003e4f),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 15.w,),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'images/map.png',
+                            width: 25.w,
+                            height: 25.h,
+                          ),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          if(locationModel.data![index].km!>0)
+                          Text(
+
+                            locationModel.data![index].km.toString()+
+                            ' k.m',
+                            style: TextStyle(
+                              fontFamily: 'Noto Kufi Arabic',
+                              fontSize: 14.sp,
+                              color: const Color(0xff003e4f),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

@@ -26,39 +26,20 @@ class FavoriteModel {
 }
 
 class FavoriteData {
-  List<AppModelsEstateOffer>? appModelsEstateOffer;
-  List<AppModelsEstateRequest>? appModelsEstateRequest;
-  List<AppModelsPost>? appModelsPost;
+
   List<AppModelsEstate>? appModelsEstate;
 
+
+
   FavoriteData(
-      {this.appModelsEstateOffer,
-      this.appModelsEstateRequest,
-      this.appModelsPost,
+      {
       this.appModelsEstate});
 
   FavoriteData.fromJson(Map<String, dynamic> json) {
-    if (json['App\\\\Models\\\\EstateOffer'] != null) {
-      appModelsEstateOffer = <AppModelsEstateOffer>[];
-      json['App\\\\Models\\\\EstateOffer'].forEach((v) {
-        appModelsEstateOffer!.add(new AppModelsEstateOffer.fromJson(v));
-      });
-    }
-    if (json['App\\\\Models\\\\EstateRequest'] != null) {
-      appModelsEstateRequest = <AppModelsEstateRequest>[];
-      json['App\\\\Models\\\\EstateRequest'].forEach((v) {
-        appModelsEstateRequest!.add(new AppModelsEstateRequest.fromJson(v));
-      });
-    }
-    if (json['App\\\\Models\\\\Post'] != null) {
-      appModelsPost = <AppModelsPost>[];
-      json['App\\\\Models\\\\Post'].forEach((v) {
-        appModelsPost!.add(new AppModelsPost.fromJson(v));
-      });
-    }
-    if (json['App\\\\Models\\\\Estate'] != null) {
+
+    if (json['estates'] != null) {
       appModelsEstate = <AppModelsEstate>[];
-      json['App\\\\Models\\\\Estate'].forEach((v) {
+      json['estates'].forEach((v) {
         appModelsEstate!.add(new AppModelsEstate.fromJson(v));
       });
     }
@@ -66,20 +47,9 @@ class FavoriteData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.appModelsEstateOffer != null) {
-      data['App\\\\Models\\\\EstateOffer'] =
-          this.appModelsEstateOffer!.map((v) => v.toJson()).toList();
-    }
-    if (this.appModelsEstateRequest != null) {
-      data['App\\\\Models\\\\EstateRequest'] =
-          this.appModelsEstateRequest!.map((v) => v.toJson()).toList();
-    }
-    if (this.appModelsPost != null) {
-      data['App\\\\Models\\\\Post'] =
-          this.appModelsPost!.map((v) => v.toJson()).toList();
-    }
+
     if (this.appModelsEstate != null) {
-      data['App\\\\Models\\\\Estate'] =
+      data['estates'] =
           this.appModelsEstate!.map((v) => v.toJson()).toList();
     }
     return data;
@@ -109,51 +79,7 @@ class AppModelsEstateOffer {
   }
 }
 
-class AppModelsEstateRequest {
-  int? id;
-  FavoriteEstateRequest? favorite;
 
-  AppModelsEstateRequest({this.id, this.favorite});
-
-  AppModelsEstateRequest.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    favorite = json['favorite'] != null
-        ? new FavoriteEstateRequest.fromJson(json['favorite'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.favorite != null) {
-      data['favorite'] = this.favorite!.toJson();
-    }
-    return data;
-  }
-}
-
-class AppModelsPost {
-  int? id;
-  FavoritePost? favorite;
-
-  AppModelsPost({this.id, this.favorite});
-
-  AppModelsPost.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    favorite = json['favorite'] != null
-        ? new FavoritePost.fromJson(json['favorite'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.favorite != null) {
-      data['favorite'] = this.favorite!.toJson();
-    }
-    return data;
-  }
-}
 
 class AppModelsEstate {
   int? id;

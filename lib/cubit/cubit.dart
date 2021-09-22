@@ -3,23 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/cubit/state.dart';
-import 'package:taif/cubit/state.dart';
-import 'package:taif/cubit/state.dart';
-import 'package:taif/cubit/state.dart';
-import 'package:taif/cubit/state.dart';
-import 'package:taif/cubit/state.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
-import 'package:taif/helper/constants.dart';
-import 'package:taif/models/bank_transactions_model.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/favorite_model.dart';
 import 'package:taif/models/lease_model.dart';
 import 'package:taif/models/notification_model.dart';
-import 'package:taif/models/package_model.dart';
-import 'package:taif/models/request_package_model.dart';
 import 'package:taif/models/slider_model.dart';
-import 'package:taif/models/user_data_model.dart';
 import 'package:taif/screens/primary_screens/home_screen.dart';
 import 'package:taif/screens/primary_screens/notifications_screen.dart';
 import 'package:taif/screens/primary_screens/profile_screen.dart';
@@ -135,8 +125,9 @@ AppModelsEstate appModelsEstate = AppModelsEstate();
     DioHelper.init();
     DioHelper.getData(url: 'favorites?user_id=${AppController.instance.getId()}').then((value) {
       if (value.statusCode == 200) {
-        print('\\\\');
-
+        print('favorites');
+        print(value.data);
+        print('favorites');
         favoriteModel = FavoriteModel.fromJson(value.data);
       }
       emit(FavoriteSuccessState());

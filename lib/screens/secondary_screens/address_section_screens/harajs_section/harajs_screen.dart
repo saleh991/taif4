@@ -106,7 +106,7 @@ class HarajsScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    if (userCubit.data!.currentSub != null)
+                   /* if (userCubit.data!.currentSub != null)
                       if (userCubit.data!.currentSub!.remainningAds != 0)
 
                       SizedBox(
@@ -118,10 +118,8 @@ class HarajsScreen extends StatelessWidget {
                             Navigator.pushNamed(context, addressConditionRoute);
                           },
                           color: Color(0xFF007C9D),
-                        )),
-                    SizedBox(
-                      height: 25.h,
-                    ),
+                        )),*/
+
 
                     SizedBox(
                         width: 354.w,

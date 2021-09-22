@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +14,11 @@ class AddressScreen extends StatelessWidget {
 
   var value = 'اختر نشاط';
   var id = 0;
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +53,7 @@ class AddressScreen extends StatelessWidget {
 
             if ((state is LocationsSuccessState && locationsCubit.data != null)
             ) {
+
               return SingleChildScrollView(
               child: SizedBox(
                 width: ScreenUtil().screenWidth,
@@ -160,9 +168,10 @@ class AddressScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
+
                           return Container(
                             width: 394.w,
-                            height: 130.h,
+                            height: 140.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
                               border: Border.all(

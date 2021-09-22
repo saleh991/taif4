@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class AddAddressScreen extends StatefulWidget {
 
 class _AddAddressScreenState extends State<AddAddressScreen> {
   late TextEditingController _detailsController;
+  late TextEditingController _titleController;
   VideoPlayerController? _videoPlayerController;
    File? profileImage;
   File? video;
@@ -122,12 +124,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         position: center);
     markers[markerId] = marker;
     _detailsController = TextEditingController();
+    _titleController=TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
     _detailsController.dispose();
+    _titleController.dispose();
     _videoPlayerController!.dispose();
   }
 
@@ -332,11 +336,28 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           )
                         ],
                       ),
+
                     SizedBox(
-                      height: 45.h,
+                      height: 20.h,
                     ),
-                    Center(
-                      child: defaultCheckBox(title: 'لا يوجد صور ليتم أرفاقها'),
+                    Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Text(
+                        'العنوان',
+                        style: TextStyle(
+                          fontFamily: 'JF Flat',
+                          fontSize: 15.sp,
+                          color: const Color(0xff003e4f),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    contactTextField(
+                      hint: '',
+                      controller: _titleController,
+
                     ),
                     SizedBox(
                       height: 20.h,
@@ -465,8 +486,41 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         child: languagesButton(
                           title: 'إضافة ونشر',
                           function: () {
+                            if(profileImage==null)
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.INFO,
+                                animType: AnimType.BOTTOMSLIDE,
+                                title: 'نقص في المعلومات',
+                                desc: 'يجب اضافة صورة شخصية',
+                                btnOkText: 'تم',
+
+                                btnOkOnPress: () {},
+                              )..show();
+                            else   if(_titleController.text.length==0||_titleController.text.trim()=='')
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.INFO,
+                                animType: AnimType.BOTTOMSLIDE,
+                                title: 'نقص في المعلومات',
+                                desc: 'يجب اضافة عنوان',
+                                btnOkText: 'تم',
+
+                                btnOkOnPress: () {},
+                              )..show();
+                            else   if(_detailsController.text.length==0||_detailsController.text.trim()=='')
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.INFO,
+                                animType: AnimType.BOTTOMSLIDE,
+                                title: 'نقص في المعلومات',
+                                desc: 'يجب اضافة تفاصيل',
+                                btnOkText: 'تم',
+
+                                btnOkOnPress: () {},
+                              )..show();
                             LocationsCubit()..addLocation(
-                                title: 'اضافة موقع',
+                                title: _titleController.text,
                                 phone: '1234',
                                 content: _detailsController.text,
                                 location_service_category_id: '1',

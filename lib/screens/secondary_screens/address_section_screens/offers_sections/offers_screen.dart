@@ -7,6 +7,8 @@ import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cub
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/offers_sections/offer_detailes_screen.dart';
 
+import 'add_offers_screnn.dart';
+
 class OffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,23 @@ class OffersScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      SizedBox(
+                          width: 354.w,
+                          height: 51.h,
+                          child: languagesButton(
+                            title:  "طلب إضافة عرض تجاري",
+                            function: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => addOffersScreen()),
+                              );
+
+                            },
+                            color: Color(0xFF007C9D),
+                          )),
                       SizedBox(
                         height: 16.h,
                       ),

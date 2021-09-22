@@ -286,6 +286,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                 height: 51.h,
                 child: languagesButton(
                   title: 'استمرار',
+
                   function: () {
                     Navigator.pushNamed(context, addAdRoute3);
                   },

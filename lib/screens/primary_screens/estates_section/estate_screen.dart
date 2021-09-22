@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import 'package:taif/models/estate_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
 
 import 'cubit/cubit.dart';
+import 'estate_map.dart';
 
 class EstateScreen extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class EstateScreen extends StatefulWidget {
 class _EstateScreenState extends State<EstateScreen> {
   String value = 'اختر القسم';
   int id = 0;
+  bool showMap=false;
 
   @override
   Widget build(BuildContext context) {
@@ -173,44 +176,65 @@ class _EstateScreenState extends State<EstateScreen> {
                               ),
                             ),
                           ),
-                          Container(
-                            height: 42.h,
-                            width: 154.w,
-                            padding: EdgeInsets.symmetric(horizontal: 5.w,vertical: 10.h),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              border: Border.all(
-                                  width: 1.0, color: const Color(0xff06a1cb)),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'عرض عبر الخريطة',
-                                  style: TextStyle(
-                                    fontFamily: fontName,
-                                    fontSize: 15,
-                                    color: const Color(0xff007c9d),
+                          InkWell(
+                            onTap: (){
+                              showMap=!showMap;
+                              setState(() {
+                              });
+                            },
+                            child: Container(
+                              height: 42.h,
+                              width: 154.w,
+                              padding: EdgeInsets.symmetric(horizontal: 5.w,vertical: 10.h),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(
+                                    width: 1.0, color:  Color(0xff06a1cb)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                   !showMap? 'عرض عبر الخريطة':
+                                   'عرض القائمة',
+                                    style: TextStyle(
+                                      fontFamily: fontName,
+                                      fontSize: 15,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Image.asset(
-                                  'images/map.png',
-                                  height: 22.h,
-                                  width: 25.w,
-                                )
-                              ],
+                                  if(!showMap)
+                                  Image.asset(
+
+                                    'images/map.png',
+                                    height: 22.h,
+                                    width: 25.w,
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
                     ),
+                    if(!showMap)
                     itemsListView(
                       function: () {},
                       estateModel: EstateModel(
                           data: cubit.data,
                           status: cubit.status,
-                          code: cubit.code),
+                          code: cubit.code)
+
+                    )else SizedBox(
+                      height: 465.h,
+                      width: ScreenUtil().screenWidth - 40,
+                      child: EstateMap(
+                        estateModel: EstateModel(
+                            data: cubit.data,
+                            status: cubit.status,
+                            code: cubit.code),
+                      ),
                     ),
                   ],
                 ),

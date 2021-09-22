@@ -933,7 +933,7 @@ Widget chatItem({
                     '${chatModel.chats![index].anotherUser!.name}',
                     style: TextStyle(
                       fontFamily: 'JF Flat',
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       color: const Color(0xff003e4f),
                     ),
                     textAlign: TextAlign.center,
@@ -941,14 +941,18 @@ Widget chatItem({
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text(
-                    '${chatModel.chats![index].lastMessage == null? '': chatModel.chats![index].lastMessage!.createdAt ?? 'f'}',
-                    style: TextStyle(
-                      fontFamily: 'JF Flat',
-                      fontSize: 11.sp,
-                      color: const Color(0xff7a90b7),
+                  Expanded(
+                    child: Text(
+                      (chatModel.chats![index].lastMessage !=null?
+                      chatModel.chats![index].lastMessage!.content:
+                      chatModel.chats![index].subject!.title)!,
+                      style: TextStyle(
+                        fontFamily: 'JF Flat',
+                        fontSize: 14.sp,
+                        color: const Color(0xff7a90b7),
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
                   )
                 ],
               ),

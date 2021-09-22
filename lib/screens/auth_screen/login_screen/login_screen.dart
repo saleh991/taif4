@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      height: 431.h,
+                      height: 500.h,
                       width: 350.w,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

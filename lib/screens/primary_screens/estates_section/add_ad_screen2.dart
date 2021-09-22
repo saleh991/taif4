@@ -1,26 +1,68 @@
 import 'dart:async';
+import 'dart:io';
 
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class AddAdScreen2 extends StatefulWidget {
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
+  File image;
+  AddAdScreen2({
+     required this.image
+    });
+
 
   @override
   _AddAdScreen2State createState() => _AddAdScreen2State();
 }
 
 class _AddAdScreen2State extends State<AddAdScreen2> {
+  static const LatLng center = const LatLng(21.437273, 40.512714);
+  String? long;
+  String? lat;
+  Map<MarkerId, Marker> markers = {};
   String value = "";
   late TextEditingController _addressController;
+
+
+  void currentLocation() async {
+    final GoogleMapController controller = await _controller.future;
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
+
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        zoom: 17.0,
+      ),
+    ));
+  }
+
 
   @override
   void initState() {
     super.initState();
-
+    lat=center.latitude.toString();
+    long=center.longitude.toString();
+    MarkerId markerId = MarkerId('orgin');
+    Marker marker =
+    Marker(markerId: markerId,
+        icon: BitmapDescriptor.defaultMarker ,
+        position: center);
+    markers[markerId] = marker;
     _addressController = TextEditingController();
   }
 
@@ -32,14 +74,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
 
   Completer<GoogleMapController> _controller = Completer();
 
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-  }
 
-  static final CameraPosition _currentPosition = CameraPosition(
-    target: LatLng(21.365147, 40.459258),
-    zoom: 10,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +85,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'أضف إعلان',
+          'أضف إعلان للعقارات',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -86,7 +121,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                         'إختر القسم',
                         style: TextStyle(color: Color(0xFF3A3A3A)),
                       ), // Not necessary for Option 1
-                      items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                      items: <String>['طلب عقار', 'عرض عقار'].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
@@ -114,7 +149,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                         'اختر القسم الفرعي',
                         style: TextStyle(color: Color(0xFF3A3A3A)),
                       ), // Not necessary for Option 1
-                      items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                      items: <String>['الكل', 'تجاري', 'سياحي'].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
@@ -146,7 +181,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                     'النوع',
                     style: TextStyle(color: Color(0xFF3A3A3A)),
                   ), // Not necessary for Option 1
-                  items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                  items: <String>['فيلا', 'بيت', 'سيارة'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: new Text(value),
@@ -181,28 +216,70 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
             SizedBox(
               height: 20.h,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: contactTextField(
-                hint: '',
-                controller: _addressController,
-              ),
-            ),
+
             SizedBox(
               height: 299.h,
               width: ScreenUtil().screenWidth - 40,
               child: GoogleMap(
-                initialCameraPosition: _currentPosition,
                 mapType: MapType.normal,
-                onMapCreated: _onMapCreated,
-                // initialCameraPosition: CameraPosition(
-                //   target: AddAdScreen2._center,
-                //   zoom: 11.0,
-                // ),
+
+                myLocationEnabled: true,
+                tiltGesturesEnabled: true,
+                compassEnabled: true,
+                myLocationButtonEnabled: true,
+                scrollGesturesEnabled: true,
+                zoomGesturesEnabled: true,
+
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+
+
+                markers: Set<Marker>.of(markers.values),
+                gestureRecognizers: Set()
+                  ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+                  ..add(Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()))
+                  ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
+                  ..add(Factory<VerticalDragGestureRecognizer>(
+                          () => VerticalDragGestureRecognizer())),
+                onTap: (latAndLon){
+                  print(latAndLon);
+                  MarkerId markerId = MarkerId('orgin');
+                  Marker marker =
+                  Marker(markerId: markerId,
+                      icon: BitmapDescriptor.defaultMarker ,
+                      position: latAndLon);
+                  markers[markerId] = marker;
+                  lat=latAndLon.latitude.toString();
+                  long=latAndLon.longitude.toString();
+                  setState(() {
+
+                  });
+                },
+                initialCameraPosition: CameraPosition(
+                  target: center,
+
+                  zoom: 15,
+                ),
               ),
             ),
             SizedBox(
-              height: 70.h,
+              height: 35.h,
+            ),
+            SizedBox(
+                width: 354.w,
+                height: 51.h,
+                child: languagesButtonWithIcon(
+                  title: 'موقعي الحالي',
+                  icon: Icon(Icons.edit_location_outlined),
+                  function: () async{
+                    currentLocation();
+
+                  },
+                  color: Color(0xFF007C9D),
+                )),
+            SizedBox(
+              height: 30.h,
             ),
             SizedBox(
                 width: 354.w,

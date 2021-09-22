@@ -38,6 +38,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
 
   List<String> img = [];
 
+
   final CarouselController _controller = CarouselController();
   late TextEditingController _detailsController;
   late TextEditingController _commentController;
@@ -45,6 +46,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
 
   @override
   void initState() {
+    print("widget.estateData.type");
+    print(widget.estateData.authOption);
+    print("widget.estateData.type");
     super.initState();
     _detailsController = TextEditingController();
     _commentController = TextEditingController();
@@ -278,30 +282,97 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              SizedBox(
+                              Container(
+
+                                decoration:widget.estateData.authOption=='staying'? BoxDecoration(
+                                  color: Color(0xFF1F8716),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2
+                                  ),
+                                  borderRadius: BorderRadius.circular(12)
+                                ):
+                                BoxDecoration(
+                                    color: Color(0xFF1F8716),
+
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
                                 height: 41.h,
                                 width: 113.w,
-                                child: languagesButton(
-                                    title: 'سكني',
-                                    function: () {},
-                                    color: Color(0xFF1F8716)),
+                                child:Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'سكني',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+
                               ),
-                              SizedBox(
+                              Container(
+                                decoration:widget.estateData.authOption=='trading'? BoxDecoration(
+                                    color: Color(0xFF06A1CB),
+                                    border: Border.all(
+                                        color: Colors.black,
+                                        width: 2
+                                    ),
+                                    borderRadius: BorderRadius.circular(12)
+                                ):BoxDecoration(
+                                    color: Color(0xFF06A1CB),
+
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
                                 height: 41.h,
                                 width: 113.w,
-                                child: languagesButton(
-                                    title: 'تجاري',
-                                    function: () {},
-                                    color: Color(0xFF06A1CB)),
+                                child:Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'تجاري',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+
                               ),
-                              SizedBox(
+                              Container(
+                                decoration:widget.estateData.authOption=='all'?  BoxDecoration(
+                                    color:  Color(0xFF007C9D),
+                                    border: Border.all(
+                                        color: Colors.black,
+                                        width: 2
+                                    ),
+                                    borderRadius: BorderRadius.circular(12)
+                                ):BoxDecoration(
+                                    color:  Color(0xFF007C9D),
+
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
                                 height: 41.h,
                                 width: 113.w,
-                                child: languagesButton(
-                                    title: 'الكل',
-                                    function: () {},
-                                    color: Color(0xFF007C9D)),
+                                child:Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'الكل',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+
                               ),
+
+
                             ],
                           ),
                           SizedBox(

@@ -31,12 +31,12 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
 
     return BlocProvider(
       create:
-          (context) => LocationsCubit()..getUserData(),
+          (context) => LocationsCubit(),
 
       child: BlocConsumer<LocationsCubit,LocationsState>(
         listener: (context, state) {},
         builder: (context, state){
-          us.UserDataModel user=LocationsCubit.get(context).userDataModel;
+
           return  Scaffold(
             appBar: AppBar(
               backgroundColor: Color(0xFFEFF2F7),
@@ -382,7 +382,7 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                                 btnOkOnPress: () {
                                   LocationsCubit()..addReportTourism(report_title: _causeController.text,
                                       report_content: _detailsController.text
-                                      ,user_id: user.data!.id.toString()
+                                      ,//ChangeModel
                                   ).then((value) {
                                     Fluttertoast.showToast(
                                         msg: 'تم ارسال البلاغ',

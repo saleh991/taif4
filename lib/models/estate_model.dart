@@ -418,7 +418,7 @@ class User {
 
 class Comments {
   int? _id;
-  int? _userId;
+  User? _user;
   int? _subjectId;
   String? _content;
   String? _createdAt;
@@ -426,7 +426,7 @@ class Comments {
   String? _subjectClass;
 
   int? get id => _id;
-  int? get userId => _userId;
+  User? get user => _user;
   int? get subjectId => _subjectId;
   String? get content => _content;
   String? get createdAt => _createdAt;
@@ -434,15 +434,15 @@ class Comments {
   String? get subjectClass => _subjectClass;
 
   Comments({
-      int? id, 
-      int? userId, 
+      int? id,
+    User? user,
       int? subjectId, 
       String? content, 
       String? createdAt, 
       String? updatedAt, 
       String? subjectClass}){
     _id = id;
-    _userId = userId;
+    _user = user;
     _subjectId = subjectId;
     _content = content;
     _createdAt = createdAt;
@@ -452,7 +452,7 @@ class Comments {
 
   Comments.fromJson(dynamic json) {
     _id = json['id'];
-    _userId = json['user_id'];
+    _user = json['user'] != null ? User.fromJson(json['user']) : null;
     _subjectId = json['subject_id'];
     _content = json['content'];
     _createdAt = json['created_at'];
@@ -463,7 +463,7 @@ class Comments {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['id'] = _id;
-    map['user_id'] = _userId;
+
     map['subject_id'] = _subjectId;
     map['content'] = _content;
     map['created_at'] = _createdAt;

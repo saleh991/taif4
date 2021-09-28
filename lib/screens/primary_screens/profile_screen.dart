@@ -183,7 +183,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ).then((value) => setState(() {}));
                   },
                   title: 'تعديل ملفي الشخصي',
-                  icon: 'images/edit_profile_icon.png'),
+                  icon: 'images/edit_profile_icon.png'
+              ),
               Divider(
                 height: 0,
                 thickness: 1.5,

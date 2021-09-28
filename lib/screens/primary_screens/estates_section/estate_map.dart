@@ -3,13 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taif/models/estate_model.dart';
-import 'package:taif/models/map_model.dart';
+import 'estate_details2_screen.dart';
 
-import 'estate_details_screen.dart';
 class EstateMap extends StatefulWidget {
   EstateModel estateModel;
    EstateMap({Key? key,required this.estateModel}) : super(key: key);

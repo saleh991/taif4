@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
@@ -21,6 +24,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _emailController;
   late TextEditingController _phoneNumberController;
   late TextEditingController _passwordController;
+   File? imageFile;
+
+  var picker = ImagePicker();
+  Future<void> getImage() async {
+    final pickerFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickerFile != null) {
+      imageFile = File(pickerFile.path);
+
+    } else {
+      print('No Image Selected');
+
+    }
+  }
+
 
   @override
   void initState() {
@@ -104,9 +123,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     SizedBox(
                       height: 46.h,
                     ),
+                    // ignore: unnecessary_null_comparison
+                    if(imageFile==null)
                     Align(
                       alignment: Alignment.center,
-                      child: CircleAvatar(
+                      child:cubit.userDataModel.data!.image ==null?
+                      CircleAvatar(
                         radius: 70,
                         backgroundColor:
                         Theme.of(context).scaffoldBackgroundColor,
@@ -114,8 +136,98 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           'images/profile.png',
                           height: 130.h,
                           width: 130.h,
+                          fit: BoxFit.fill,
                         ),
+                      ):
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            height: 130.h,
+                            width: 130.h,
+
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                image: NetworkImage('https://taif-app.com/storage/app/${cubit.userDataModel.data!.image!}'),
+                              ),
+
+                            ),
+
+                          ),
+                          Positioned(
+                            right: -22.w,
+                            top: 40.h,
+                            child: GestureDetector(
+                              onTap: () async {
+                                await getImage();
+                                setState(() {
+
+                                });
+
+                              },
+                              child: CircleAvatar(
+                                radius: 22.h,
+                                backgroundColor: Color(0xFFffffff),
+                                child:
+                                Icon(
+                                  Icons.edit,
+                                  color: Color(0xFF007C9D),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
+                    )else
+                      Align(
+                        alignment: Alignment.center,
+
+                       child:   Stack(
+                         clipBehavior: Clip.none,
+                         children: [
+                           Container(
+                             height: 130.h,
+                             width: 130.h,
+                             decoration: BoxDecoration(
+                               shape: BoxShape.circle,
+                               image: DecorationImage(
+                                 image: FileImage(imageFile!),
+                                 fit: BoxFit.fill
+                               ),
+
+                             ),
+
+                           ),
+                           Positioned(
+                             right: -22.w,
+                             top: 40.h,
+                             child: GestureDetector(
+                               onTap: () async {
+                                 await getImage();
+                                 setState(() {
+
+                                 });
+
+                               },
+                               child: CircleAvatar(
+                                 radius: 22.h,
+                                 backgroundColor: Color(0xFFffffff),
+                                 child:
+                                 Icon(
+                                   Icons.edit,
+                                   color: Color(0xFF007C9D),
+                                 ),
+                               ),
+                             ),
+                           )
+                         ],
+                       ),
+
+                      ),
+                    SizedBox(
+                      height: 26.h,
                     ),
                     Container(
                       height: 55.h,
@@ -233,11 +345,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               name: _nameController.text,
                               password: _passwordController.text,
                               email: _emailController.text,
+                              image: imageFile
                             );
                           } else {
                             cubit.updateUserDataWithoutPassword(
                               name: _nameController.text,
                               email: _emailController.text,
+                                image: imageFile
                             );
                           }
                         },

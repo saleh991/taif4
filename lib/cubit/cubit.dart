@@ -9,17 +9,21 @@ import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/favorite_model.dart';
 import 'package:taif/models/lease_model.dart';
 import 'package:taif/models/notification_model.dart';
+import 'package:taif/models/settings_model.dart';
 import 'package:taif/models/slider_model.dart';
 import 'package:taif/screens/primary_screens/home_screen.dart';
 import 'package:taif/screens/primary_screens/notifications_screen.dart';
 import 'package:taif/screens/primary_screens/profile_screen.dart';
 import 'package:taif/screens/primary_screens/search_screen.dart';
 
+import '../global.dart';
+
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(PackagesInitState());
 
   static MainCubit get(context) => BlocProvider.of(context);
   SliderModel sliderModel = SliderModel();
+  SettingsModel settingsModel = SettingsModel();
   EstateModel estateModel = EstateModel();
   LeaseModel leaseModel = LeaseModel();
   NotificationModel notificationModel = NotificationModel();
@@ -66,6 +70,20 @@ class MainCubit extends Cubit<MainState> {
     }).catchError((e) {
       print('slider error ');
       emit(SliderErrorState());
+    });
+    //GETSettings
+    DioHelper.getData(url: 'get/settings').then((value) {
+      if (value.statusCode == 200) {
+        print('${value.data}');
+        settingsModel = SettingsModel.fromJson(value.data);
+        Global.hideContracts=settingsModel.hide_contracts;
+        Global.hideDocumentations=settingsModel.hide_documentations;
+        print('images cubit ${sliderModel.data![1].image}');
+      }
+
+    }).catchError((e) {
+      print('slider error ');
+
     });
   }
   void getSearchData({

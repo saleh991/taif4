@@ -11,9 +11,9 @@ import 'package:taif/screens/auth_screen/edit_profile/cubit/state.dart';
 import 'package:taif/models/user_data_model.dart';
 
 class EditFirstProfileScreen extends StatefulWidget {
-  final UserDataModel userDataModel;
+  final String num;
 
-  EditFirstProfileScreen(this.userDataModel);
+  EditFirstProfileScreen(this.num);
 
   @override
   _EditFirstProfileScreenState createState() => _EditFirstProfileScreenState();
@@ -68,7 +68,7 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
             print('loading');
           }
           if (state is EditProfileSuccessState) {
-print('here');
+                    print('here');
               Fluttertoast.showToast(
                   msg: 'تم تعديل البيانات بنجاح',
                   toastLength: Toast.LENGTH_SHORT,
@@ -88,7 +88,8 @@ print('here');
 
           _nameController.text = '';
           _emailController.text = '';
-          _phoneNumberController.text = widget.userDataModel.data!.phone ?? '';
+
+          _phoneNumberController.text = widget.num;
           return SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(

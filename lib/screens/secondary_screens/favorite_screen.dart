@@ -16,7 +16,7 @@ class FavoriteScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
         elevation: 0,
-        leading: Icon(Icons.menu),
+
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(

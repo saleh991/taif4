@@ -15,7 +15,7 @@ class MembershipScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
         elevation: 0,

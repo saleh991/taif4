@@ -2,15 +2,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/main.dart';
 import 'package:taif/models/location_model.dart';
 
-class AddressDetailsScreen extends StatelessWidget {
 
+
+
+class AddressDetailsScreen extends StatefulWidget {
   final Data data;
-  AddressDetailsScreen({required this.data});
+
+   AddressDetailsScreen({Key? key, required this.data}) : super(key: key);
 
   @override
+  _AddressDetailsScreenState createState() => _AddressDetailsScreenState();
+}
+
+class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
+  int i=0;
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
@@ -49,7 +60,7 @@ class AddressDetailsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    data.title.toString(),
+                   widget.data.title.toString(),
                     style: TextStyle(
                       fontFamily: fontName,
                       fontSize: 18.sp,
@@ -58,7 +69,7 @@ class AddressDetailsScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-    DateFormat('yyyy-MM-dd').format(DateTime.parse(data.createdAt.toString())),
+                    DateFormat('yyyy-MM-dd').format(DateTime.parse( widget.data.createdAt.toString())),
                     style: TextStyle(
                       fontFamily:fontName,
                       fontSize: 10.sp,
@@ -73,7 +84,7 @@ class AddressDetailsScreen extends StatelessWidget {
               height: 23.h,
             ),
             Image.network(
-              'https://taif-app.com/storage/app/${data.mainImage}',
+              'https://taif-app.com/storage/app/${ widget.data.mainImage}',
               height: 178.h,
               width: 246.w,
               fit: BoxFit.contain,
@@ -81,17 +92,59 @@ class AddressDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 35.h,
             ),
-            Image.network(
-              'https://taif-app.com/storage/app/${data.mainImage!}',
-              height: 219.h,
-              width: 380.w,
-              fit: BoxFit.contain,
-            ),
+            if( widget.data.images!.isNotEmpty)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if(i!=widget.data.images!.length-1)
+                  Expanded(
+
+                    child: IconButton(icon: Icon(
+                        Icons.arrow_back_ios,
+                       size: 25.w,
+                    ), onPressed: (){
+                      i++;
+                      setState(() {
+
+                      });
+                    }),
+                  )else
+                    Expanded(
+                      child: SizedBox(),
+                    ),
+                  Expanded(
+                    flex: 6,
+                    child: Image.network(
+                      'https://taif-app.com/storage/app/${ widget.data.images![i].path}',
+                      height: 219.h,
+                      width: 300.w,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+
+                    if(i!=0)
+                  Expanded(
+
+                    child: IconButton(icon: Icon(
+                        Icons.arrow_forward_ios,
+                      size: 25.w,
+                    ), onPressed: (){
+                      i--;
+                      setState(() {
+
+                      });
+                    }),
+                  )else
+                      Expanded(
+                       child: SizedBox(),
+                      ),
+                ],
+              ),
             SizedBox(
               height: 35.h,
             ),
             Text(
-            data.content.toString(),
+              widget.data.content.toString(),
               style: TextStyle(
                 fontFamily: fontName,
                 fontSize: 15.sp,
@@ -105,3 +158,4 @@ class AddressDetailsScreen extends StatelessWidget {
     );
   }
 }
+

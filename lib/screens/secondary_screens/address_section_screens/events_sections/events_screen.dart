@@ -68,18 +68,18 @@ class EventsScreen extends StatelessWidget {
                               ),
                               child: eventListViewItem(
                                   section: sectionCubit
-                                      .data![index]
+                                      .data![eventCubit.data!.length-index-1]
                                       .name ??
                                       '',
                                   eventModel: eventCubit,
-                                  index: index,
+                                  index: eventCubit.data!.length-index-1,
                                   function: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EventDetailsScreen(
-                                              data: eventCubit.data![index],
+                                              data: eventCubit.data![eventCubit.data!.length-index-1],
                                             ),
                                       ),
                                     );

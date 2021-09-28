@@ -90,14 +90,14 @@ class OffersScreen extends StatelessWidget {
                                       .name ??
                                       '',
                                   offerModel: offerCubit,
-                                  index: index,
+                                  index: offerCubit.data!.length-index-1,
                                   function: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             OfferDetailsScreen(
-                                              data: offerCubit.data![index],
+                                              data: offerCubit.data![offerCubit.data!.length-index-1],
                                             ),
                                       ),
                                     );

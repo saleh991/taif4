@@ -48,8 +48,17 @@ class AppController{
     await _sharedPreferences.setInt('id', id);
   }
 
+  Future setGuideId(int id)async{
+    await _sharedPreferences.setInt('guide', id);
+  }
+
   int getId(){
     return  _sharedPreferences.getInt('id') ?? 0;
+
+  }
+
+  int getGuideId(){
+    return  _sharedPreferences.getInt('guide') ?? 0;
 
   }
   Future hasLogin(bool loggedIn)async{

@@ -11,11 +11,17 @@ import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'add_ad_screen3.dart';
+
 // ignore: must_be_immutable
 class AddAdScreen2 extends StatefulWidget {
   File image;
+  List<File> otherImages;
+  String payType;
   AddAdScreen2({
-     required this.image
+     required this.image,
+    required this.payType,
+    required this.otherImages,
     });
 
 
@@ -28,7 +34,9 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
   String? long;
   String? lat;
   Map<MarkerId, Marker> markers = {};
-  String value = "";
+  String type = "فيلا";
+  String category = 'عرض عقار';
+  String authOption = "الكل";
   late TextEditingController _addressController;
 
 
@@ -99,9 +107,9 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
-              height: 22.h,
-            ),
+
+
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -118,7 +126,7 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                     child: DropdownButton<String>(
                       iconEnabledColor: Colors.red,
                       hint: Text(
-                        'إختر القسم',
+                        category,
                         style: TextStyle(color: Color(0xFF3A3A3A)),
                       ), // Not necessary for Option 1
                       items: <String>['طلب عقار', 'عرض عقار'].map((String value) {
@@ -128,7 +136,11 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                         );
                       }).toList(),
                       onChanged: (value1) {
-                        value = value1!;
+                        print(value1);
+                        category = value1!;
+                        setState(() {
+
+                        });
                       },
                     ),
                   ),
@@ -146,17 +158,21 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                     child: DropdownButton<String>(
                       iconEnabledColor: Colors.red,
                       hint: Text(
-                        'اختر القسم الفرعي',
+                        authOption,
                         style: TextStyle(color: Color(0xFF3A3A3A)),
                       ), // Not necessary for Option 1
-                      items: <String>['الكل', 'تجاري', 'سياحي'].map((String value) {
+                      items: <String>['الكل', 'تجاري', 'سكني'].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
                         );
                       }).toList(),
                       onChanged: (value1) {
-                        value = value1!;
+                        print(value1);
+                        authOption = value1!;
+                        setState(() {
+
+                        });
                       },
                     ),
                   ),
@@ -178,17 +194,22 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                 child: DropdownButton<String>(
                   iconEnabledColor: Colors.red,
                   hint: Text(
-                    'النوع',
+                    type,
                     style: TextStyle(color: Color(0xFF3A3A3A)),
                   ), // Not necessary for Option 1
-                  items: <String>['فيلا', 'بيت', 'سيارة'].map((String value) {
+                  items: <String>['فيلا', 'ارض', 'بناء','بيت شعبي',
+                    'شاليه','شقة','طابق','مزرعة'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: new Text(value),
                     );
                   }).toList(),
                   onChanged: (value1) {
-                    value = value1!;
+                    print(value1);
+                    type = value1!;
+                    setState(() {
+
+                    });
                   },
                 ),
               ),
@@ -288,7 +309,19 @@ class _AddAdScreen2State extends State<AddAdScreen2> {
                   title: 'استمرار',
 
                   function: () {
-                    Navigator.pushNamed(context, addAdRoute3);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddAdScreen3(
+                        category: category,
+                        authOption: authOption,
+                        lat: lat,
+                        long: long,
+                        type: type,
+                        payType: widget.payType,
+                        image: widget.image,
+                        otherImages: widget.otherImages,
+                      )),
+                    );
                   },
                   color: Color.fromRGBO(31, 135, 22, 1),
                 )),

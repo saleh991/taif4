@@ -1170,7 +1170,8 @@ Widget defaultCheckBox({
   required String title,
 }) =>
     StatefulBuilder(
-      builder: (context, setState) => CheckboxListTile(
+      builder: (context, setState) =>
+          CheckboxListTile(
         controlAffinity: ListTileControlAffinity.leading,
         value: checkBoxValue,
         onChanged: (value) {
@@ -2011,13 +2012,13 @@ InkWell eventListViewItem(
                           width: 12.w,
                         ),
                         SizedBox(
-                          width: 15.w,
+                          width: 5.w,
                         ),
                         Text(
                           '$section',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 10.sp,
+                            fontSize: 13.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -2036,10 +2037,11 @@ InkWell eventListViewItem(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      eventModel.data![index].createdAt.toString(),
+                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse( eventModel.data![index].createdAt.toString())),
+
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 10.sp,
+                        fontSize: 13.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
@@ -2122,13 +2124,13 @@ InkWell offerListViewItem(
                           width: 12.w,
                         ),
                         SizedBox(
-                          width: 15.w,
+                          width: 5.w,
                         ),
                         Text(
-                          '$section',
+                          'عروض تجارية',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 10.sp,
+                            fontSize: 13.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -2147,10 +2149,10 @@ InkWell offerListViewItem(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      DateFormat('yyyy-MM-dd').format(DateTime.parse( offerModel.data![index].createdAt.toString())),
+                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse( offerModel.data![index].createdAt.toString())),
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 10.sp,
+                        fontSize: 13.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
@@ -2161,7 +2163,7 @@ InkWell offerListViewItem(
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '18k.m',
+                        '',
                         style: TextStyle(
                           fontFamily: 'Noto Kufi Arabic',
                           fontSize: 14,
@@ -2233,13 +2235,13 @@ InkWell taifListViewItem(
                           width: 12.w,
                         ),
                         SizedBox(
-                          width: 15.w,
+                          width: 5.w,
                         ),
                         Text(
                           '$section',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 10.sp,
+                            fontSize: 13.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -2258,10 +2260,10 @@ InkWell taifListViewItem(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                     DateFormat('yyyy-MM-dd').format(DateTime.parse( taifModel.data![index].createdAt.toString())),
+                     DateFormat('yyyy-MM-dd','en').format(DateTime.parse( taifModel.data![index].createdAt.toString())),
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 10.sp,
+                        fontSize: 13.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,

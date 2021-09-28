@@ -17,7 +17,8 @@ import 'add_ad_screen2.dart';
 
 
 class AddAdScreen1 extends StatefulWidget {
-
+  String payType;
+  AddAdScreen1({required this.payType});
 
   @override
   _AddAdScreen1State createState() => _AddAdScreen1State();
@@ -366,6 +367,8 @@ class _AddAdScreen1State extends State<AddAdScreen1> {
                                 context,
                                 MaterialPageRoute(builder: (context) => AddAdScreen2(
                                   image: profileImage!,
+                                  payType: widget.payType,
+                                  otherImages: otherImage,
                                 )),
                               );
                             }

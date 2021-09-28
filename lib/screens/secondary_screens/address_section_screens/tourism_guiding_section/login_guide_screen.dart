@@ -8,17 +8,20 @@ import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/screens/auth_screen/login_screen/cubit/cubit.dart';
 import 'package:taif/screens/auth_screen/login_screen/cubit/states.dart';
+import 'package:taif/screens/auth_screen/reset_screen.dart';
 
-import '../reset_screen.dart';
+import 'add_tourist_show/add_tourism_conditon_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+
+
+class LoginGuideScreen extends StatefulWidget {
+  const LoginGuideScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginGuideScreenState createState() => _LoginGuideScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginGuideScreenState extends State<LoginGuideScreen> {
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
 
@@ -45,10 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
           var cubit = LoginCubit.get(context);
           if (state is LoginSuccessState) {
             if (cubit.userDataModel.code != 433) {
-              AppController.instance.setId(cubit.userDataModel.data!.id!);
-              AppController.instance.hasLogin(true);
-              Navigator.pushReplacementNamed(context, bottomNavRoute);
-            }else{
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => addTourismCondtionsScreen()),
+              );
+            }
+            else{
               Fluttertoast.showToast(
                   msg: 'تأكد من البيانات المدخلة',
                   toastLength: Toast.LENGTH_SHORT,
@@ -111,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 41.h,
                           ),
                           Text(
-                            'login_title'.tr(),
+                            'تسجيل دخول كمرشد سياحي',
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               fontSize: 18.sp,
@@ -164,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: defaultButton(
                               function: () {
                                 if(checkData()){
-                                  cubit.login(
+                                  cubit.loginGuide(
                                       phone: _phoneController.text,
                                       password: _passwordController.text);
                                 }else{
@@ -182,22 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               title: 'login_btn'.tr(),
                             ),
                           ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, registerRoute, (route) => false);
-                            },
-                            child: Text(
-                              'تسجيل جديد',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: 'JF Flat',
-                              ),
-                            ),
-                          ),
+
                           SizedBox(
                             height: 30.h,
                           ),

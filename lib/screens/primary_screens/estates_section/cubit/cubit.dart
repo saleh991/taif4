@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
@@ -240,6 +243,84 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
       emit(AddCommentErrorState());
     });
   }
+
+
+  Future<void> addEstate({
+
+    required String type,
+    required String auth_option,
+    required String ownership,
+    required String payType,
+
+    required String area,
+    required String price,
+    required String description,
+    required String title,
+    required String location_lat,
+    required String location_lng,
+    required File image,
+    required List<File> images,
+    required int es,
+    required int show_phone,
+    required int comments_enabled,
+    required int side_id
+
+
+
+  }) async {
+    String fileName = '';
+
+      fileName =image.path.split('/').last;
+    DioHelper.init();
+    List<String> fileImagesName=[];
+
+    List imagesFile=[];
+
+
+    for(int i=0;i<images.length;i++){
+      fileImagesName.add(images[i].path.split('/').last);
+      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+    }
+    var formData = FormData.fromMap({
+      "side_id":side_id.toString(),
+      "user_id":AppController.instance.getId().toString(),
+     "type":type,
+      "auth_option":auth_option,
+      "location_lng":location_lng,
+      "location_lat":location_lat,
+      "title":title,
+      "description":description,
+      "price":price,
+      "area":area,
+      "ownership":ownership,
+      "estate_category_id":es.toString(),
+      "show_phone":show_phone,
+      "comments_enabled":comments_enabled,
+      "pay_type":payType,
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      for(int i=0;i<imagesFile.length;i++)
+        "images[$i]":
+        imagesFile[i],
+
+
+
+    });
+    DioHelper.postData(url: 'estates', data: formData).then((value) {
+
+      print("value.data");
+      print(value.data);
+      print(value.statusCode);
+      print("value.data");
+
+
+    }).catchError((e) {
+      print('Error  Screen $e');
+
+    });
+  }
+
+
 
 
 

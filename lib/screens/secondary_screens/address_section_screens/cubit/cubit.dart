@@ -489,30 +489,33 @@ var value = 0;
   Future<void> addOffer({
     required String title,
     File? image,
+
+    required String location_lat,
+    required String location_lng,
     required String message,
-    required String user_id,
+
   }) async {
     String fileName = '';
     if(image!=null)
       fileName =image.path.split('/').last;
     DioHelper.init();
     var formData = FormData.fromMap({
-      "user_id":user_id,
+      "user_id":AppController.instance.getId(),
       "tag_id":"3",
       if(image!=null)
         "image":
         await MultipartFile.fromFile(image.path, filename:fileName),
       'title': title,
+      'location_lat': location_lat,
+      'location_lng': location_lng,
       'content': message,
     });
-    print("value.data");
-    print(user_id);
-    print("value.data");
+
 
     DioHelper.postData(url: 'posts',
         data: formData).then((value) {
       print("value.data");
-      print(user_id);
+
       print("value.data");
       if(value.statusCode! >= 200&&value.statusCode!<= 300)
       {

@@ -1,9 +1,12 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
+import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'add_tourist_show/add_tourism_conditon_screen.dart';
+import 'login_guide_screen.dart';
 import 'tourism_guiding_detailes_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
@@ -24,7 +27,7 @@ class TourismGuidingScreen extends StatelessWidget {
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
-            color: const Color(0xff007c9d),
+            color:  Color(0xff007c9d),
           ),
         ),
         actions: [InkWell(onTap:(){
@@ -32,19 +35,17 @@ class TourismGuidingScreen extends StatelessWidget {
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: BlocProvider(
         create:
-            (context) => LocationsCubit()..getGuiding(),
+            (context) => LocationsCubit()..getGuiding()..getUserData(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
           listener: (context, state) {
-            print("state");
-            print(state);
-            print("state");
           },
           builder: (context, state) {
             var guidingCubit = LocationsCubit
                 .get(context)
                 .guidingModel;
-
-
+            var userCubit = LocationsCubit.
+            get(context).
+            userDataModel;
             if ((state is GuidingSuccessState && guidingCubit.data != null)
             ) {
               return SingleChildScrollView(
@@ -113,10 +114,62 @@ class TourismGuidingScreen extends StatelessWidget {
                                   Icons.add,
                                 ),
                                 function: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => addTourismCondtionsScreen()),
-                                  );
+                                  if (userCubit.data!.currentSub != null)
+                                  {
+                                    if (userCubit.data!.currentSub!.remainningAds != 0)
+                                    {
+                                      int id=  AppController.instance.getGuideId();
+                                      if(id>0)
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => addTourismCondtionsScreen()),
+                                        );
+                                      else{
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => LoginGuideScreen()),
+                                        );
+                                      }
+                                    }
+                                    else{
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.INFO,
+                                        animType: AnimType.BOTTOMSLIDE,
+                                        title: 'الاشتراك',
+                                        desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في الارشاد يجب الاشتراك بأحد الباقات ',
+                                        btnCancelOnPress: () {
+
+                                        },
+                                        btnOkText: 'الاشتراك الان',
+                                        btnOkOnPress: () {
+                                          Navigator.pushNamed(context, membershipRoute);
+                                        },
+
+                                        btnCancelText: 'الاشتراك لاحقا',
+                                      )..show();
+                                    }
+                                  }
+
+                                  else{
+                                    AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.INFO,
+                                      animType: AnimType.BOTTOMSLIDE,
+                                      title: 'الاشتراك',
+                                      desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في الارشاد يجب الاشتراك بأحد الباقات ',
+                                      btnCancelOnPress: () {
+
+                                      },
+                                      btnOkText: 'الاشتراك الان',
+                                      btnOkOnPress: () {
+                                        Navigator.pushNamed(context, membershipRoute);
+                                      },
+
+                                      btnCancelText: 'الاشتراك لاحقا',
+                                    )..show();
+                                  }
+
 
 
                                 },

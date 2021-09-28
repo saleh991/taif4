@@ -123,11 +123,11 @@ class _MainAppState extends State<MainApp> {
             favoriteRoute: (context) => FavoriteScreen(),
             membershipRoute: (context) => MembershipScreen(),
             // estateDetailsRoute: (context) => EstateDetailsScreen(),
-            adsConditionRoute: (context) => AdsConditionScreen(),
-            addAdRoute3: (context) => AddAdScreen3(),
+
+
             // memberDetailsRoute: (context) => MemberDetailsScreen(),
             // privateChatRoute: (context) => PrivateChatScreen(),
-            addAdRoute1: (context) => AddAdScreen1(),
+
 
             // addressRoute: (context) => AddressScreen(),
             addAddressRoute: (context) => AddAddressScreen(),

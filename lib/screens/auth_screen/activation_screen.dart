@@ -121,7 +121,7 @@ class _ActivationScreenState extends State<ActivationScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => EditFirstProfileScreen(cubit.userDataModel),
+                                      builder: (context) => EditFirstProfileScreen(widget.phone),
                                     ),
                                   );
                                 },

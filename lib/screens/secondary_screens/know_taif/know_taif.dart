@@ -69,16 +69,16 @@ class KnowTaifScreen extends StatelessWidget {
                               ),
                               child: taifListViewItem(
 
-                                  section: '${cubit.data![index].views??''}',
+                                  section: '${cubit.data![cubit.data!.length-index-1].views??''}',
                                   taifModel: cubit,
-                                  index: index,
+                                  index: cubit.data!.length-index-1,
                                   function: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             TaifDetailsScreen(
-                                              data: cubit.data![index],
+                                              data: cubit.data![cubit.data!.length-index-1],
                                             ),
                                       ),
                                     );

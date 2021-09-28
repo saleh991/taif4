@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
@@ -51,19 +54,35 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
-  void updateUserDataWithoutPassword({
+  Future<void> updateUserDataWithoutPassword({
     required String name,
     required String email,
-  }) {
+    File? image
+  }) async {
+    print(AppController.instance.getId());
     emit(EditProfileLoadingState());
     DioHelper.init();
-    DioHelper.putData(
+    String fileName = '';
+    if(image!=null)
+      fileName =image.path.split('/').last;
+    var formData = FormData.fromMap({
+
+
+      if(image!=null)
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      'email': email,
+      'name': name,
+      '_method':'PUT'
+
+    });
+    DioHelper.postData(
       url: 'users/${AppController.instance.getId()}',
-      data: {
-        'email': email,
-        'name': name,
-      },
+
+      data: formData,
     ).then((value) {
+      print(value.data.toString());
+      print(value.data.toString());
       print(value.data.toString());
       userDataModel = UserDataModel.fromJson(value.data);
       getUserData();
@@ -74,20 +93,33 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
-  void updateUserDataWithPassword({
+  Future<void> updateUserDataWithPassword({
     required String name,
     required String email,
     required String password,
-  }) {
+    File? image
+  }) async {
+    print('ammmmmmmmmm');
     emit(EditProfileLoadingState());
     DioHelper.init();
-    DioHelper.putData(
-      url: 'users/${AppController.instance.getId()}',
-      data: {
-        'email': email,
-        'name': name,
-        'password': password,
-      },
+    print(AppController.instance.getId());
+    String fileName = '';
+    if(image!=null)
+      fileName =image.path.split('/').last;
+    var formData = FormData.fromMap({
+
+
+      if(image!=null)
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      'email': email,
+      'name': name,
+      'password': password,
+      '_method':'PUT'
+    });
+    DioHelper.postData(
+      url: 'users/${ AppController.instance.getId()}',
+      data: formData,
     ).then((value) {
       print(value.data.toString());
       userDataModel = UserDataModel.fromJson(value.data);
@@ -95,6 +127,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       getUserData();
       emit(EditProfileSuccessState());
     }).catchError((e) {
+      print(e);
       emit(EditProfileErrorState());
     });
   }

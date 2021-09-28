@@ -6,9 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/cubit.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
 
-class AdsConditionScreen extends StatelessWidget {
+import 'add_ad_screen1.dart';
 
-   AdsConditionScreen({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class AdsConditionScreen extends StatelessWidget {
+   String payType;
+   AdsConditionScreen({Key? key,required this.payType}) : super(key: key);
 
   EstatesCubit cu=EstatesCubit();
 
@@ -106,7 +109,12 @@ class AdsConditionScreen extends StatelessWidget {
                           child: languagesButton(
                             title: 'أتعهد وأوافق على الشروط',
                             function: () {
-                              Navigator.pushNamed(context, addAdRoute1);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AddAdScreen1(
+                                  payType: payType,
+                                )),
+                              );
                             },
                             color: Color.fromRGBO(31, 135, 22, 1),
                           )),

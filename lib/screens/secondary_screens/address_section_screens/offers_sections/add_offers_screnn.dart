@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,8 +39,12 @@ class _addOffersScreenState extends State<addOffersScreen> {
 
 
   var picker = ImagePicker();
-
+  static const LatLng center = const LatLng(21.437273, 40.512714);
+  Map<MarkerId, Marker> markers = {};
+  String? long;
+  String? lat;
   LocationsCubit cu=LocationsCubit();
+  Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
   Future<void> getImage() async {
     final pickerFile = await picker.pickImage(
@@ -51,11 +59,36 @@ class _addOffersScreenState extends State<addOffersScreen> {
     }
   }
 
+  void currentLocation() async {
+    final GoogleMapController controller = await _controller.future;
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
+
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        zoom: 17.0,
+      ),
+    ));
+  }
+
 
 
 
   @override
   void initState() {
+    MarkerId markerId = MarkerId('orgin');
+    Marker marker =
+    Marker(markerId: markerId,
+        icon: BitmapDescriptor.defaultMarker ,
+        position: center);
+    markers[markerId] = marker;
 
     _titleController = TextEditingController();
 
@@ -204,8 +237,73 @@ class _addOffersScreenState extends State<addOffersScreen> {
                     contactTextField(
                       hint: '',
                       controller: _messageController,
+                      line: 5
 
                     ),
+                    SizedBox(
+                      height: 22.h,
+                    ),
+                    SizedBox(
+                      height: 299.h,
+                      width: ScreenUtil().screenWidth - 40,
+                      child: GoogleMap(
+                        mapType: MapType.normal,
+
+                        myLocationEnabled: true,
+                        tiltGesturesEnabled: true,
+                        compassEnabled: true,
+                        myLocationButtonEnabled: true,
+                        scrollGesturesEnabled: true,
+                        zoomGesturesEnabled: true,
+
+                        onMapCreated: (GoogleMapController controller) {
+                          _controller.complete(controller);
+                        },
+
+
+                        markers: Set<Marker>.of(markers.values),
+                        gestureRecognizers: Set()
+                          ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+                          ..add(Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()))
+                          ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
+                          ..add(Factory<VerticalDragGestureRecognizer>(
+                                  () => VerticalDragGestureRecognizer())),
+                        onTap: (latAndLon){
+                          print(latAndLon);
+                          MarkerId markerId = MarkerId('orgin');
+                          Marker marker =
+                          Marker(markerId: markerId,
+                              icon: BitmapDescriptor.defaultMarker ,
+                              position: latAndLon);
+                          markers[markerId] = marker;
+                          lat=latAndLon.latitude.toString();
+                          long=latAndLon.longitude.toString();
+                          setState(() {
+
+                          });
+                        },
+                        initialCameraPosition: CameraPosition(
+                          target: center,
+
+                          zoom: 15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 35.h,
+                    ),
+                    SizedBox(
+                        width: 354.w,
+                        height: 51.h,
+                        child: languagesButtonWithIcon(
+                          title: 'موقعي الحالي',
+                          icon: Icon(Icons.edit_location_outlined),
+                          function: () async{
+                            currentLocation();
+
+                          },
+                          color: Color(0xFF007C9D),
+                        )),
 
 
 
@@ -216,9 +314,7 @@ class _addOffersScreenState extends State<addOffersScreen> {
                     SizedBox(
                       height: 25.h,
                     ),
-                    SizedBox(
-                      height: 35.h,
-                    ),
+
                     SizedBox(
                         width: 354.w,
                         height: 51.h,
@@ -264,7 +360,8 @@ class _addOffersScreenState extends State<addOffersScreen> {
 
 
                             cu.addOffer(
-                                user_id: userCubit.data!.id!.toString(),
+                                location_lat: lat!,
+                                location_lng: long!,
                                 title: _titleController.text,
                                 image: profileImage,
                                 message: _messageController.text);
@@ -282,7 +379,7 @@ class _addOffersScreenState extends State<addOffersScreen> {
                           color: Color(0xFF007C9D),
                         )),
                     SizedBox(
-                      height: 35.h,
+                      height: 55.h,
                     ),
                   ],
                 ),

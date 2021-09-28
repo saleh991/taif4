@@ -1,13 +1,13 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
-
+import '../../../global.dart';
+import 'ads_conditions_screen.dart';
 import 'cubit/cubit.dart';
 import 'estate_map.dart';
 
@@ -83,8 +83,10 @@ class _EstateScreenState extends State<EstateScreen> {
                                     {
                                       if (userCubit.data!.currentSub!.remainningAds != 0)
                                       {
-                                        Navigator.pushNamed(
-                                            context, adsConditionRoute);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => AdsConditionScreen(payType: 'sub',)),
+                                        );
                                       }
                                       else{
                                         AwesomeDialog(
@@ -92,9 +94,19 @@ class _EstateScreenState extends State<EstateScreen> {
                                           dialogType: DialogType.INFO,
                                           animType: AnimType.BOTTOMSLIDE,
                                           title: 'الاشتراك',
-                                          desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في العقار يمكنك الاشتراك بأحد الباقات',
-                                          btnCancelOnPress: () {},
-                                          btnOkOnPress: () {},
+                                          desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في العقار يجب الاشتراك بأحد الباقات او البيع مقابل نسبة',
+                                          btnCancelOnPress: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => AdsConditionScreen(payType: 'per',)),
+                                            );
+                                          },
+                                          btnOkText: 'الاشتراك الان',
+                                          btnOkOnPress: () {
+                                            Navigator.pushNamed(context, membershipRoute);
+                                          },
+
+                                          btnCancelText: 'البيع مقابل نسبة',
                                         )..show();
                                       }
                                     }
@@ -105,13 +117,21 @@ class _EstateScreenState extends State<EstateScreen> {
                                         dialogType: DialogType.INFO,
                                         animType: AnimType.BOTTOMSLIDE,
                                         title: 'الاشتراك',
-                                        desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في العقار يمكنك الاشتراك بأحد الباقات',
-                                        btnCancelOnPress: () {},
+                                        desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في العقار يجب الاشتراك بأحد الباقات او البيع مقابل نسبة',
+                                        btnCancelOnPress: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => AdsConditionScreen(payType: 'per',)),
+                                          );
+
+
+                                        },
                                         btnOkText: 'الاشتراك الان',
                                         btnOkOnPress: () {
                                           Navigator.pushNamed(context, membershipRoute);
                                         },
-                                        btnCancelText: 'الاشتراك لاحقا',
+
+                                        btnCancelText: 'البيع مقابل نسبة',
                                       )..show();
                                     }
                                 },
@@ -154,7 +174,19 @@ class _EstateScreenState extends State<EstateScreen> {
                                       '$value',
                                       style: TextStyle(color: Color(0xFF06A1CB),fontFamily: fontName),
                                     ), // Not necessary for Option 1
-                                    items: cubitCategory!.main![0].categories!
+                                    items: [
+                                      if(cubitCategory!.main![0].categories!.length>0)
+                                      cubitCategory.main![0].categories![0],
+                                      if(cubitCategory.main![0].categories!.length>1)
+                                      cubitCategory.main![0].categories![1],
+                                      if(cubitCategory.main![0].categories!.length>2&&
+                                       Global.hideDocumentations==0
+                                      )
+                                      cubitCategory.main![0].categories![2],
+                                      if(cubitCategory.main![0].categories!.length>3&&
+                                          Global.hideContracts==0)
+                                      cubitCategory.main![0].categories![3],
+                                    ]
                                         .map((value) {
                                       return DropdownMenuItem<String>(
                                         value: value.name,

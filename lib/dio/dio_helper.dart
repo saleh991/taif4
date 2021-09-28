@@ -16,6 +16,9 @@ class DioHelper {
           'lang': 'ar',
         },
         baseUrl: URL,
+        connectTimeout: 20000,
+        receiveTimeout: 20000,
+
         receiveDataWhenStatusError: true,
 
       ),
@@ -52,18 +55,13 @@ class DioHelper {
 
   static Future<Response> putData({
     required String url,
-    Map<String, dynamic>? data,
+    var data,
     Map<String, dynamic>? query,
     String token = '',
   }) async {
     return await dio.put(
       url,
       data: data,
-      options: Options(
-        headers: {
-          'Authorization': token,
-        },
-      ),
       queryParameters: query,
     );
   }

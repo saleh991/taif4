@@ -78,17 +78,9 @@ class OfferDetailsScreen extends StatelessWidget {
                 'https://taif-app.com/storage/app/${data.image}',
                 height: 178.h,
                 width: 246.w,
-                fit: BoxFit.contain,
+                fit: BoxFit.fill,
               ),
-              SizedBox(
-                height: 35.h,
-              ),
-              Image.network(
-                'https://taif-app.com/storage/app/${data.image}',
-                height: 219.h,
-                width: 380.w,
-                fit: BoxFit.contain,
-              ),
+
               SizedBox(
                 height: 35.h,
               ),
@@ -96,7 +88,7 @@ class OfferDetailsScreen extends StatelessWidget {
              '${data.content}',
                 style: TextStyle(
                   fontFamily: fontName,
-                  fontSize: 15.sp,
+                  fontSize: 17.sp,
                   color: const Color(0xff3897b2),
                 ),
                 textAlign: TextAlign.center,

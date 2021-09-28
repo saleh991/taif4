@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -12,30 +11,40 @@ import 'package:location/location.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taif/models/haraj_category.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:video_player/video_player.dart';
 
-class AddAddressScreen extends StatefulWidget {
+import '../addedd_succefully_screen.dart';
+
+// ignore: camel_case_types
+class addOffersScreen extends StatefulWidget {
+
 
 
   @override
-  _AddAddressScreenState createState() => _AddAddressScreenState();
+  _addOffersScreenState createState() => _addOffersScreenState();
 }
 
-class _AddAddressScreenState extends State<AddAddressScreen> {
-  late TextEditingController _detailsController;
+class _addOffersScreenState extends State<addOffersScreen> {
+
   late TextEditingController _titleController;
-  VideoPlayerController? _videoPlayerController;
-   File? profileImage;
-  File? video;
-  String? long;
-  String? lat;
-  late List<File> otherImage;
+  late TextEditingController _messageController;
+
+
+
+  File? profileImage;
+
+
+
   var picker = ImagePicker();
   static const LatLng center = const LatLng(21.437273, 40.512714);
   Map<MarkerId, Marker> markers = {};
+  String? long;
+  String? lat;
   LocationsCubit cu=LocationsCubit();
+  Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
   Future<void> getImage() async {
     final pickerFile = await picker.pickImage(
@@ -69,73 +78,36 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     ));
   }
 
-  Future<void> selectImages() async {
-    var pickerFile = await picker.pickMultiImage(
-
-    );
-    if (pickerFile != null) {
-      for(var im in pickerFile)
-        {
-          File file = File(im.path);
-          otherImage.add(file);
-        }
-      print(' Image Selected');
-      print(otherImage);
-      print(' Image Selected');
 
 
-    } else {
-      print('No Image Selected');
-
-    }
-  }
-
-
-  Future<void> getVideo() async {
-    final pickerFile = await picker.pickVideo(
-      source: ImageSource.gallery,
-
-    );
-    if (pickerFile != null) {
-      video = File(pickerFile.path);
-      _videoPlayerController=VideoPlayerController.file(video!)..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-
-        });
-      });
-
-    } else {
-      print('No video Selected');
-
-    }
-  }
 
   @override
   void initState() {
-    lat=center.latitude.toString();
-    long=center.longitude.toString();
-    otherImage=[];
-    super.initState();
     MarkerId markerId = MarkerId('orgin');
     Marker marker =
     Marker(markerId: markerId,
         icon: BitmapDescriptor.defaultMarker ,
         position: center);
     markers[markerId] = marker;
-    _detailsController = TextEditingController();
-    _titleController=TextEditingController();
+
+    _titleController = TextEditingController();
+
+    _messageController = TextEditingController();
+
+
+
+    super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _detailsController.dispose();
     _titleController.dispose();
-    _videoPlayerController!.dispose();
+    _messageController.dispose();
+
   }
 
-  Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+
 
 
 
@@ -148,7 +120,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'إضافة موقع',
+          'إضافة عرض تجاري',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -160,12 +132,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         },child: Image.asset('images/notification_icon.png'))],      ),
       body: BlocProvider(
         create:
-            (context) => cu,
+            (context) => cu..getUserData(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
           listener: (context, state) {
 
           },
           builder: (context, state) {
+            var userCubit = LocationsCubit.get(context).userDataModel;
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -222,124 +195,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    if(otherImage.isEmpty)
-                    addFromGalleryItems(
-                        title: 'أرفق صور إضافية',
-                        icon: Icons.photo_library_sharp,
-                        function: () async {
-                        await  selectImages();
-                        setState(() {
 
-                        });
-                        })else
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 150.h,
-                            child: ListView.builder(
-                              itemCount: otherImage.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                              return  Padding(
-                                padding:  EdgeInsets.only(
-                                  left: 8.w
-                                ),
-                                child: Container(
-                                  height: 130.h,
-                                  width: 130.h,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: FileImage(otherImage[index],
-                                          ),
-                                          fit: BoxFit.fill
-                                      )
-                                  ),
-                                ),
-                              );
-                            },),
-                          ),
-                          SizedBox(
-                            width: 150.w,
-                            child: languagesButtonWithIcon(
-                              title:  "تغير الصور ",
-                              icon: Icon(
-                                Icons.camera,
-                              ),
-                              function: () async {
-                                await selectImages();
-                                setState(() {
-
-                                });
-                              },
-                              color: Color(0xff25afff),
-                            ),
-                          )
-                        ],
-                      ),
-
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    if(video==null)
-                    addFromGalleryItems(
-                        title: 'أرفق فيديو',
-                        icon: Icons.video_call_outlined,
-                        function: () async{
-                        await  getVideo();
-                        print("video");
-                        print(video);
-                        print("video");
-                        setState(() {
-
-                        });
-                        })else
-                      Column(
-                        children: [
-                          Container(
-                            height: 300.h,
-                            width: ScreenUtil().screenWidth*0.9,
-                            child: _videoPlayerController!.value.isInitialized
-                                ? InkWell(
-                              onTap: (){
-                                _videoPlayerController!.value.isPlaying
-                                    ? _videoPlayerController!.pause()
-                                    : _videoPlayerController!.play();
-                              },
-                                  child: AspectRatio(
-                              aspectRatio: _videoPlayerController!.value.aspectRatio,
-                              child: VideoPlayer(_videoPlayerController!),
-                            ),
-                                )
-                                : Container(),
-                          ),
-                          SizedBox(
-                            width: 150.w,
-                            child: languagesButtonWithIcon(
-                              title:  "تغير الفيديو ",
-                              icon: Icon(
-                                Icons.video_call_outlined,
-                              ),
-                              function: () async {
-                                print(video);
-                                await getVideo();
-                                print(video);
-                                setState(() {
-
-                                });
-                              },
-                              color: Color(0xff25afff),
-                            ),
-                          )
-                        ],
-                      ),
-
-                    SizedBox(
-                      height: 20.h,
-                    ),
                     Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
@@ -352,20 +208,22 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 12.h,
                     ),
                     contactTextField(
                       hint: '',
                       controller: _titleController,
 
                     ),
+
+
                     SizedBox(
-                      height: 20.h,
+                      height: 12.h,
                     ),
                     Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
-                        'إضافة التفاصيل',
+                        'تفاصيل',
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 15.sp,
@@ -378,43 +236,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     ),
                     contactTextField(
                       hint: '',
-                      controller: _detailsController,
-                      line: 10,
+                      controller: _messageController,
+                      line: 5
+
                     ),
                     SizedBox(
-                      height: 25.h,
-                    ),
-                    Container(
-                      height: 82.h,
-                      width: 378.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(17.0),
-                        color: const Color(0xffffffff),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xffd5ddeb),
-                            offset: Offset(0, 3),
-                            blurRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          'مطلوب إضافة الموقع على الخريطةلكي يصل الزوار للموقع',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 18,
-                            color: const Color(0xff007c9d),
-                            height: 1.5,
-                          ),
-                          textHeightBehavior:
-                          TextHeightBehavior(applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
+                      height: 22.h,
                     ),
                     SizedBox(
                       height: 299.h,
@@ -477,9 +304,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           },
                           color: Color(0xFF007C9D),
                         )),
+
+
+
+
+
+
+
                     SizedBox(
                       height: 25.h,
                     ),
+
                     SizedBox(
                         width: 354.w,
                         height: 51.h,
@@ -497,6 +332,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
                                 btnOkOnPress: () {},
                               )..show();
+
                             else   if(_titleController.text.length==0||_titleController.text.trim()=='')
                               AwesomeDialog(
                                 context: context,
@@ -508,7 +344,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
                                 btnOkOnPress: () {},
                               )..show();
-                            else   if(_detailsController.text.length==0||_detailsController.text.trim()=='')
+                            else   if(_messageController.text.length==0||_messageController.text.trim()=='')
                               AwesomeDialog(
                                 context: context,
                                 dialogType: DialogType.INFO,
@@ -519,22 +355,32 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
                                 btnOkOnPress: () {},
                               )..show();
-                            LocationsCubit()..addLocation(
-                                title: _titleController.text,
-                                phone: '1234',
-                                content: _detailsController.text,
-                                location_service_category_id: '1',
+                            else
+                            { print('111111111');
+
+
+                            cu.addOffer(
                                 location_lat: lat!,
                                 location_lng: long!,
-                                image: profileImage!);
-                            Navigator.pushReplacementNamed(
-                                context, addedSuccefullyRoute);
+                                title: _titleController.text,
+                                image: profileImage,
+                                message: _messageController.text);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => AddedSuccefullyScreen()),
+                            );
+                            }
+
+
+
+
+
                           },
                           color: Color(0xFF007C9D),
                         )),
                     SizedBox(
-                      height: 35.h,
-                    )
+                      height: 55.h,
+                    ),
                   ],
                 ),
               ),

@@ -99,7 +99,7 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
             if (state is AddGuideErrorState) {
               Fluttertoast.showToast(
                   msg: 'حدث خطأ ما',
-                  toastLength: Toast.LENGTH_SHORT,
+                  toastLength: Toast.LENGTH_LONG,
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2,
                   backgroundColor: Colors.grey,
@@ -128,6 +128,16 @@ class _AddGuideScreenState extends State<AddGuideScreen> {
                    MaterialPageRoute(builder: (context) => AddedSuccefullyScreen()),
                  );
                 }
+              else{
+                Fluttertoast.showToast(
+                    msg: state.addGuideModel.errors_string.toString(),
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 2,
+                    backgroundColor: Colors.grey,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              }
             }
           },
           builder: (context, state) {

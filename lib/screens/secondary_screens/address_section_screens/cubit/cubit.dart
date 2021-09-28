@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
@@ -23,6 +25,7 @@ import 'package:taif/models/user_data_model.dart';
 import 'package:taif/models/guide_model.dart';
 import 'package:taif/models/add_guide_model.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/offers_sections/add_offers_screnn.dart';
 
 
 class LocationsCubit extends Cubit<LocationsState> {
@@ -65,13 +68,43 @@ class LocationsCubit extends Cubit<LocationsState> {
     });
   }
 
-  void getLocations() {
+
+
+  Future<void> getLocations() async {
     emit(LocationsLoadingState());
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
     DioHelper.init();
-    DioHelper.getData(url: 'location_services').then((value) {
+    DioHelper.getData(url: 'location_services').then((value) async {
       if (value.statusCode == 200) {
         print('LOCATIONS ID USER ${AppController.instance.getId()}');
+
+        print('LOCATIONS ID USER ${AppController.instance.getId()}');
         locationModel = LocationModel.fromJson(value.data);
+        for(var lo in locationModel.data!)
+          {  lo.km=0;
+            if(lo.locationLng!=null)
+              {
+                double _distanceInMeters = Geolocator.distanceBetween(
+                  double?.tryParse(lo.locationLat!)!,
+                  double?.tryParse(lo.locationLng!)!,
+                  currentLocation.latitude!,
+                  currentLocation.longitude!,
+                );
+                print("_distanceInMeters");
+                print(_distanceInMeters/1000);
+                lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+                print( lo.km);
+                print("_distanceInMeters");
+              }
+
+          }
+
         emit(LocationsSuccessState());
       }
 
@@ -450,6 +483,55 @@ var value = 0;
 
     });
   }
+
+
+
+  Future<void> addOffer({
+    required String title,
+    File? image,
+
+    required String location_lat,
+    required String location_lng,
+    required String message,
+
+  }) async {
+    String fileName = '';
+    if(image!=null)
+      fileName =image.path.split('/').last;
+    DioHelper.init();
+    var formData = FormData.fromMap({
+      "user_id":AppController.instance.getId(),
+      "tag_id":"3",
+      if(image!=null)
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      'title': title,
+      'location_lat': location_lat,
+      'location_lng': location_lng,
+      'content': message,
+    });
+
+
+    DioHelper.postData(url: 'posts',
+        data: formData).then((value) {
+      print("value.data");
+
+      print("value.data");
+      if(value.statusCode! >= 200&&value.statusCode!<= 300)
+      {
+        print("value.data");
+        print(value.data);
+        print("value.data");
+
+
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+
+
   Future<void> addTouristShow({
 
 

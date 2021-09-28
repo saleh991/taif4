@@ -12,27 +12,24 @@ import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cub
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:video_player/video_player.dart';
 
-import '../addedd_succefully_screen.dart';
+import 'add_ad_screen2.dart';
 
-class AddHarajsScreen extends StatefulWidget {
-  late  HarajCategory harajCategory;
-  AddHarajsScreen({
-    required this.harajCategory
-});
+
+
+class AddAdScreen1 extends StatefulWidget {
+  String payType;
+  AddAdScreen1({required this.payType});
 
   @override
-  _AddHarajsScreenState createState() => _AddHarajsScreenState();
+  _AddAdScreen1State createState() => _AddAdScreen1State();
 }
 
-class _AddHarajsScreenState extends State<AddHarajsScreen> {
-  var value = 'اختر القسم';
-  int id=0;
-  late TextEditingController _titleController;
-  late TextEditingController _messageController;
-  late TextEditingController _harajCategoryController;
+class _AddAdScreen1State extends State<AddAdScreen1> {
+
+
 
   VideoPlayerController? _videoPlayerController;
-  File? profileImage;
+    File? profileImage;
   File? video;
 
   late List<File> otherImage;
@@ -102,10 +99,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
 
     otherImage=[];
 
-    _titleController = TextEditingController();
 
-    _messageController = TextEditingController();
-    _harajCategoryController = TextEditingController();
 
 
     super.initState();
@@ -114,12 +108,9 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
   @override
   void dispose() {
     super.dispose();
-    _titleController.dispose();
 
-    _messageController.dispose();
-    _harajCategoryController.dispose();
     if(_videoPlayerController!=null)
-    _videoPlayerController!.dispose();
+      _videoPlayerController!.dispose();
   }
 
 
@@ -135,7 +126,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'إضافة حراج',
+          'إضافة اعلان للعقارات',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -164,7 +155,7 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                     ),
                     if(profileImage==null)
                       addFromGalleryItems(
-                          title: 'صورة شخصية', icon: Icons.camera_alt, function: () async {
+                          title: 'ارفق صورة', icon: Icons.camera_alt, function: () async {
                         print(profileImage);
                         await getImage();
                         print(profileImage);
@@ -332,113 +323,16 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                       height: 12.h,
                     ),
 
-                    Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Text(
-                        'الفئة',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 15.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Container(
-                      width: ScreenUtil().screenWidth - 40,
-                      height: 55.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: const Color(0xffffffff),
-                        border:
-                        Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
-                      ),
-                      child: Center(
-                        child: ListTile(
-                          leading: Image.asset('images/placeholder.png'),
-                          title: StatefulBuilder(
-                            builder: (context, setState){
-                              return DropdownButton<String>(
-                                isExpanded: true,
-                                iconSize: 35,
-                                iconEnabledColor: Color(0xFF007C9D),
-                                hint: Text(
-                                  '$value',
-                                  style: TextStyle(color: Color(0xFF06A1CB)),
-                                ),
-                                items: widget.harajCategory.data!.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.name,
-                                    child: new Text('${value.name}'),
-                                    onTap: (){
-                                      id = value.id!;
-                                      print(id);
-                                    },
-                                  );
 
-                                }).toList(),
-                                onChanged: (value1) {
-                                  setState(() {
-                                    value = value1!;
-                                  });
-
-                                },
-                              );
-                            },
-
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Text(
-                        'العنوان',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 15.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    contactTextField(
-                      hint: '',
-                      controller: _titleController,
-
-                    ),
 
 
                     SizedBox(
                       height: 12.h,
                     ),
-                    Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Text(
-                        'تفاصيل',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 15.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    contactTextField(
-                      hint: '',
-                      controller: _messageController,
 
-                    ),
+
+
+
 
 
 
@@ -453,70 +347,31 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                         width: 354.w,
                         height: 51.h,
                         child: languagesButton(
-                          title: 'إضافة ونشر',
+                          title: 'استمرار',
                           function: () {
                             if(profileImage==null)
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.INFO,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: 'نقص في المعلومات',
-                                desc: 'يجب اضافة صورة شخصية',
-                                btnOkText: 'تم',
+                              {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يجب ارفاق صورة ',
+                                  btnOkText: 'تم',
 
-                                btnOkOnPress: () {},
-                              )..show();
-                            else   if(id==0)
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.INFO,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: 'نقص في المعلومات',
-                                desc: 'يجب اختيار فئة',
-                                btnOkText: 'تم',
-
-                                btnOkOnPress: () {},
-                              )..show();
-                            else   if(_titleController.text.length==0||_titleController.text.trim()=='')
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.INFO,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: 'نقص في المعلومات',
-                                desc: 'يجب اضافة عنوان',
-                                btnOkText: 'تم',
-
-                                btnOkOnPress: () {},
-                              )..show();
-                            else   if(_messageController.text.length==0||_messageController.text.trim()=='')
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.INFO,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: 'نقص في المعلومات',
-                                desc: 'يجب اضافة تفاصيل',
-                                btnOkText: 'تم',
-
-                                btnOkOnPress: () {},
-                              )..show();
-                            else
-                              { print('111111111');
-                                List<File> videos=[];
-                                if(video!=null)
-                                videos.add(video!);
-                                cu.addHaraj(haraj_category_id: id.toString(),
-                                    user_id: userCubit.data!.id!.toString(),
-                                    title: _titleController.text,
-                                    image: profileImage,
-                                    images: otherImage,
-                                    videos: videos,
-                                    message: _messageController.text);
-                                 Navigator.push(
-                                   context,
-                                 MaterialPageRoute(builder: (context) => AddedSuccefullyScreen()),
-                                  );
+                                  btnOkOnPress: () {},
+                                )..show();
                               }
-
+                            else{
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AddAdScreen2(
+                                  image: profileImage!,
+                                  payType: widget.payType,
+                                  otherImages: otherImage,
+                                )),
+                              );
+                            }
 
 
 

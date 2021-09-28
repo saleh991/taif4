@@ -9,31 +9,29 @@ import 'package:taif/helper/constants.dart';
 import 'package:taif/screens/auth_screen/login_screen/cubit/cubit.dart';
 import 'package:taif/screens/auth_screen/login_screen/cubit/states.dart';
 
-import '../reset_screen.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ResetScreen extends StatefulWidget {
+  const ResetScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _ResetScreenState createState() => _ResetScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _phoneController;
-  late TextEditingController _passwordController;
+class _ResetScreenState extends State<ResetScreen> {
+  late TextEditingController _emailController;
+
 
   @override
   void initState() {
     super.initState();
-    _phoneController = TextEditingController();
-    _passwordController = TextEditingController();
+    _emailController = TextEditingController();
+
   }
 
   @override
   void dispose() {
     super.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
+    _emailController.dispose();
+
   }
 
   @override
@@ -102,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      height: 560.h,
+                      height: 500.h,
                       width: 350.w,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -111,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 41.h,
                           ),
                           Text(
-                            'login_title'.tr(),
+                            'البريد الالكتروني',
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               fontSize: 18.sp,
@@ -126,35 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: defaultTextField(
-                              hint: 'text_field_login'.tr(),
-                              controller: _phoneController,
+                              hint: 'البريد الالكتروني',
+                              controller: _emailController,
                               keyboardType: TextInputType.number,
                             ),
                           ),
                           SizedBox(
                             height: 15.h,
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: defaultTextField(
-                              function: () {
-                                cubit.changeVisibility();
-                              },
-                              hint: 'كلمة المرور',
-                              controller: _passwordController,
-                              hasSuffix: true,
-                              obscureText: cubit.visibility ? true : false,
-                              suffixIcon: Icon(
-                                cubit.visibility
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Color(0xFF007C9D),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 39.h,
-                          ),
+
+
                           SizedBox(
                             height: 18.h,
                           ),
@@ -164,12 +143,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: defaultButton(
                               function: () {
                                 if(checkData()){
-                                  cubit.login(
-                                      phone: _phoneController.text,
-                                      password: _passwordController.text);
+
                                 }else{
                                   Fluttertoast.showToast(
-                                      msg: 'جميع البيانات مطلوبة',
+                                      msg: 'ادخل البرد الالكتروني',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 2,
@@ -185,37 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: 30.h,
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, registerRoute, (route) => false);
-                            },
-                            child: Text(
-                              'تسجيل جديد',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: 'JF Flat',
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ResetScreen()),
-                              );
-                            },
-                            child: Text(
-                              ' استعادة كلمة السر ',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: 'JF Flat',
-                              ),
-                            ),
-                          ),
+
                         ],
                       ),
                     ),
@@ -229,7 +176,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
   bool checkData(){
-    return _phoneController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty;
+    return _emailController.text.isNotEmpty ;
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
@@ -7,6 +10,7 @@ import 'package:taif/models/estate_comment_model.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/estate_only_model.dart';
 import 'package:taif/models/map_model.dart';
+import 'package:taif/models/terms_model.dart';
 import 'package:taif/models/user_comment.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
@@ -17,6 +21,7 @@ class EstatesCubit extends Cubit<EstatesState> {
   static EstatesCubit get(context) => BlocProvider.of(context);
 
   EstateModel estateModel = EstateModel();
+  TermsModel termsModel = TermsModel();
   EstateModel myEstateModel = EstateModel();
   UserCommentModel userCommentModel = UserCommentModel();
   List<UserCommentModel> commentList = [];
@@ -59,6 +64,7 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
       emit(EstateOnlyErrorState());
     });
   }
+
   void getMyEstates() {
     emit(MyEstatesLoadingState());
     DioHelper.init();
@@ -201,6 +207,24 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
   });
 }
 
+  Future<void> getTermsAndAgreements({
+    required int id,
+  }) async {
+    emit(GetTermsLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'pages/$id').then((value) {
+      if (value.statusCode == 200) {
+        print('getTerms');
+
+        termsModel = TermsModel.fromJson(value.data);
+        emit(GetTermsSuccessState());
+      }
+    }).catchError((e) {
+      print('error $e');
+      emit(GetTermsErrorState());
+    });
+  }
+
   void addComment({
     required String content,
     required int estateId,
@@ -220,23 +244,84 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
     });
   }
 
-//   void getUserData({
-//     required int id,
-//   }) {
-//     emit(UserDataWithCommentLoadingState());
-//     DioHelper.init();
-//     DioHelper.getData(url: getAnyUserData(id)).then((value) {
-//       if (value.statusCode == 200) {
-//         print('valueeee ${value.data}');
-//         userDataModel = UserDataModel.fromJson(value.data);
-// estateModel.data!
-//         commentList.add(EstateModel.fromJson(us.data.));
-//       }
-//       emit(UserDataWithCommentSuccessState());
-//     }).catchError((e) {
-//       print('user Comment error ');
-//       emit(UserDataWithCommentErrorState());
-//     });
-//   }
+
+  Future<void> addEstate({
+
+    required String type,
+    required String auth_option,
+    required String ownership,
+    required String payType,
+
+    required String area,
+    required String price,
+    required String description,
+    required String title,
+    required String location_lat,
+    required String location_lng,
+    required File image,
+    required List<File> images,
+    required int es,
+    required int show_phone,
+    required int comments_enabled,
+    required int side_id
+
+
+
+  }) async {
+    String fileName = '';
+
+      fileName =image.path.split('/').last;
+    DioHelper.init();
+    List<String> fileImagesName=[];
+
+    List imagesFile=[];
+
+
+    for(int i=0;i<images.length;i++){
+      fileImagesName.add(images[i].path.split('/').last);
+      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+    }
+    var formData = FormData.fromMap({
+      "side_id":side_id.toString(),
+      "user_id":AppController.instance.getId().toString(),
+     "type":type,
+      "auth_option":auth_option,
+      "location_lng":location_lng,
+      "location_lat":location_lat,
+      "title":title,
+      "description":description,
+      "price":price,
+      "area":area,
+      "ownership":ownership,
+      "estate_category_id":es.toString(),
+      "show_phone":show_phone,
+      "comments_enabled":comments_enabled,
+      "pay_type":payType,
+        "image":
+        await MultipartFile.fromFile(image.path, filename:fileName),
+      for(int i=0;i<imagesFile.length;i++)
+        "images[$i]":
+        imagesFile[i],
+
+
+
+    });
+    DioHelper.postData(url: 'estates', data: formData).then((value) {
+
+      print("value.data");
+      print(value.data);
+      print(value.statusCode);
+      print("value.data");
+
+
+    }).catchError((e) {
+      print('Error  Screen $e');
+
+    });
+  }
+
+
+
+
 
 }

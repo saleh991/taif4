@@ -128,6 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                             if (cubit.data!.currentSub != null)
+                              if(cubit.data!.end!=null)
                               Text(
                                 '${cubit.data!.end}',
                                 style: TextStyle(
@@ -138,6 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             if (cubit.data!.currentSub != null)
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'عدد الاعلانات المتبقي: ',
@@ -248,17 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 title: 'خطط الاشتراكات',
                 icon: 'images/member_card.png',
               ),
-              Divider(
-                height: 0,
-                thickness: 1.5,
-              ),
-              profileItem(
-                function: () {
-                  Navigator.pushNamed(context, addAdRoute3);
-                },
-                title: 'أعلن معنا',
-                icon: 'images/add_ads.png',
-              ),
+      
               Divider(
                 height: 0,
                 thickness: 1.5,

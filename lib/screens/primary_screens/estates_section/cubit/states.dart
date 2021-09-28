@@ -62,3 +62,9 @@ class GetCommentSuccessState extends EstatesState{}
 
 class GetCommentErrorState extends EstatesState{}
 
+class GetTermsLoadingState extends EstatesState{}
+
+class GetTermsSuccessState extends EstatesState{}
+
+class GetTermsErrorState extends EstatesState{}
+

@@ -38,6 +38,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
 
   List<String> img = [];
 
+
   final CarouselController _controller = CarouselController();
   late TextEditingController _detailsController;
   late TextEditingController _commentController;
@@ -45,6 +46,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
 
   @override
   void initState() {
+    print("widget.estateData.type");
+    print(widget.estateData.authOption);
+    print("widget.estateData.type");
     super.initState();
     _detailsController = TextEditingController();
     _commentController = TextEditingController();
@@ -96,7 +100,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                   }
                 },
                 builder: (context, state) {
-                  var estateCubit = EstatesCubit.get(context).estateOnlyModel;
+
                   var userCubit = EstatesCubit.get(context).userDataModel;
                   var cubitG = EstatesCubit.get(context);
                   if (state is GetCommentSuccessState || state is EstatesSuccessState) {
@@ -113,8 +117,8 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                     _current = index;
                                   });
                                 }),
-                            items: estateCubit.data!.images != null
-                                ? estateCubit.data!.images!.map((id) {
+                            items: widget.estateData.images != null
+                                ? widget.estateData.images!.map((id) {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Container(
@@ -167,8 +171,8 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: estateCubit.data!.images != null
-                                ? estateCubit.data!.images!
+                            children:widget.estateData.images != null
+                                ? widget.estateData.images!
                                 .asMap()
                                 .entries
                                 .map((entry) {
@@ -222,7 +226,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                '${estateCubit.data!.title}',
+                                '${widget.estateData.title}',
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
                                   fontSize: 23,
@@ -239,7 +243,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             Image.asset('images/area.png'),
                             'المساحة ',
                             Text(
-                              '${estateCubit.data!.area} م',
+                              '${widget.estateData.area} م',
                               style: TextStyle(
                                 fontFamily: 'JF Flat',
                                 fontSize: 21.sp,
@@ -248,12 +252,12 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                               textAlign: TextAlign.right,
                             ),
                           ),
-                          if (estateCubit.data!.side != null)
+                          if (widget.estateData.side != null)
                             listTileItem(
                               Image.asset('images/direction.png'),
                               'الواجهة ',
                               Text(
-                                '${estateCubit.data!.side!.name}',
+                                '${widget.estateData.side!.name}',
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
                                   fontSize: 21.sp,
@@ -278,30 +282,97 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              SizedBox(
+                              Container(
+
+                                decoration:widget.estateData.authOption=='staying'? BoxDecoration(
+                                  color: Color(0xFF1F8716),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2
+                                  ),
+                                  borderRadius: BorderRadius.circular(12)
+                                ):
+                                BoxDecoration(
+                                    color: Color(0xFF1F8716),
+
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
                                 height: 41.h,
                                 width: 113.w,
-                                child: languagesButton(
-                                    title: 'سكني',
-                                    function: () {},
-                                    color: Color(0xFF1F8716)),
+                                child:Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'سكني',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+
                               ),
-                              SizedBox(
+                              Container(
+                                decoration:widget.estateData.authOption=='trading'? BoxDecoration(
+                                    color: Color(0xFF06A1CB),
+                                    border: Border.all(
+                                        color: Colors.black,
+                                        width: 2
+                                    ),
+                                    borderRadius: BorderRadius.circular(12)
+                                ):BoxDecoration(
+                                    color: Color(0xFF06A1CB),
+
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
                                 height: 41.h,
                                 width: 113.w,
-                                child: languagesButton(
-                                    title: 'تجاري',
-                                    function: () {},
-                                    color: Color(0xFF06A1CB)),
+                                child:Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'تجاري',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+
                               ),
-                              SizedBox(
+                              Container(
+                                decoration:widget.estateData.authOption=='all'?  BoxDecoration(
+                                    color:  Color(0xFF007C9D),
+                                    border: Border.all(
+                                        color: Colors.black,
+                                        width: 2
+                                    ),
+                                    borderRadius: BorderRadius.circular(12)
+                                ):BoxDecoration(
+                                    color:  Color(0xFF007C9D),
+
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
                                 height: 41.h,
                                 width: 113.w,
-                                child: languagesButton(
-                                    title: 'الكل',
-                                    function: () {},
-                                    color: Color(0xFF007C9D)),
+                                child:Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'الكل',
+                                    style: TextStyle(
+                                      fontFamily: 'JF Flat',
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+
                               ),
+
+
                             ],
                           ),
                           SizedBox(
@@ -325,7 +396,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      '${estateCubit.data!.description}',
+                                      '${widget.estateData.description}',
                                       style: TextStyle(
                                         fontFamily: 'JF Flat',
                                         fontSize: 15.sp,
@@ -472,7 +543,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             height: 10.h,
                           ),
                           Text(
-                            '${estateCubit.data!.user!.name}',
+                            '${widget.estateData.user!.name}',
                             style: TextStyle(
                               fontFamily: fontName,
                               fontSize: 19,
@@ -497,7 +568,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                 child: InkWell(
                                   onTap: () {
                                     EstatesCubit.get(context)
-                                        .createChat(subjectId: estateCubit.data!.id!);
+                                        .createChat(subjectId: widget.estateData.id!);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -516,9 +587,11 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                   ),
                                 ),
                               ),
+                              if (widget.estateData.showPhone == 1)
                               SizedBox(
                                 width: 20.w,
                               ),
+                              if (widget.estateData.showPhone == 1)
                               Container(
                                 height: 34.h,
                                 width: 154.w,
@@ -553,7 +626,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           SizedBox(
                             height: 15.h,
                           ),
-                          if (estateCubit.data!.commentsEnabled == 1)
+                          if (widget.estateData.commentsEnabled == 1)
                             ListTile(
                               leading: Icon(
                                 Icons.chat,
@@ -568,17 +641,17 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                 ),
                               ),
                             ),
-                          if (estateCubit.data!.commentsEnabled == 1)
+                          if (widget.estateData.commentsEnabled == 1)
                             SizedBox(
                               height: 5.h,
                             ),
-                          if (estateCubit.data!.commentsEnabled == 1)
+                          if (widget.estateData.commentsEnabled == 1)
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: contactTextField(
                                   hint: '', controller: _commentController, line: 2),
                             ),
-                          if (estateCubit.data!.commentsEnabled == 1)
+                          if (widget.estateData.commentsEnabled == 1)
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: Align(
@@ -588,12 +661,12 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                     cubitG.addComment(content: _commentController.text, estateId: widget.estateData.id!);
                                   }, title: 'إضافة')),
                             ),
-                          if (estateCubit.data!.commentsEnabled == 1)
+                          if (widget.estateData.commentsEnabled == 1)
                             listTileItem(
                                 Image.asset('images/chat2.png'),
                                 'التعليقات',
                                 Text(
-                                  '${estateCubit.data!.comments!.length}',
+                                  '${widget.estateData.comments!.length}',
                                   style: TextStyle(
                                     fontFamily: 'JF Flat',
                                     fontSize: 21.sp,
@@ -601,9 +674,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                   ),
                                   textAlign: TextAlign.center,
                                 )),
-                          if (estateCubit.data!.comments!.length != 0)
+                          if (widget.estateData.comments!.length != 0)
                             BlocProvider(
-                              create: (context)=>EstatesCubit()..getCommentEstate(estateId: estateCubit.data!.id!),
+                              create: (context)=>EstatesCubit()..getCommentEstate(estateId: widget.estateData.id!),
                               child: BlocConsumer<EstatesCubit,EstatesState>(
                                 listener: (context,state){},
                                 builder: (context,state){
@@ -613,6 +686,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                     return ListView.builder(
                                         itemCount: widget.estateData.comments!.length,
                                         shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
                                           return BlocProvider(
                                             create: (context) => EstatesCubit()
@@ -636,7 +710,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                                       leading: CircleAvatar(
                                                         maxRadius: 25,
                                                         backgroundImage: NetworkImage(
-                                                          'https://opencart3.const-tech.biz/tf/storage/app/${userCubit.data!.image == null ? 'users/D1T_miAWwAE6KhM.jpg-4-1629048410.jpg':userCubit.data!.image}',
+                                                          'https://taif-app.com/storage/app/${userCubit.data!.image == null ? 'users/D1T_miAWwAE6KhM.jpg-4-1629048410.jpg':userCubit.data!.image}',
                                                         ),
                                                       ),
                                                       title: Text(
@@ -678,59 +752,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                               ),
                             ),
 
-                          // ListView.builder(
-                          //     physics: NeverScrollableScrollPhysics(),
-                          //     itemCount: 1,
-                          //     shrinkWrap: true,
-                          //     itemBuilder: (context, index) {
-                          //       return BlocProvider(
-                          //         create: (context) => EstatesCubit()
-                          //           ..getAnyUserData(
-                          //               id: widget.estateData.comments![index].userId!),
-                          //         child: BlocConsumer<EstatesCubit, EstatesState>(
-                          //           listener: (context, state) {},
-                          //           builder: (context, state) {
-                          //             var cubit = EstatesCubit.get(context);
-                          //             if(cubit.commentList != []){
-                          //               print('comment not null');
-                          //               return Container(
-                          //                 color: Colors.white,
-                          //                 margin: EdgeInsets.only(top: 10.h),
-                          //                 child: ListTile(
-                          //                   leading: CircleAvatar(
-                          //                     maxRadius: 25,
-                          //                     backgroundImage: NetworkImage(
-                          //                         'https://opencart3.const-tech.biz/tf/storage/app/${cubit.commentList[index].image}'),
-                          //                   ),
-                          //                   title: Text(
-                          //                     '${cubit.commentList[index].name}',
-                          //                     style: TextStyle(
-                          //                       fontFamily: 'JF Flat',
-                          //                       fontSize: 21.sp,
-                          //                       color: const Color(0xff5d9b58),
-                          //                     ),
-                          //                   ),
-                          //                   subtitle: Text(
-                          //                     '${cubit.commentList[index].comment}',
-                          //                     style: TextStyle(
-                          //                       fontFamily: 'JF Flat',
-                          //                       fontSize: 19.sp,
-                          //                       color: const Color(0xff6a768b),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               );
-                          //
-                          //             }else{
-                          //               return Center(
-                          //                 child: CircularProgressIndicator(),
-                          //               );
-                          //             }
-                          //
-                          //           },
-                          //         ),
-                          //       );
-                          //     }),
+
                           if (userCubit.data!.currentSub == null)
                             Container(
                               height: 95.h,

@@ -13,6 +13,7 @@ import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/models/bank_transactions_model.dart';
 import 'package:taif/models/package_model.dart';
 import 'package:taif/models/request_package_model.dart';
+import 'package:taif/models/user_data_model.dart';
 import 'package:taif/screens/primary_screens/membership_screen/cubit/state.dart';
 
 
@@ -23,6 +24,7 @@ class PackagesCubit extends Cubit<PackagesState> {
   PackageModel packageModel = PackageModel();
   RequestPackageModel requestPackageModel = RequestPackageModel();
   BankTransactionsModel bankTransactionsModel = BankTransactionsModel();
+  UserDataModel userDataModel = UserDataModel();
 
   void getPackages() {
     emit(PackagesLoadingState());
@@ -36,6 +38,25 @@ class PackagesCubit extends Cubit<PackagesState> {
     }).catchError((e) {
       print('packages error ');
       emit(PackagesErrorState());
+    });
+  }
+
+  void getUserData() {
+
+    DioHelper.init();
+    DioHelper.getData(url: 'users/${AppController.instance.getId()}')
+        .then((value) {
+      print('i am here estate ');
+      print('user id ${AppController.instance.getId()}');
+      if (value.statusCode == 200) {
+        print('here profile estate');
+        userDataModel = UserDataModel.fromJson(value.data);
+      }
+
+
+    }).catchError((e) {
+      print('userData error estate  $e');
+
     });
   }
 
@@ -59,35 +80,41 @@ class PackagesCubit extends Cubit<PackagesState> {
     });
   }
 
-  // void bankTransactions({
-  //   required int subscriptionId,
-  //   required String name,
-  //   required String accountNumber,
-  //   required String date,
-  //   required String amount,
-  // }) {
-  //   emit(BankTransactionsLoadingState());
-  //   DioHelper.init();
-  //   DioHelper.postData(url: BANK_TRANSACTIONS, data: {
-  //     'user_id': AppController.instance.getId(),
-  //     'subscription_id': subscriptionId,
-  //     'account_name': name,
-  //     'account_number': accountNumber,
-  //     'bank_name': 'alrajhi',
-  //     'date': date,
-  //     'amount': amount,
-  //   }).then((value) {
-  //     if (value.statusCode == 200) {
-  //       print('bank transactions done');
-  //       print('$value');
-  //       bankTransactionsModel = BankTransactionsModel.fromJson(value.data);
-  //     }
-  //     emit(BankTransactionsSuccessState());
-  //   }).catchError((e) {
-  //     print('bank transactions done error $e');
-  //     emit(BankTransactionsErrorState());
-  //   });
-  // }
+   Future<void> bankTransactions({
+     required int subscriptionId,
+     required String name,
+     required String accountNumber,
+     required String date,
+     required String amount,
+     required File image,
+   }) async {
+     emit(BankTransactionsLoadingState());
+     String fileName = '';
+       fileName =image.path.split('/').last;
+     DioHelper.init();
+     var formData = FormData.fromMap({
+       'user_id': AppController.instance.getId(),
+       'subscription_id': subscriptionId,
+       "image":
+       await MultipartFile.fromFile(image.path, filename:fileName),
+       'account_name': name,
+       'account_number': accountNumber,
+       'bank_name': 'alrajhi',
+       'date': date,
+       'amount': amount,
+     });
+     DioHelper.postData(url: BANK_TRANSACTIONS, data:formData).then((value) {
+       if (value.statusCode == 200) {
+         print('bank transactions done');
+         print('$value');
+        bankTransactionsModel = BankTransactionsModel.fromJson(value.data);
+      }
+       emit(BankTransactionsSuccessState());
+     }).catchError((e) {
+       print('bank transactions done error $e');
+      emit(BankTransactionsErrorState());
+    });
+   }
 
   File? bankImage;
   var picker = ImagePicker();

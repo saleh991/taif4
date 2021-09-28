@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
@@ -19,6 +20,11 @@ class PrivateChatScreen extends StatefulWidget {
 
 class _PrivateChatScreenState extends State<PrivateChatScreen> {
   late TextEditingController _contentController;
+  ScrollController _scrollController =  ScrollController();
+
+  void _scrollToBottom() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  }
 
   @override
   void initState() {
@@ -36,8 +42,9 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      drawer: Drawer(),
+
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
         elevation: 0,
@@ -160,19 +167,34 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                         height: 15.h,
                       ),
                       BlocConsumer<ChatCubit, ChatState>(
-                        listener: (context, state) {},
+                        listener: (context, state) {
+                          if (state is ChatSuccessState) {
+                            Future.delayed(Duration(
+                              seconds: 1
+                            ));
+                           }
+
+                        },
                         builder: (context, state) {
                           var cubit = ChatCubit.get(context).chatModel;
+
                           if (state is ChatSuccessState) {
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                physics: BouncingScrollPhysics(),
-                                itemCount:
-                                    cubit.chats![widget.index].messages!.length,
-                                itemBuilder: (context, index) {
-                                  return chatMessageItem(
-                                      cubit.chats![widget.index], index);
-                                });
+
+
+                            return SizedBox(
+                              height: 490.h,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  controller: _scrollController,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount:
+                                      cubit.chats![widget.index].messages!.length,
+                                  itemBuilder: (context, index) {
+                                    return chatMessageItem(
+                                        cubit.chats![widget.index], index);
+                                  }),
+                            );
+
                           } else {
                             return Center(
                               child: CircularProgressIndicator(),
@@ -257,6 +279,9 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                                           ChatCubit.get(context).sendMessage(
                                               content: _contentController.text,
                                               chatId: widget.chats.id!);
+                                          _contentController.text='';
+                                          FocusScope.of(context).unfocus();
+
                                         }
                                       },
                                     ));
@@ -269,6 +294,20 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
               )
             ],
           ),
+        ),
+      ),
+      floatingActionButton:  Padding(
+        padding:  EdgeInsets.symmetric(vertical: 70.h),
+        child: FloatingActionButton(
+            child: new Icon(Icons.keyboard_arrow_down_outlined),
+            onPressed: () {
+
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                curve: Curves.easeOut,
+                duration: const Duration(milliseconds: 700),
+              );
+            }
         ),
       ),
     );

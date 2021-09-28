@@ -36,7 +36,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       backgroundColor: Color(0xFFF4F6FC),
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
-        leading: Icon(Icons.menu),
+
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,

@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
@@ -10,6 +15,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/package_model.dart';
 import 'package:taif/screens/primary_screens/membership_screen/cubit/cubit.dart';
 import 'package:taif/screens/primary_screens/membership_screen/cubit/state.dart';
+
+import 'member_succefully_screen.dart';
 
 class MemberDetailsScreen extends StatefulWidget {
   final PackageModel packageModel;
@@ -28,10 +35,25 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
   late TextEditingController _idAccountController;
   late TextEditingController _priceController;
   late TextEditingController _dateController;
+   File? imageProfile;
+  var picker = ImagePicker();
+
+  Future<void> getImage() async {
+    final pickerFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickerFile != null) {
+      imageProfile = File(pickerFile.path);
+
+    } else {
+      print('No Image Selected');
+
+    }
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     _nameController = TextEditingController();
     _idAccountController = TextEditingController();
@@ -41,7 +63,7 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+
     super.dispose();
     _nameController.dispose();
     _idAccountController.dispose();
@@ -52,7 +74,7 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
         elevation: 0,
@@ -251,57 +273,114 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        contactTextField(
-                          hint: 'تاريخ التحويل',
+                        TextField(
+                          readOnly: true,
+                          onTap: (){
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2018, 3, 5),
+                                maxTime: DateTime.now(),
+                                onChanged: (date) {
+                                }, onConfirm: (date) {
+                                  _dateController.text= DateFormat('yyyy-MM-dd','en').format(date);
+                                },
+                                currentTime: DateTime.now(), locale: LocaleType.ar);
+                             },
+
+
+
                           controller: _dateController,
+                          style: TextStyle(
+                              fontFamily: 'JF Flat', fontSize: 20.sp, color: Colors.black),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Color.fromRGBO(213, 221, 235, 1), width: 1),
+                            ),
+                            hintText: 'تاريخ التحويل',
+                            hintStyle: TextStyle(
+                              fontFamily: 'JF Flat',
+                              fontSize: 20.sp,
+                              color: const Color(0x853a3a3a),
+                            ),
+                          ),
                         ),
+
                         SizedBox(
                           height: 10.h,
                         ),
-                        InkWell(
-                          onTap: () {
-                            cubit.getImage();
-                          },
-                          child: Align(
-                            alignment: AlignmentDirectional.topStart,
-                            child: Container(
-                              height: 41.h,
-                              width: 179.w,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  membershipText(
-                                      color: Color(0xff754dad),
-                                      text: 'أرفق صورة الأيصال'),
-                                  Image.asset(
-                                    'images/gallery.png',
-                                    height: 21.h,
-                                    width: 28.w,
-                                    fit: BoxFit.contain,
+                        if(imageProfile==null)
+                          InkWell(
+                            onTap: () async{
+                              await getImage();
+                              setState(() {
+
+                              });
+                            },
+                            child: Align(
+                              alignment: AlignmentDirectional.topStart,
+                              child: Container(
+                                height: 41.h,
+                                width: 179.w,
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    membershipText(
+                                        color: Color(0xff754dad),
+                                        text: 'أرفق صورة الأيصال'),
+                                    Image.asset(
+                                      'images/gallery.png',
+                                      height: 21.h,
+                                      width: 28.w,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: const Color(0xffffffff),
+                                  border: Border.all(
+                                      width: 1.0, color: const Color(0xff179bd7)),
+                                ),
+                              ),
+                            ),
+                          )  else
+                          Column(
+                            children: [
+                              Container(
+                                height: 130.h,
+                                width: 130.h,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: FileImage(imageProfile!,
+                                        ),
+                                        fit: BoxFit.fill
+                                    )
+                                ),
+                              ),
+                              SizedBox(
+                                width: 150.w,
+                                child: languagesButtonWithIcon(
+                                  title:  "تغير الصورة ",
+                                  icon: Icon(
+                                    Icons.camera_alt_outlined,
                                   ),
-                                ],
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.0),
-                                color: const Color(0xffffffff),
-                                border: Border.all(
-                                    width: 1.0, color: const Color(0xff179bd7)),
-                              ),
-                            ),
+                                  function: () async {
+                                    print(imageProfile);
+                                    await getImage();
+                                    print(imageProfile);
+                                    setState(() {
+
+                                    });
+                                  },
+                                  color: Color(0xff25afff),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                        if (cubit.bankImage != null)
-                          Container(
-                            height: 140.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: FileImage(cubit.bankImage!),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
+
                         SizedBox(
                           height: 33.h,
                         ),
@@ -311,33 +390,31 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
                           child: languagesButton(
                             title: 'أرسال',
                             function: () {
-                              // cubit.upload();
-                              // cubit.test(
-                              // subscriptionId: widget.subscriptionId,
-                              // name: _nameController.text,
-                              // accountNumber: _idAccountController.text,
-                              // date: _dateController.text,
-                              // amount: _priceController.text,
-                              // );
-                              // if (checkData()) {
-                              //   cubit.bankTransactions(
-                              //     subscriptionId: widget.subscriptionId,
-                              //     name: _nameController.text,
-                              //     accountNumber: _idAccountController.text,
-                              //     image: cubit.imageProfile!,
-                              //     date: _dateController.text,
-                              //     amount: _priceController.text,
-                              //   );
-                              // } else {
-                              //   Fluttertoast.showToast(
-                              //       msg: 'جميع البيانات مطلوبة',
-                              //       toastLength: Toast.LENGTH_SHORT,
-                              //       gravity: ToastGravity.BOTTOM,
-                              //       timeInSecForIosWeb: 2,
-                              //       backgroundColor: Colors.red,
-                              //       textColor: Colors.white,
-                              //       fontSize: 16.0);
-                              // }
+                               if (checkData()) {
+                                 cubit.bankTransactions(
+                                   subscriptionId: widget.subscriptionId,
+                                   name: _nameController.text,
+                                   accountNumber: _idAccountController.text,
+                                   image: imageProfile!,
+                                   date: _dateController.text,
+                                   amount: _priceController.text,
+                                 );
+                                 Navigator.push(
+                                   context,
+                                   MaterialPageRoute(builder: (context) => MemberSuccefullyScreen()),
+                                 );
+
+
+                               } else {
+                                 Fluttertoast.showToast(
+                                     msg: 'جميع البيانات مطلوبة',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                     gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 2,
+                                     backgroundColor: Colors.red,
+                                   textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
                             },
                             color: Color.fromRGBO(23, 155, 215, 1),
                           ),
@@ -361,6 +438,6 @@ class _MemberDetailsScreenState extends State<MemberDetailsScreen> {
     return _nameController.text.isNotEmpty &&
         _dateController.text.isNotEmpty &&
         _idAccountController.text.isNotEmpty &&
-        _priceController.text.isNotEmpty;
+        _priceController.text.isNotEmpty&& imageProfile!=null;
   }
 }

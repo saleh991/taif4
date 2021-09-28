@@ -39,4 +39,30 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginErrorState());
     });
   }
+
+
+
+  void loginGuide({
+    required String phone,
+    required String password,
+  }) {
+    emit(LoginLoadingState());
+    DioHelper.init();
+    DioHelper.postData(url: 'guides/login', data: {
+      'phone': phone,
+      'password': password,
+    }).then((value) {
+      userDataModel = UserDataModel.fromJson(value.data);
+      AppController.instance.setGuideId(userDataModel.data!.id!);
+      print(value.data);
+      emit(LoginSuccessState());
+    }).catchError((e) {
+      print('Error Login Screen $e');
+      emit(LoginErrorState());
+    });
+  }
+
+
+
+
 }

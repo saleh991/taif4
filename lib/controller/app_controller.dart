@@ -87,6 +87,7 @@ class AppController{
 
   Future logout()async{
     await _sharedPreferences.setInt('id',0);
+    await _sharedPreferences.setInt('guide',0);
     await _sharedPreferences.setBool('loggedIn',false);
     await _sharedPreferences.setString('name','');
     await _sharedPreferences.setString('email','');

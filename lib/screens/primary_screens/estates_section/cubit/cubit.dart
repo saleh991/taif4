@@ -236,7 +236,10 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
       'estate_id': estateId,
       'user_id': AppController.instance.getId(),
     }).then((value) {
-      getAnyUserData(estateId: estateId,id: AppController.instance.getId());
+      print("value");
+      print(value);
+      print("ba");
+
       emit(AddCommentSuccessState());
     }).catchError((e) {
       print('Error Login Screen $e');

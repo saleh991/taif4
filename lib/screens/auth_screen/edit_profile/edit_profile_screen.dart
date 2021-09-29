@@ -64,7 +64,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
-        leading: Icon(Icons.menu),
         elevation: 0,
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
@@ -128,17 +127,54 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     Align(
                       alignment: Alignment.center,
                       child:cubit.userDataModel.data!.image ==null?
-                      CircleAvatar(
-                        radius: 70,
-                        backgroundColor:
-                        Theme.of(context).scaffoldBackgroundColor,
-                        child: Image.asset(
-                          'images/profile.png',
-                          height: 130.h,
-                          width: 130.h,
-                          fit: BoxFit.fill,
-                        ),
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+
+                          Container(
+                            height: 130.h,
+                            width: 130.h,
+
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  'images/profile.png',
+
+
+                                ),
+
+                              ),
+
+                            ),
+
+                          ),
+                          Positioned(
+                            right: -22.w,
+                            top: 40.h,
+                            child: GestureDetector(
+                              onTap: () async {
+                                await getImage();
+                                setState(() {
+
+                                });
+
+                              },
+                              child: CircleAvatar(
+                                radius: 26.h,
+                                backgroundColor: Color(0xFFffffff),
+                                child:
+                                Icon(
+                                  Icons.edit,
+                                  color: Color(0xFF007C9D),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ):
+
                       Stack(
                         clipBehavior: Clip.none,
                         children: [

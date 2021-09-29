@@ -598,7 +598,7 @@ var value = 0;
   Future<void> addReportTourism({
     required String report_title,
     required String report_content,
-    required String user_id,
+
   }) async {
 
     DioHelper.init();
@@ -606,7 +606,7 @@ var value = 0;
 
       'report_title': report_title,
       'report_content': report_content,
-      'report_by': user_id,
+      'report_by': AppController.instance.getId(),
       'report_on': '1',
       'report_on_class': 'App\\Models\\Estate',
 

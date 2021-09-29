@@ -17,7 +17,7 @@ import 'package:taif/models/location_model.dart';
 import 'package:taif/models/notification_model.dart';
 import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/taif_model.dart';
-import 'package:taif/screens/primary_screens/estates_section/estate_details_screen.dart';
+import 'package:taif/screens/primary_screens/estates_section/estate_details2_screen.dart';
 import 'package:taif/screens/secondary_screens/favorite_details.dart';
 
 Widget languagesButton({

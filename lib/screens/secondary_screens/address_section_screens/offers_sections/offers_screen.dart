@@ -7,7 +7,7 @@ import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cub
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/offers_sections/offer_detailes_screen.dart';
 
-import 'add_offers_screnn.dart';
+import 'add_offers_conditon_screen.dart';
 
 class OffersScreen extends StatelessWidget {
   @override
@@ -55,7 +55,7 @@ class OffersScreen extends StatelessWidget {
                             function: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => addOffersScreen()),
+                                MaterialPageRoute(builder: (context) => AddOfferCondtionsScreen()),
                               );
 
                             },

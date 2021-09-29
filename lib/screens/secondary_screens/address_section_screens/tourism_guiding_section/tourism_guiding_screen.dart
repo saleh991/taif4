@@ -114,61 +114,41 @@ class TourismGuidingScreen extends StatelessWidget {
                                   Icons.add,
                                 ),
                                 function: () {
-                                  if (userCubit.data!.currentSub != null)
-                                  {
-                                    if (userCubit.data!.currentSub!.remainningAds != 0)
-                                    {
-                                      int id=  AppController.instance.getGuideId();
-                                      if(id>0)
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => addTourismCondtionsScreen()),
-                                        );
-                                      else{
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => LoginGuideScreen()),
-                                        );
-                                      }
-                                    }
-                                    else{
-                                      AwesomeDialog(
-                                        context: context,
-                                        dialogType: DialogType.INFO,
-                                        animType: AnimType.BOTTOMSLIDE,
-                                        title: 'الاشتراك',
-                                        desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في الارشاد يجب الاشتراك بأحد الباقات ',
-                                        btnCancelOnPress: () {
 
-                                        },
-                                        btnOkText: 'الاشتراك الان',
-                                        btnOkOnPress: () {
-                                          Navigator.pushNamed(context, membershipRoute);
-                                        },
-
-                                        btnCancelText: 'الاشتراك لاحقا',
-                                      )..show();
-                                    }
-                                  }
-
+                                  int id=  AppController.instance.getGuideId();
+                                  if(id>0)
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => addTourismCondtionsScreen()),
+                                    );
                                   else{
                                     AwesomeDialog(
                                       context: context,
                                       dialogType: DialogType.INFO,
                                       animType: AnimType.BOTTOMSLIDE,
-                                      title: 'الاشتراك',
-                                      desc: 'غير مشترك حتى تتمكن من اضافة مواضيع في الارشاد يجب الاشتراك بأحد الباقات ',
+                                      title: 'اضافة موضوع للارشاد السياحي',
+                                      desc: 'هذا القسم خاص بالمرشدين السياحين   ',
                                       btnCancelOnPress: () {
 
                                       },
-                                      btnOkText: 'الاشتراك الان',
+                                      btnOkText: 'تسجيل الدخول كمرشد',
                                       btnOkOnPress: () {
-                                        Navigator.pushNamed(context, membershipRoute);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => LoginGuideScreen()),
+                                        );
+
                                       },
 
-                                      btnCancelText: 'الاشتراك لاحقا',
+                                      btnCancelText: 'الغاء',
                                     )..show();
+
                                   }
+
+
+
+
+
 
 
 

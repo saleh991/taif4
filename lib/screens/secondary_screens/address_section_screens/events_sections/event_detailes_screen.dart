@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/helper/constants.dart';
@@ -55,23 +56,30 @@ class EventDetailsScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '${data.title}',
-                      style: TextStyle(
-                        fontFamily: fontName,
-                        fontSize: 18.sp,
-                        color: const Color(0xff1e8aa8),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        '${data.title}',
+                        style: TextStyle(
+                          fontFamily: fontName,
+                          fontSize: 18.sp,
+                          color: const Color(0xff1e8aa8),
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    Text(
-                      '${data.createdAt}',
-                      style: TextStyle(
-                        fontFamily: fontName,
-                        fontSize: 10.sp,
-                        color: const Color(0xfff92a0a),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        DateFormat('yyyy-MM-dd').format(DateTime.parse( data.createdAt.toString())),
+
+                        style: TextStyle(
+                          fontFamily: fontName,
+                          fontSize: 14.sp,
+                          color: const Color(0xfff92a0a),
+                        ),
+                        textAlign: TextAlign.end,
                       ),
-                      textAlign: TextAlign.center,
                     )
                   ],
                 ),
@@ -88,11 +96,19 @@ class EventDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 35.h,
               ),
-              Image.network(
-                'https://taif-app.com/storage/app/${data.image}',
-                height: 219.h,
-                width: 380.w,
-                fit: BoxFit.contain,
+               for(var im in data.images!)
+              Column(
+                children: [
+                  Image.network(
+                    'https://taif-app.com/storage/app/${im.path}',
+                    height: 219.h,
+                    width: 380.w,
+                    fit: BoxFit.contain,
+                  ),
+                  SizedBox(
+                    height: 35.h,
+                  ),
+                ],
               ),
               SizedBox(
                 height: 35.h,

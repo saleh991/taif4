@@ -26,11 +26,11 @@ const String SERVICES_CATEGORY = 'home_service_categories';
 const String LEASE = 'lease_contracts';
 const String REQUEST_LEASE = 'lease_contract_orders';
 const String REQUEST_DOCUMENTATION = 'documentation_orders';
-const String EVENT_SECTIONS = 'events_sections';
+
 const String OFFERS_SECTIONS = 'offers_sections';
 const String MAP = 'app/categories';
 const String DOCUMENTATIONS = 'documentations';
-const String TAIF = 'posts?tag_id=2';
+
 
 
 

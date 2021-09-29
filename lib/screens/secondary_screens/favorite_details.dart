@@ -256,8 +256,10 @@ class _FavoriteDetailsScreenState extends State<FavoriteDetailsScreen> {
                               btnOkText: 'ابلاغ',
                               btnCancelText: 'الغاء',
                               btnOkOnPress: () {
-                                LocationsCubit()..addReportTourism(report_title: _causeController.text,
-                                    report_content: _detailsController.text
+                                LocationsCubit()..addReportTourism(
+                                    report_title: _causeController.text,
+                                    report_content: _detailsController.text,
+                                    report_on_class: 'App\\Models\\LocationService'
 
                                 ).then((value) {
                                   Fluttertoast.showToast(

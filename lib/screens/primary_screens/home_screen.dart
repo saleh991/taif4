@@ -8,6 +8,7 @@ import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/address_screen.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/events_sections/events_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/harajs_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -112,7 +113,12 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   tapHomeItem(
                                     function: () {
-                                      Navigator.pushNamed(context, eventRoute);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => EventsScreen()),
+                                      );
+
+
                                     },
                                     title: 'فعاليات الطائف',
                                     color: Color(0xc2034f64),

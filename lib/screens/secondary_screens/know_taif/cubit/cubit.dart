@@ -19,7 +19,7 @@ class TaifCubit extends Cubit<TaifState> {
   void getTaif() {
     emit(GetTaifLoadingState());
     DioHelper.init();
-    DioHelper.getData(url: TAIF).then((value) {
+    DioHelper.getData(url: 'posts?tag_id=1').then((value) {
       if (value.statusCode == 200) {
         print('taif');
         taifModel = TaifModel.fromJson(value.data);

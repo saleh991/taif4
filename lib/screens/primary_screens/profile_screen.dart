@@ -9,6 +9,9 @@ import 'package:taif/screens/auth_screen/edit_profile/cubit/cubit.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/state.dart';
 import 'package:taif/screens/auth_screen/edit_profile/edit_profile_screen.dart';
 
+import 'membership_screen/membership_screen.dart';
+import 'membership_screen/membership_screen_sub.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -17,16 +20,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late var cubit;
+  var cubit;
+
 
   @override
   void initState() {
     super.initState();
-    ProfileCubit.get(context).getUserData();
-    Future.delayed(Duration(seconds: 3), () {
-      cubit = ProfileCubit.get(context).userDataModel;
-    });
-    // print('${ProfileCubit.get(context).userDataModel}');
+
+
+
   }
 
   @override
@@ -47,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {},
                   builder: (context, state) {
-                    var cubit = ProfileCubit.get(context).userDataModel;
+                     cubit = ProfileCubit.get(context).userDataModel;
                     // var editCubit = ProfileCubit.get(context).name;
                     if (state is ProfileSuccessState) {
                       print('my edit name is ${cubit.data!.name}');
@@ -246,7 +248,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               profileItem(
                 function: () {
-                  Navigator.pushNamed(context, membershipRoute);
+                  if(cubit!=null)
+                    {
+                      if (cubit.data!.currentSub != null)
+                        {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MembershipScreenSub(user: cubit,)),
+                          );
+                        }
+                      else{
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+                        );
+                      }
+
+                    }
+
                 },
                 title: 'خطط الاشتراكات',
                 icon: 'images/member_card.png',

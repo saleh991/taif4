@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/cubit.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
+import 'package:taif/screens/primary_screens/membership_screen/membership_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -858,7 +859,10 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             alignment: Alignment.centerLeft,
                             child: defaultButton(
                                 function: () {
-                                  Navigator.pushNamed(context, membershipRoute);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+                                  );
                                 },
                                 title: 'اشترك الآن')),
                       ),

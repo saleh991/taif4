@@ -54,9 +54,10 @@ class MembershipScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            var cubit = PackagesCubit.get(context);
+
             var user = PackagesCubit.get(context).userDataModel;
-            if ((user.data)!=null)
+            var cubit = PackagesCubit.get(context);
+            if (user.data!=null)
               {
                 if (user.data!.currentSub != null)
                   {

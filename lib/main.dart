@@ -121,7 +121,7 @@ class _MainAppState extends State<MainApp> {
             eventRoute: (context) => EventsScreen(),
             offerRoute: (context) => OffersScreen(),
             favoriteRoute: (context) => FavoriteScreen(),
-            membershipRoute: (context) => MembershipScreen(),
+
             // estateDetailsRoute: (context) => EstateDetailsScreen(),
 
 
@@ -142,7 +142,7 @@ class _MainAppState extends State<MainApp> {
             // requestRentalRightRoute:(context)=>RequestRentalRightScreen(),
             contractsRoute: (context) => ContractsScreen(),
             documentationRoute: (context) => DocumentationScreen(),
-            taifRoute: (context) => KnowTaifScreen(),
+
             tourismGuidingRoute: (context) => TourismGuidingScreen(),
             '/test': (context) => Test()
           },

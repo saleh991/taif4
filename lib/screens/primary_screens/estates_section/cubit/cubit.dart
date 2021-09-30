@@ -247,6 +247,28 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
     });
   }
 
+  void addToFavEstate({
+    required int estateId,
+    required String model,
+  }) {
+
+    DioHelper.init();
+    DioHelper.postData(url: 'favorites', data: {
+      'model': model,
+      'id': estateId,
+      'user_id': AppController.instance.getId(),
+    }).then((value) {
+      print("value");
+      print(value);
+      print("ba");
+
+
+    }).catchError((e) {
+      print('Error add Fav $e');
+
+    });
+  }
+
 
   Future<void> addEstate({
 

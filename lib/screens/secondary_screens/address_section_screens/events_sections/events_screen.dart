@@ -33,9 +33,9 @@ class EventsScreen extends StatelessWidget {
         child: BlocConsumer<LocationsCubit, LocationsState>(
           listener: (context, state) {},
           builder: (context, state) {
-            var sectionCubit = LocationsCubit.get(context).eventSections;
+
             var eventCubit = LocationsCubit.get(context).eventModel;
-            if (state is EventSuccessState && eventCubit.data != null) {
+            if (state is EventSectionsSuccessState && eventCubit.data != null) {
               return SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: SizedBox(
@@ -67,10 +67,7 @@ class EventsScreen extends StatelessWidget {
                                 ],
                               ),
                               child: eventListViewItem(
-                                  section: sectionCubit
-                                      .data![eventCubit.data!.length-index-1]
-                                      .name ??
-                                      '',
+
                                   eventModel: eventCubit,
                                   index: eventCubit.data!.length-index-1,
                                   function: () {

@@ -6,6 +6,7 @@ import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
+import 'package:taif/screens/primary_screens/membership_screen/membership_screen.dart';
 import '../../../global.dart';
 import 'ads_conditions_screen.dart';
 import 'cubit/cubit.dart';
@@ -103,7 +104,11 @@ class _EstateScreenState extends State<EstateScreen> {
                                           },
                                           btnOkText: 'الاشتراك الان',
                                           btnOkOnPress: () {
-                                            Navigator.pushNamed(context, membershipRoute);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+                                            );
+
                                           },
 
                                           btnCancelText: 'البيع مقابل نسبة',
@@ -128,7 +133,10 @@ class _EstateScreenState extends State<EstateScreen> {
                                         },
                                         btnOkText: 'الاشتراك الان',
                                         btnOkOnPress: () {
-                                          Navigator.pushNamed(context, membershipRoute);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+                                          );
                                         },
 
                                         btnCancelText: 'البيع مقابل نسبة',

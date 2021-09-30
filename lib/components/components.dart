@@ -678,6 +678,7 @@ ListView favoriteItem({
       shrinkWrap: true,
       itemCount: favoriteModel.data!.appModelsEstate!.length,
       itemBuilder: (context, index) {
+        if(favoriteModel.data!.appModelsEstate![index].favorite !=null)
         return Container(
           height: 105.h,
           // width: 394.w,
@@ -838,6 +839,8 @@ ListView favoriteItem({
             ),
           ),
         );
+        else
+          return SizedBox();
       });
 }
 
@@ -1963,7 +1966,7 @@ InkWell harajslistViewItem(
 InkWell eventListViewItem(
     {required VoidCallback function,
     required EventModel eventModel,
-    required String section,
+
     required int index}) {
   return InkWell(
     onTap: function,
@@ -2015,7 +2018,7 @@ InkWell eventListViewItem(
                           width: 5.w,
                         ),
                         Text(
-                          '$section',
+                          '',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
                             fontSize: 13.sp,

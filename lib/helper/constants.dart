@@ -26,11 +26,11 @@ const String SERVICES_CATEGORY = 'home_service_categories';
 const String LEASE = 'lease_contracts';
 const String REQUEST_LEASE = 'lease_contract_orders';
 const String REQUEST_DOCUMENTATION = 'documentation_orders';
-const String EVENT_SECTIONS = 'events_sections';
+
 const String OFFERS_SECTIONS = 'offers_sections';
 const String MAP = 'app/categories';
 const String DOCUMENTATIONS = 'documentations';
-const String TAIF = 'posts?tag_id=2';
+
 
 
 
@@ -72,7 +72,7 @@ String myAdsRoute = "/my_ads_screen";
 String eventRoute = "/event_screen";
 String offerRoute = "/offer_screen";
 String favoriteRoute = "/favorite_screen";
-String membershipRoute = "/membership_screen";
+
 String estateDetailsRoute = "/estate_details_screen";
 
 
@@ -92,7 +92,7 @@ String servicesProviderDetailsRoute = "/services_provider_details_screen";
 String requestRentalRightRoute = "/request_rental_right_screen";
 String contractsRoute = "/contracts_screen";
 String documentationRoute = "/documentation_screen";
-String taifRoute = "/taif_screen";
+
 String tourismGuidingRoute = "/tourism_guiding_screen";
 String addGuideRoute="/add_guide_screen";
 

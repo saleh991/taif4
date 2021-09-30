@@ -38,7 +38,7 @@ class LocationsCubit extends Cubit<LocationsState> {
   GuideModel guideModel=GuideModel();
   HarajModel harajModel = HarajModel();
   EventModel eventModel = EventModel();
-  EventSections eventSections = EventSections();
+
   OfferSection offerSection = OfferSection();
   OffersModel offersModel = OffersModel();
   HarajCategory harajCategory = HarajCategory();
@@ -282,11 +282,14 @@ var value = 0;
   void getEventSections() {
     emit(EventSectionsLoadingState());
     DioHelper.init();
-    DioHelper.getData(url: EVENT_SECTIONS).then((value) {
+    DioHelper.getData(url: 'posts?tag_id=2').then((value) {
+      print("value");
+      print(value);
+      print("value");
       if (value.statusCode == 200) {
         print('EventSections success');
-        eventSections =EventSections.fromJson(value.data);
-        getEvents();
+        eventModel =EventModel.fromJson(value.data);
+
       }
       emit(EventSectionsSuccessState());
     }).catchError((e) {
@@ -598,6 +601,7 @@ var value = 0;
   Future<void> addReportTourism({
     required String report_title,
     required String report_content,
+    required String report_on_class,
 
   }) async {
 
@@ -608,7 +612,7 @@ var value = 0;
       'report_content': report_content,
       'report_by': AppController.instance.getId(),
       'report_on': '1',
-      'report_on_class': 'App\\Models\\Estate',
+      'report_on_class': report_on_class,
 
     });
     DioHelper.postData(url: 'reports',

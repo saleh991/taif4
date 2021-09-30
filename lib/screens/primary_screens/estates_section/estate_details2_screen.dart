@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/cubit.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
+import 'package:taif/screens/primary_screens/membership_screen/membership_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -465,6 +466,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                   LocationsCubit()..addReportTourism(report_title:
                                   _causeController.text,
                                     report_content: _detailsController.text,
+                                      report_on_class: 'App\\Models\\Estate'
 
                                   ).then((value) {
                                     Fluttertoast.showToast(
@@ -492,14 +494,29 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           SizedBox(
                             width: 17.w,
                           ),
-                          Container(
-                            height: 31.h,
-                            width: 31.w,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1.0, color: const Color(0x5c06a1cb)),
+                          InkWell(
+                            onTap: (){
+                              EstatesCubit().addToFavEstate(estateId: widget.estateData.id!,
+                                  model: 'estates'
+                              );
+                              Fluttertoast.showToast(
+                                  msg: 'تم الاضافة للمفضلة',
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.blue,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            },
+                            child: Container(
+                              height: 31.h,
+                              width: 31.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.0, color: const Color(0x5c06a1cb)),
+                              ),
+                              child: Image.asset('images/heart.png'),
                             ),
-                            child: Image.asset('images/heart.png'),
                           ),
                           SizedBox(
                             width: 17.w,
@@ -842,7 +859,10 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             alignment: Alignment.centerLeft,
                             child: defaultButton(
                                 function: () {
-                                  Navigator.pushNamed(context, membershipRoute);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+                                  );
                                 },
                                 title: 'اشترك الآن')),
                       ),

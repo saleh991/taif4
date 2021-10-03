@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -112,10 +113,13 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                       margin:
                                           EdgeInsets.symmetric(horizontal: 5.0),
                                       // decoration: BoxDecoration(color: Colors.amber),
-                                      child: Image.network(
-                                        'https://taif-app.com/storage/app/${id.path}',
-                                        fit: BoxFit.cover,
-                                      ));
+                                      child:   CachedNetworkImage(
+                                        fit: BoxFit.fill,
+
+                                        imageUrl: "https://taif-app.com/storage/app/${id.path}",
+
+                                        errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+                                      );
                                 },
                               );
                             }).toList()
@@ -128,29 +132,13 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                           EdgeInsets.symmetric(horizontal: 5.0),
                                       decoration:
                                           BoxDecoration(color: Colors.amber),
-                                      child: Image.network(
-                                        '$id',
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              value: loadingProgress
-                                                          .expectedTotalBytes !=
-                                                      null
-                                                  ? loadingProgress
-                                                          .cumulativeBytesLoaded /
-                                                      loadingProgress
-                                                          .expectedTotalBytes!
-                                                  : null,
-                                            ),
-                                          );
-                                        },
-                                      ));
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.fill,
+                                        placeholder: (context, url) => CircularProgressIndicator(),
+                                        imageUrl: "$id",
+
+                                        errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+                                     );
                                 },
                               );
                             }).toList(),
@@ -238,6 +226,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         textAlign: TextAlign.right,
                       ),
                     ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     if (widget.estateData.side != null)
                       listTileItem(
                         Image.asset('images/direction.png'),
@@ -252,6 +243,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           textAlign: TextAlign.right,
                         ),
                       ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     listTileItem(
                       Image.asset('images/road.png'),
                       'عرض الشارع ',
@@ -264,6 +258,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         ),
                         textAlign: TextAlign.right,
                       ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -539,7 +536,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                     CircleAvatar(
                       maxRadius: 35,
                       backgroundImage: NetworkImage(
-                          'https://taif-app.com/storage/app/${widget.estateData.user!.image == null ? 'users/D1T_miAWwAE6KhM.jpg-4-1629048410.jpg':widget.estateData.user!.image },'),
+                          'https://taif-app.com/storage/app/${widget.estateData.user!.image}'),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -565,7 +562,8 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
                             border: Border.all(
-                                width: 2.0, color: const Color(0xff06a1cb)),
+                                width: 2.0, color:  Color(0xff06a1cb)
+                            ),
                           ),
                           child: InkWell(
                             onTap: () {
@@ -767,59 +765,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         ),
                       ),
 
-                    // ListView.builder(
-                    //     physics: NeverScrollableScrollPhysics(),
-                    //     itemCount: 1,
-                    //     shrinkWrap: true,
-                    //     itemBuilder: (context, index) {
-                    //       return BlocProvider(
-                    //         create: (context) => EstatesCubit()
-                    //           ..getAnyUserData(
-                    //               id: widget.estateData.comments![index].userId!),
-                    //         child: BlocConsumer<EstatesCubit, EstatesState>(
-                    //           listener: (context, state) {},
-                    //           builder: (context, state) {
-                    //             var cubit = EstatesCubit.get(context);
-                    //             if(cubit.commentList != []){
-                    //               print('comment not null');
-                    //               return Container(
-                    //                 color: Colors.white,
-                    //                 margin: EdgeInsets.only(top: 10.h),
-                    //                 child: ListTile(
-                    //                   leading: CircleAvatar(
-                    //                     maxRadius: 25,
-                    //                     backgroundImage: NetworkImage(
-                    //                         'https://opencart3.const-tech.biz/tf/storage/app/${cubit.commentList[index].image}'),
-                    //                   ),
-                    //                   title: Text(
-                    //                     '${cubit.commentList[index].name}',
-                    //                     style: TextStyle(
-                    //                       fontFamily: 'JF Flat',
-                    //                       fontSize: 21.sp,
-                    //                       color: const Color(0xff5d9b58),
-                    //                     ),
-                    //                   ),
-                    //                   subtitle: Text(
-                    //                     '${cubit.commentList[index].comment}',
-                    //                     style: TextStyle(
-                    //                       fontFamily: 'JF Flat',
-                    //                       fontSize: 19.sp,
-                    //                       color: const Color(0xff6a768b),
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //               );
-                    //
-                    //             }else{
-                    //               return Center(
-                    //                 child: CircularProgressIndicator(),
-                    //               );
-                    //             }
-                    //
-                    //           },
-                    //         ),
-                    //       );
-                    //     }),
+
                     if(userCubit.data!=null)
                     if (userCubit.data!.currentSub == null)
                       Container(

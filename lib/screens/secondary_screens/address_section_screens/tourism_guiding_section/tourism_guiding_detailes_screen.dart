@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -183,32 +184,29 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: 23.h,
                     ),
-                    Image.network(
-                      'https://taif-app.com/storage/app/${data.image!}',
+                    CachedNetworkImage(
+                      fit: BoxFit.fill,
                       height: 178.h,
                       width: 246.w,
-                      fit: BoxFit.contain,
-                    ),
+                      imageUrl: 'https://taif-app.com/storage/app/${data.image!}',
+
+                      errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+
+
                     SizedBox(
                       height: 35.h,
                     ),
-                    Image.network(
-                      'https://taif-app.com/storage/app/${data.image!}',
-                      height: 219.h,
-                      width: 380.w,
-                      fit: BoxFit.contain,
-                    ),
-                    SizedBox(
-                      height: 35.h,
-                    ),
-                    Text(
-                      data.content.toString(),
-                      style: TextStyle(
-                        fontFamily: fontName,
-                        fontSize: 15.sp,
-                        color: const Color(0xff3897b2),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        data.content.toString(),
+                        style: TextStyle(
+                          fontFamily: fontName,
+                          fontSize: 15.sp,
+                          color: const Color(0xff3897b2),
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                     Padding(
                       padding:  EdgeInsets.symmetric(horizontal:

@@ -47,7 +47,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
             duration: Duration(milliseconds: 2500),
             child: Image(
               image: AssetImage('images/logo.png'),
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
         ),

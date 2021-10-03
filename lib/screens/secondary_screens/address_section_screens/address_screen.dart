@@ -186,9 +186,9 @@ class AddressScreen extends StatelessWidget {
                             ),
                             child: secondlistViewItem(
                                 locationModel: locationsCubit,
-                                index: index,
+                                index: locationsCubit.data!.length-index-1,
                                 function: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>AddressDetailsScreen(data: locationsCubit.data![index],)));
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>AddressDetailsScreen(data: locationsCubit.data![locationsCubit.data!.length-index-1],)));
                             }),
                           );
                         })

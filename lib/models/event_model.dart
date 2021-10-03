@@ -53,75 +53,71 @@ class EventModel {
 /// updated_at : "2021-08-29T11:23:04.000000Z"
 
 class Data {
-  int? _id;
-  int? _sectionId;
-  List<Images>? _images;
-      String? _title;
-  String? _image;
-  String? _youtube;
-  String? _content;
-  String? _createdAt;
-  String? _updatedAt;
+  int? id;
+  int? sectionId;
+  List<Images>? images;
+      String? title;
+  String? image;
+  String? youtube;
+  String? content;
+  String? createdAt;
+  int? views;
+  dynamic? locationLng;
+  dynamic? locationLat;
+  double? km;
+  String? updatedAt;
 
-  int? get id => _id;
-  int? get sectionId => _sectionId;
-  List<Images>? get images => _images;
 
-  String? get title => _title;
-  String? get image => _image;
-  String? get youtube => _youtube;
-  String? get content => _content;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
 
   Data({
-      int? id, 
-      int? sectionId, 
-      String? title, 
-      String? image, 
-      String? youtube,
-    List<Images>? images,
-      String? content, 
-      String? createdAt, 
-      String? updatedAt}){
-    _id = id;
-    _sectionId = sectionId;
-    _title = title;
-    _image = image;
-    _youtube = youtube;
-    _content = content;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _images=images;
-}
+     this.image,
+    this.youtube,
+    this.updatedAt,
+    this.createdAt,
+    this.title,
+    this.id,
+    this.content,
+     this.images,
+     this.sectionId,
+    this.km,
+    this.views,
+    this.locationLat,
+    this.locationLng
+
+
+  });
 
   Data.fromJson(dynamic json) {
-    _id = json['id'];
-    _sectionId = json['section_id'];
-    _title = json['title'];
-    _image = json['image'];
-    _youtube = json['youtube'];
-    _content = json['content'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
+    id = json['id'];
+    sectionId = json['section_id'];
+    title = json['title'];
+    image = json['image'];
+    youtube = json['youtube'];
+    content = json['content'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    views = json['views'];
+    locationLng = json['location_lng'];
+    locationLat = json['location_lat'];
     if (json['images'] != null) {
-      _images = [];
+      images = [];
       json['images'].forEach((v) {
-        _images?.add(Images.fromJson(v));
+        images?.add(Images.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['section_id'] = _sectionId;
-    map['title'] = _title;
-    map['image'] = _image;
-    map['youtube'] = _youtube;
-    map['content'] = _content;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
+    map['id'] = id;
+    map['section_id'] = sectionId;
+    map['title'] = title;
+    map['image'] = image;
+    map['youtube'] = youtube;
+    map['content'] = content;
+    map['created_at'] = createdAt;
+    map['updated_at'] = updatedAt;
+
     return map;
   }
 

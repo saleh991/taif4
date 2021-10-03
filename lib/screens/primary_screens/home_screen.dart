@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,25 +43,15 @@ class HomeScreen extends StatelessWidget {
                               // color: Colors.red,
                               // height: double.infinity,
                               width: 414.w,
-                              child: Image.network(
-                                'https://taif-app.com/storage/app/${e
-                                    .image}',
-                                fit: BoxFit.cover,
-                                loadingBuilder: (BuildContext context, Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  }
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
-                                },
-                              ),
+                              child: CachedNetworkImage(
+                                fit: BoxFit.fill,
+
+                                imageUrl: "https://taif-app.com/storage/app/${e
+                                    .image}",
+
+
+                                errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+
                             );
                           }).toList(),
                           options: CarouselOptions(
@@ -114,6 +105,7 @@ class HomeScreen extends StatelessWidget {
                                     },
                                     title: 'تعرف على الطائف',
                                     color: Color(0xc2022f3b),
+
                                   ),
                                   tapHomeItem(
                                     function: () {

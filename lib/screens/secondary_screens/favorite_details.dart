@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -78,11 +79,14 @@ class _FavoriteDetailsScreenState extends State<FavoriteDetailsScreen> {
               child: Column(
                 //crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image.network(
-                    'https://taif-app.com/storage/app/${widget.favoriteData.favorite!.image}',
+                  CachedNetworkImage(
+                    fit: BoxFit.fill,
                     height: 230.h,
                     width: 414.w,
-                  ),
+                    imageUrl: "https://taif-app.com/storage/app/${widget.favoriteData.favorite!.image}",
+
+                    errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+
                   Container(
                     width: ScreenUtil().screenWidth,
                     height: 43.h,

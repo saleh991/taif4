@@ -29,6 +29,7 @@ class EnglishSectionModel {
 
 class Data {
   int? id;
+  double? km;
   String? title;
   String? phone;
   String? content;
@@ -43,6 +44,7 @@ class Data {
   Data(
       {this.id,
         this.title,
+        this.km,
         this.phone,
         this.content,
         this.createdAt,

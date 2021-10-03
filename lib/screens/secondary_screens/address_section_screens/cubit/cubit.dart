@@ -1,31 +1,31 @@
-import 'dart:convert';
+
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:location/location.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/english_section_model.dart';
 import 'package:taif/models/event_model.dart';
-import 'package:taif/models/event_sections.dart';
+
 import 'package:taif/models/haraj_category.dart';
 import 'package:taif/models/haraj_model.dart';
 import 'package:taif/models/haraj_only_category.dart';
 import 'package:taif/models/location_model.dart';
 import 'package:taif/models/guiding_model.dart';
 import 'package:taif/models/locations_category.dart';
-import 'package:taif/models/offer_section.dart';
+
 import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/models/guide_model.dart';
 import 'package:taif/models/add_guide_model.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
-import 'package:taif/screens/secondary_screens/address_section_screens/offers_sections/add_offers_screnn.dart';
+
 
 
 class LocationsCubit extends Cubit<LocationsState> {
@@ -39,7 +39,7 @@ class LocationsCubit extends Cubit<LocationsState> {
   HarajModel harajModel = HarajModel();
   EventModel eventModel = EventModel();
 
-  OfferSection offerSection = OfferSection();
+
   OffersModel offersModel = OffersModel();
   HarajCategory harajCategory = HarajCategory();
   HarajOnlyCategory harajOnlyCategory = HarajOnlyCategory();
@@ -114,9 +114,16 @@ class LocationsCubit extends Cubit<LocationsState> {
     });
   }
 
-  void getLocationsEn() {
+  Future<void> getLocationsEn() async {
     emit(LocationsLoadingState());
     DioHelper.init();
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
     DioHelper.getData(url: 'en_location_services').then((value) {
       if (value.statusCode == 200) {
         print('en_location_services');
@@ -124,6 +131,24 @@ class LocationsCubit extends Cubit<LocationsState> {
         print('en_location_services');
         print('LOCATIONS ID USER ${AppController.instance.getId()}');
         englishSectionModel = EnglishSectionModel.fromJson(value.data);
+        for(var lo in englishSectionModel.data!)
+        {  lo.km=0;
+        if(lo.locationLng!=null)
+        {
+          double _distanceInMeters = Geolocator.distanceBetween(
+            double?.tryParse(lo.locationLat!)!,
+            double?.tryParse(lo.locationLng!)!,
+            currentLocation.latitude!,
+            currentLocation.longitude!,
+          );
+          print("_distanceInMeters");
+          print(_distanceInMeters/1000);
+          lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+          print( lo.km);
+          print("_distanceInMeters");
+        }
+
+        }
       }
       emit(LocationsSuccessState());
     }).catchError((e) {
@@ -195,12 +220,37 @@ class LocationsCubit extends Cubit<LocationsState> {
     });
   }
 
-  void getHarajs() {
+  Future<void> getHarajs() async {
     emit(HarajsLoadingState());
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
     DioHelper.init();
     DioHelper.getData(url: harajs).then((value) {
       if (value.statusCode == 200) {
         harajModel =HarajModel.fromJson(value.data);
+        for(var lo in harajModel.data!)
+        {  lo.km=0;
+        if(lo.locationLng!=null)
+        {
+          double _distanceInMeters = Geolocator.distanceBetween(
+            double?.tryParse(lo.locationLat!)!,
+            double?.tryParse(lo.locationLng!)!,
+            currentLocation.latitude!,
+            currentLocation.longitude!,
+          );
+          print("_distanceInMeters");
+          print(_distanceInMeters/1000);
+          lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+          print( lo.km);
+          print("_distanceInMeters");
+        }
+
+        }
         print('haraj');
         print(value.data);
         print('haraj');
@@ -261,15 +311,23 @@ var value = 0;
 
   }
 
-  void getHarajByCat() {
+  Future<void> getHarajByCat() async {
     emit(HarajsLoadingState());
     DioHelper.init();
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
     DioHelper.getData(url: harajs, query: {
       'haraj_category_id': value,
     }).then((value) {
       if (value.statusCode == 200) {
         print('ESTATES');
         harajModel = HarajModel.fromJson(value.data);
+
 
       }
       emit(HarajsSuccessState());
@@ -279,8 +337,15 @@ var value = 0;
     });
   }
 
-  void getEventSections() {
+  Future<void> getEventSections() async {
     emit(EventSectionsLoadingState());
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
     DioHelper.init();
     DioHelper.getData(url: 'posts?tag_id=2').then((value) {
       print("value");
@@ -289,6 +354,25 @@ var value = 0;
       if (value.statusCode == 200) {
         print('EventSections success');
         eventModel =EventModel.fromJson(value.data);
+        for(var lo in eventModel.data!)
+        {  lo.km=0;
+        if(lo.locationLng!=null)
+        {
+          double _distanceInMeters = Geolocator.distanceBetween(
+            double?.tryParse(lo.locationLat!)!,
+            double?.tryParse(lo.locationLng!)!,
+            currentLocation.latitude!,
+            currentLocation.longitude!,
+          );
+          print("_distanceInMeters");
+          print(_distanceInMeters/1000);
+          lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+          print( lo.km);
+          print("_distanceInMeters");
+        }
+
+        }
+
 
       }
       emit(EventSectionsSuccessState());
@@ -298,45 +382,44 @@ var value = 0;
     });
   }
 
-  void getOfferSections() {
-    emit(OfferSectionsLoadingState());
-    DioHelper.init();
-    DioHelper.getData(url: OFFERS_SECTIONS).then((value) {
-      if (value.statusCode == 200) {
-        print('OfferSections success');
-        offerSection =OfferSection.fromJson(value.data);
-        getOffers();
-      }
-      emit(OfferSectionsSuccessState());
-    }).catchError((e) {
-      print('OfferSections error $e');
-      emit(OfferSectionsErrorState());
-    });
-  }
-
-  void getEvents() {
-    emit(EventLoadingState());
-    DioHelper.init();
-    DioHelper.getData(url: EVENTS).then((value) {
-      if (value.statusCode == 200) {
-        print('getEvents ID USER ${AppController.instance.getId()}');
-        eventModel =EventModel.fromJson(value.data);
-      }
-      emit(EventSuccessState());
-    }).catchError((e) {
-      print('getEvents error $e');
-      emit(EventErrorState());
-    });
-  }
 
 
-  void getOffers() {
+
+
+
+  Future<void> getOffers() async {
     emit(OfferLoadingState());
+    late LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+
+    }
     DioHelper.init();
     DioHelper.getData(url: OFFERS).then((value) {
       if (value.statusCode == 200) {
         print('getOffer ');
         offersModel =OffersModel.fromJson(value.data);
+        for(var lo in offersModel.data!)
+        {  lo.km=0;
+        if(lo.locationLng!=null)
+        {
+          double _distanceInMeters = Geolocator.distanceBetween(
+            double?.tryParse(lo.locationLat!)!,
+            double?.tryParse(lo.locationLng!)!,
+            currentLocation.latitude!,
+            currentLocation.longitude!,
+          );
+          print("_distanceInMeters");
+          print(_distanceInMeters/1000);
+          lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+          print( lo.km);
+          print("_distanceInMeters");
+        }
+
+        }
+
       }
       emit(OfferSuccessState());
     }).catchError((e) {

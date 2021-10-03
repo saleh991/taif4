@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: 37.h,
+                            height: 32.h,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 15.h,
+                            height: 4.h,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -153,10 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 39.h,
+                            height: 20.h,
                           ),
                           SizedBox(
-                            height: 18.h,
+                            height: 8.h,
                           ),
                           SizedBox(
                             height: 45.h,
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 30.h,
+                            height: 8.h,
                           ),
                           TextButton(
                             onPressed: () {

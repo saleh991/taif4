@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share/share.dart';
 import 'package:taif/components/components.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -213,12 +214,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 0,
                 thickness: 1.5,
               ),
-              profileItem(
+              profileItemSvg(
+                color: Color(0xFF009fcf),
                 function: () {
                   Navigator.pushNamed(context, favoriteRoute);
                 },
                 title: 'المفضلة',
-                icon: 'images/heart.png',
+                icon: 'images/favorite_heart.svg',
               ),
               Divider(
                 height: 0,
@@ -240,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.pushNamed(context, chatsRoute);
                 },
                 title: 'المحادثات',
-                icon: 'images/chats.png',
+                icon: 'images/chat.png',
               ),
               Divider(
                 height: 0,

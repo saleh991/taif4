@@ -29,7 +29,7 @@ class AddAdScreen3 extends StatefulWidget {
 class _AddAdScreen3State extends State<AddAdScreen3> {
   late TextEditingController _titleController;
   late TextEditingController _priceController;
-  late TextEditingController _addressController;
+  late TextEditingController _streetWideController;
   late TextEditingController _areaController;
   late TextEditingController _directionController;
   late TextEditingController _detailsController;
@@ -46,7 +46,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
     super.initState();
     _titleController = TextEditingController();
     _priceController = TextEditingController();
-    _addressController = TextEditingController();
+    _streetWideController = TextEditingController();
     _areaController = TextEditingController();
     _directionController = TextEditingController();
     _detailsController = TextEditingController();
@@ -57,7 +57,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
     super.dispose();
     _titleController.dispose();
     _priceController.dispose();
-    _addressController.dispose();
+    _streetWideController.dispose();
     _areaController.dispose();
     _directionController.dispose();
     _detailsController.dispose();
@@ -82,7 +82,16 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -106,7 +115,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
               ),
               contactTextField(
                 hint: 'عرض الشارع',
-                controller: _addressController,
+                controller: _streetWideController,
               ),
               SizedBox(
                 height: 12.h,
@@ -528,13 +537,13 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
 
                           btnOkOnPress: () {},
                         )..show();
-                      else   if(_addressController.text.length==0||_addressController.text.trim()=='')
+                      else   if(_streetWideController.text.length==0||_streetWideController.text.trim()=='')
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.INFO,
                           animType: AnimType.BOTTOMSLIDE,
                           title: 'نقص في المعلومات',
-                          desc: 'يجب اضافة عنوان الشارع',
+                          desc: 'يجب اضافة عرض الشارع',
                           btnOkText: 'تم',
 
                           btnOkOnPress: () {},
@@ -638,6 +647,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
                             title: _titleController.text,
                             location_lat: widget.lat!,
                             location_lng: widget.long!,
+                            streetWide: _streetWideController.text,
                             image: widget.image!,
                               payType: widget.payType!,
                               es: sw,

@@ -28,7 +28,16 @@ class HarajDetailsScreen extends StatelessWidget {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: SizedBox(
         width: ScreenUtil().screenWidth,
         child: Column(
@@ -88,14 +97,19 @@ class HarajDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 35.h,
             ),
-            Text(
-            data.message.toString(),
-              style: TextStyle(
-                fontFamily: fontName,
-                fontSize: 15.sp,
-                color: const Color(0xff3897b2),
+            Padding(
+              padding:  EdgeInsets.symmetric(
+                horizontal: 20.w
               ),
-              textAlign: TextAlign.center,
+              child: Text(
+              data.message.toString(),
+                style: TextStyle(
+                  fontFamily: fontName,
+                  fontSize: 15.sp,
+                  color: const Color(0xff3897b2),
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),

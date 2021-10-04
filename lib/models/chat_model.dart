@@ -3,14 +3,14 @@
 
 class ChatModel {
   List<Chats>? _chats;
-  dynamic? _currentChat;
+  Chats? _currentChat;
 
   List<Chats>? get chats => _chats;
-  dynamic? get currentChat => _currentChat;
+  Chats? get currentChat => _currentChat;
 
   ChatModel({
-      List<Chats>? chats, 
-      dynamic? currentChat}){
+      List<Chats>? chats,
+    Chats? currentChat}){
     _chats = chats;
     _currentChat = currentChat;
 }
@@ -22,7 +22,7 @@ class ChatModel {
         _chats?.add(Chats.fromJson(v));
       });
     }
-    _currentChat = json['current_chat'];
+    _currentChat = Chats.fromJson(json['current_chat']);
   }
 
   Map<String, dynamic> toJson() {

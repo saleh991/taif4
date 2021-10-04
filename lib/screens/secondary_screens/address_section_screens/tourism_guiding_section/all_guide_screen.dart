@@ -26,7 +26,16 @@ class AllGuideScreen extends StatelessWidget {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: BlocProvider(
         create:
             (context) => LocationsCubit()..getAllGuide(),
@@ -122,27 +131,7 @@ class AllGuideScreen extends StatelessWidget {
                                             SizedBox(
                                               width: 52.w,
                                             ),
-                                            Row(
-                                              children: [
-                                                Image.asset(
-                                                  'images/eye.png',
-                                                  height: 18.h,
-                                                  width: 20.w,
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  '200',
-                                                  style: TextStyle(
-                                                    fontFamily: 'JF Flat',
-                                                    fontSize: 13.sp,
-                                                    color: const Color(0xff7a90b7),
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
+
 
                                           ],
                                         ),

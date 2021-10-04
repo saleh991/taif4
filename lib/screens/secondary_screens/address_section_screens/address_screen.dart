@@ -37,7 +37,16 @@ class AddressScreen extends StatelessWidget {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: BlocProvider(
         create:
             (context) => LocationsCubit()..getLocationsCategory()..getUserData(),
@@ -65,45 +74,58 @@ class AddressScreen extends StatelessWidget {
                     ),
                     Container(
                       width: ScreenUtil().screenWidth - 40,
-                      height: 55.h,
+                      height: 65.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: const Color(0xffffffff),
                         border:
                             Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
                       ),
-                      child: Center(
-                        child: ListTile(
-                          leading: Image.asset('images/placeholder.png'),
-                          title: StatefulBuilder(
-                            builder: (context, setState){
-                              return DropdownButton<String>(
-                                isExpanded: true,
-                                iconSize: 35,
-                                iconEnabledColor: Color(0xFF007C9D),
-                                hint: Text(
-                                  '$value',
-                                  style: TextStyle(color: Color(0xFF06A1CB)),
-                                ),
-                                items: locationCategory.data!.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.name,
-                                    child: new Text('${value.name}'),
-                                    onTap: (){
-                                      id = value.id!;
-                                    },
-                                  );
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                          child: Row(
+                            children: [
+                               Image.asset('images/placeholder.png'),
+                             SizedBox(
+                               width: 6.w,
+                             ),
+                             Expanded(
 
-                                }).toList(),
-                                onChanged: (value1) {
-                                  setState(() {
-                                    value = value1!;
-                                  });
-                                  cubitG.changeLocationValue(id);
-                                  print('id $id');
-                                },
-                              );
-                            },
+                               child: StatefulBuilder(
+                                  builder: (context, setState){
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      iconSize: 35,
+                                      iconEnabledColor: Color(0xFF007C9D),
+                                      hint: Text(
+                                        '$value',
+                                        style: TextStyle(color: Color(0xFF06A1CB)),
+                                      ),
+                                      items: locationCategory.data!.map((value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value.name,
+                                          child: new Text('${value.name}'),
+                                          onTap: (){
+                                            id = value.id!;
+                                          },
+                                        );
+
+                                      }).toList(),
+                                      onChanged: (value1) {
+                                        setState(() {
+                                          value = value1!;
+                                        });
+                                        cubitG.changeLocationValue(id);
+                                        print('id $id');
+                                      },
+                                    );
+                                  },
+
+                                ),
+                             ),
+                            ],
 
                           ),
                         ),

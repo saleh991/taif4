@@ -27,11 +27,18 @@ class EventDetailsScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, notificationsRoute);
-              },
-              child: Image.asset('images/notification_icon.png'))
+          InkWell(onTap:(){
+            Navigator.pushNamed(context, notificationsRoute);
+          },child: Padding(
+            padding:  EdgeInsets.symmetric(
+                horizontal: 12.w
+            ),
+            child: Icon(
+              Icons.notifications,
+              color: Color(0xFF007C9D),
+              size: 35.sp,
+            ),
+          ),)
         ],
       ),
       body: SingleChildScrollView(

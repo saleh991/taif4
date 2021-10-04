@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/chat_model.dart';
@@ -345,7 +346,7 @@ Widget notificationsItem(
           notificationModel.data![index].content.toString(),
           style: TextStyle(
             fontFamily: 'JF Flat',
-            fontSize: 15.sp,
+            fontSize: 19.sp,
             color: const Color(0xff007c9d),
           ),
           textAlign: TextAlign.right,
@@ -356,7 +357,7 @@ Widget notificationsItem(
 
           style: TextStyle(
             fontFamily: 'JF Flat',
-            fontSize: 13.sp,
+            fontSize: 15.sp,
             color: const Color(0xff007c9d),
           ),
           textAlign: TextAlign.left,
@@ -397,6 +398,44 @@ Widget profileItem({
       ),
     );
 
+
+Widget profileItemSvg({
+  required String title,
+  required String icon,
+  required Color color,
+  required VoidCallback function,
+}) =>
+    InkWell(
+      onTap: function,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20.h),
+        child: Row(
+          children: [
+            SizedBox(
+              height:30.h ,
+              width:22.w ,
+              child: SvgPicture.asset(
+                icon,
+                color: color,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(
+              width: 20.w,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'JF Flat',
+                fontSize: 19.sp,
+                color: Color.fromRGBO(0, 62, 79, 1),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
 ListView itemsListView({
   required VoidCallback function,
   required EstateModel estateModel,
@@ -407,9 +446,9 @@ ListView itemsListView({
       itemCount: estateModel.data!.length,
       itemBuilder: (context, index) {
         return Container(
-          height: 105.h,
+          height: 125.h,
           // width: 394.w,
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             color: Colors.white,
@@ -458,6 +497,7 @@ ListView itemsListView({
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
@@ -593,7 +633,7 @@ ListView itemsListView({
                               createdAt.toString())),
                               style: TextStyle(
                                 fontFamily: 'JF Flat',
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 color: const Color(0xff007c9d),
                               ),
                               textAlign: TextAlign.center,
@@ -607,7 +647,7 @@ ListView itemsListView({
                               estateModel.data![index].user!.name!,
                               style: TextStyle(
                                 fontFamily: 'JF Flat',
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 color: const Color(0xff007c9d),
                               ),
                               textAlign: TextAlign.center,
@@ -660,7 +700,7 @@ ListView itemsListView({
                                 estateModel.data![index].user!.name!,
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
-                                  fontSize: 13.sp,
+                                  fontSize: 14.sp,
                                   color: const Color(0xff007c9d),
                                 ),
                                 textAlign: TextAlign.center,
@@ -670,7 +710,10 @@ ListView itemsListView({
                               width: 16.w,
                             ),
                           ],
-                        )
+                        ),
+                      SizedBox(
+                        height: 13.h,
+                      ),
                     ],
                   ),
                 )
@@ -692,9 +735,9 @@ ListView favoriteItem({
       itemBuilder: (context, index) {
         if(favoriteModel.data!.appModelsEstate![index].favorite !=null)
         return Container(
-          height: 105.h,
+          height: 125.h,
           // width: 394.w,
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             color: Colors.white,
@@ -778,7 +821,7 @@ ListView favoriteItem({
                               'العقارات',
                               style: TextStyle(
                                 fontFamily: 'JF Flat',
-                                fontSize: 10.sp,
+                                fontSize: 14.sp,
                                 color: const Color(0xff7a90b7),
                               ),
                               textAlign: TextAlign.center,
@@ -851,7 +894,10 @@ ListView favoriteItem({
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 13.h,
+                      ),
                     ],
                   ),
                 )
@@ -1163,7 +1209,7 @@ Widget membershipDetails({
           v,
           style: TextStyle(
             fontFamily: 'JF Flat',
-            fontSize: 18,
+            fontSize: 22.sp,
             color: const Color(0xff1f8716),
           ),
         ),
@@ -1176,22 +1222,25 @@ Widget listTileItem(Widget leading, String title, Widget trailing) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            leading,
-            SizedBox(
-              width: 18.w,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'JF Flat',
-                fontSize: 21.sp,
-                color: const Color(0xff003e4f),
+        Padding(
+          padding:  EdgeInsets.all(11.h),
+          child: Row(
+            children: [
+              leading,
+              SizedBox(
+                width: 18.w,
               ),
-              textAlign: TextAlign.right,
-            ),
-          ],
+              Text(
+                title,
+                style: TextStyle(
+                  fontFamily: 'JF Flat',
+                  fontSize: 18.sp,
+                  color: const Color(0xff003e4f),
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ],
+          ),
         ),
 
         trailing
@@ -1219,7 +1268,7 @@ Widget defaultCheckBox({
           title,
           style: TextStyle(
             fontFamily: 'JF Flat',
-            fontSize: 13.sp,
+            fontSize: 14.sp,
             color: const Color(0xff007c9d),
             decoration: TextDecoration.underline,
           ),
@@ -1407,7 +1456,7 @@ InkWell secondlistViewItem(
 
                             style: TextStyle(
                               fontFamily: 'Tahoma',
-                              fontSize: 13.sp,
+                              fontSize: 14.sp,
                               color: const Color(0xff007c9d),
                             ),
                             textAlign: TextAlign.center,
@@ -1427,7 +1476,7 @@ InkWell secondlistViewItem(
                             locationModel.data![index].user!.name!,
                             style: TextStyle(
                               fontFamily: 'Noto Kufi Arabic',
-                              fontSize: 13.sp,
+                              fontSize: 14.sp,
                               color: const Color(0xff003e4f),
                             ),
                             textAlign: TextAlign.start,
@@ -1535,7 +1584,7 @@ InkWell englishListViewItem(
                 englishModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 22.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.right,
@@ -1580,7 +1629,7 @@ InkWell englishListViewItem(
 
                           style: TextStyle(
                             fontFamily: 'Tahoma',
-                            fontSize: 13.sp,
+                            fontSize: 14.sp,
                             color: const Color(0xff007c9d),
                           ),
                           textAlign: TextAlign.right,
@@ -1705,6 +1754,7 @@ InkWell tourismGuidingViewItem(
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: 16.h,
@@ -1741,7 +1791,7 @@ InkWell tourismGuidingViewItem(
                           '${guidingModel.data![index].guide == null?'': guidingModel.data![index].guide!.name}',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 13.sp,
+                            fontSize: 14.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -1753,32 +1803,12 @@ InkWell tourismGuidingViewItem(
 
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 13.sp,
+                        fontSize: 14.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
                     ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'images/eye.png',
-                          height: 18.h,
-                          width: 20.w,
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Text(
-                          '200',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 13.sp,
-                            color: const Color(0xff7a90b7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
+
 
                   ],
                 ),
@@ -1844,7 +1874,7 @@ InkWell harajslistViewItem(
                 harajModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 22.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.right,
@@ -1853,7 +1883,7 @@ InkWell harajslistViewItem(
                 height: 10.h,
               ),
               SizedBox(
-                width: 220.w,
+                width: 250.w,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1875,7 +1905,7 @@ InkWell harajslistViewItem(
                                 '$categoryName',
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
-                                  fontSize: 13.sp,
+                                  fontSize: 14.sp,
                                   color: const Color(0xff7a90b7),
                                 ),
                                 textAlign: TextAlign.center,
@@ -1891,7 +1921,7 @@ InkWell harajslistViewItem(
                               DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
                               style: TextStyle(
                                 fontFamily: 'Tahoma',
-                                fontSize: 12.sp,
+                                fontSize: 14.sp,
                                 color: const Color(0xff007c9d),
                               ),
                               textAlign: TextAlign.right,
@@ -1913,7 +1943,7 @@ InkWell harajslistViewItem(
                               harajModel.data![index].user!.name!,
                               style: TextStyle(
                                 fontFamily: 'Tahoma',
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 color: const Color(0xff007c9d),
                               ),
                               textAlign: TextAlign.right,
@@ -1941,7 +1971,7 @@ InkWell harajslistViewItem(
                             '${harajModel.data![index].km} k.m',
                             style: TextStyle(
                               fontFamily: 'Noto Kufi Arabic',
-                              fontSize: 13.sp,
+                              fontSize: 14.sp,
                               color: const Color(0xff003e4f),
                             ),
                             textAlign: TextAlign.center,
@@ -2010,7 +2040,7 @@ InkWell eventListViewItem(
                 eventModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 22.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.right,
@@ -2038,7 +2068,7 @@ InkWell eventListViewItem(
                           'فعاليات الطائف',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 13.sp,
+                            fontSize: 14.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -2061,7 +2091,7 @@ InkWell eventListViewItem(
 
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 13.sp,
+                        fontSize: 14.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
@@ -2076,7 +2106,7 @@ InkWell eventListViewItem(
                         '${eventModel.data![index].km!} k.m',
                         style: TextStyle(
                           fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 13.sp,
+                          fontSize: 14.sp,
                           color: const Color(0xff003e4f),
                         ),
                         textAlign: TextAlign.right,
@@ -2137,7 +2167,7 @@ InkWell offerListViewItem(
                 offerModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 22.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.right,
@@ -2165,7 +2195,7 @@ InkWell offerListViewItem(
                           'عروض تجارية',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 13.sp,
+                            fontSize: 14.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -2187,7 +2217,7 @@ InkWell offerListViewItem(
                       DateFormat('yyyy-MM-dd','en').format(DateTime.parse( offerModel.data![index].createdAt.toString())),
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 13.sp,
+                        fontSize: 14.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
@@ -2264,7 +2294,7 @@ InkWell taifListViewItem(
                 taifModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 22.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.right,
@@ -2357,7 +2387,7 @@ Container servicesPlacesItem(String neighborhood) {
         neighborhood,
         style: TextStyle(
           fontFamily: 'JF Flat',
-          fontSize: 18,
+          fontSize: 20.sp,
           color: const Color(0xffffffff),
         ),
         textAlign: TextAlign.center,

@@ -27,7 +27,16 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: Column(
         children: [
           SizedBox(
@@ -35,7 +44,7 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
           ),
           Container(
             // padding: EdgeInsets.symmetric(vertical: 20.h),
-            height: 56.h,
+
             width: 394.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
@@ -78,7 +87,7 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
             'الاحياء التي يخدمها',
             style: TextStyle(
               fontFamily: 'JF Flat',
-              fontSize: 18,
+              fontSize: 22.sp,
               color: const Color(0xff003e4f),
             ),
             textAlign: TextAlign.center,
@@ -112,7 +121,7 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
                data!.phone.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 38,
+                  fontSize: 22.sp,
                   color: const Color(0xff007c9d),
                   letterSpacing: -0.76,
                 ),
@@ -134,7 +143,7 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
                 'إرسال رسالة خاصة',
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.center,

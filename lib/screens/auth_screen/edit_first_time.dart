@@ -59,7 +59,18 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
             color: const Color(0xff007c9d),
           ),
         ),
-        actions: [Image.asset('images/notification_icon.png')],
+        actions: [InkWell(onTap:(){
+          Navigator.pushNamed(context, notificationsRoute);
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],
       ),
       drawer: Drawer(),
       body: BlocConsumer<ProfileCubit, ProfileState>(

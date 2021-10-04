@@ -74,6 +74,7 @@ class EstateData {
   String? _authOption;
   String? _ownership;
   String? _area;
+
   int? _streetWide;
   int? _price;
   String? _description;

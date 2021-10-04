@@ -2,6 +2,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:taif/screens/secondary_screens/chat_screen/chats_screen_subject.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -76,16 +78,24 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
             color: const Color(0xff007c9d),
           ),
         ),
-        actions: [Image.asset('images/notification_icon.png')],
+        actions: [InkWell(onTap:(){
+          Navigator.pushNamed(context, notificationsRoute);
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+            horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],
       ),
       body: BlocProvider(
         create: (context) => EstatesCubit()..getUserData(),
         child: BlocConsumer<EstatesCubit, EstatesState>(
           listener: (context, state) {
-            if (state is CreateNewChatSuccessState) {
-              Navigator.pushNamed(context, chatsRoute);
-              print('here');
-            }
+
           },
           builder: (context, state) {
 
@@ -250,7 +260,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                       Image.asset('images/road.png'),
                       'عرض الشارع ',
                       Text(
-                        '١٥ متر',
+                        '${widget.estateData.streetWide} م ',
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 21.sp,
@@ -485,7 +495,13 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                 border: Border.all(
                                     width: 1.0, color: const Color(0x5c06a1cb)),
                               ),
-                              child: Image.asset('images/flag.png'),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: SvgPicture.asset('images/flag.svg',
+                                  color: Colors.red,
+
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -512,7 +528,10 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                 border: Border.all(
                                     width: 1.0, color: const Color(0x5c06a1cb)),
                               ),
-                              child: Image.asset('images/heart.png'),
+                              child: SvgPicture.asset('images/favorite_heart.svg',
+                                color: Color(0xFF009fcf),
+
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -539,25 +558,25 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           'https://taif-app.com/storage/app/${widget.estateData.user!.image}'),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 20.h,
                     ),
                     Text(
                       '${widget.estateData.user!.name}',
                       style: TextStyle(
                         fontFamily: fontName,
-                        fontSize: 19,
+                        fontSize: 22.sp,
                         color: const Color(0xff399432),
                       ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height:20.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          height: 34.h,
+
                           width: 154.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
@@ -567,23 +586,32 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              EstatesCubit.get(context)
-                                  .createChat(subjectId: widget.estateData.id!);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ChatScreenSubject(
+                                  subjectId: widget.estateData.id!,
+                                  model: 'App\\Models\\Estate',
+                                )),
+                              );
+
                             },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'محادثة',
-                                  style: TextStyle(
-                                    fontFamily: fontName,
-                                    fontSize: 15,
-                                    color: const Color(0xff007c9d),
+                            child: Padding(
+                              padding:  EdgeInsets.all(5.0.h),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'محادثة',
+                                    style: TextStyle(
+                                      fontFamily: fontName,
+                                      fontSize: 18.sp,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Image.asset('images/chat2.png')
-                              ],
+                                  Image.asset('images/chat2.png')
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -593,7 +621,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         ),
                         if (widget.estateData.showPhone == 1)
                         Container(
-                          height: 34.h,
+
                           width: 154.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
@@ -604,20 +632,23 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             onTap: (){
                               launch("tel://${userCubit.data!.phone}");
                             },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'اتصل',
-                                  style: TextStyle(
-                                    fontFamily: fontName,
-                                    fontSize: 15,
-                                    color: const Color(0xff007c9d),
+                            child: Padding(
+                              padding:  EdgeInsets.all(5.h),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'اتصل',
+                                    style: TextStyle(
+                                      fontFamily: fontName,
+                                      fontSize: 18.sp,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Image.asset('images/call2.png')
-                              ],
+                                  Image.asset('images/call2.png')
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -627,18 +658,25 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                       height: 15.h,
                     ),
                     if (widget.estateData.commentsEnabled == 1)
-                      ListTile(
-                        leading: Icon(
-                          Icons.chat,
-                          color: Color(0xFF06A1CB),
-                        ),
-                        title: Text(
-                          'تعليق',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 21,
-                            color: const Color(0xff003e4f),
-                          ),
+                      Padding(
+                        padding:  EdgeInsets.all(16.0.h),
+                        child: Row(
+                          children: [
+                           Icon(
+                              Icons.chat,
+                              color: Color(0xFF06A1CB),
+                            ),
+                             SizedBox(width: 4.w,),
+                             Text(
+                              'تعليق',
+                              style: TextStyle(
+                                fontFamily: 'JF Flat',
+                                fontSize: 21.sp,
+                                color: const Color(0xff003e4f),
+                              ),
+                            ),
+                          ],
+
                         ),
                       ),
                     if (widget.estateData.commentsEnabled == 1)
@@ -678,8 +716,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                   else{
                                     AwesomeDialog(
                                       context: context,
-                                      title: 'يجب ان يحتوي التعليق على 10 احرف على الاقل'
-                                        ,
+                                      title: 'يجب ان يحتوي التعليق على 10 احرف على الاقل',
                                       btnOkText: 'تم',
                                       btnOkOnPress: (){}
 

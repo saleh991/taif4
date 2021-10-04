@@ -8,19 +8,20 @@ import 'package:taif/models/chat_model.dart';
 import 'package:taif/screens/secondary_screens/chat_screen/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/chat_screen/cubit/state.dart';
 
-class PrivateChatScreen extends StatefulWidget {
+class PrivateChatSubjectScreen extends StatefulWidget {
   final Chats chats;
-  final int index;
 
-  PrivateChatScreen(this.chats, this.index);
+
+  PrivateChatSubjectScreen(this.chats,);
 
   @override
-  State<PrivateChatScreen> createState() => _PrivateChatScreenState();
+  State<PrivateChatSubjectScreen> createState() => _PrivateChatSubjectScreenState();
 }
 
-class _PrivateChatScreenState extends State<PrivateChatScreen> {
+class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
   late TextEditingController _contentController;
   ScrollController _scrollController =  ScrollController();
+
 
 
   @override
@@ -68,7 +69,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
           ),
         ),)],      ),
       body: BlocProvider(
-        create: (context) => ChatCubit()..getAllChats(),
+        create: (context) => ChatCubit(),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -174,17 +175,12 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                       ),
                       BlocConsumer<ChatCubit, ChatState>(
                         listener: (context, state) {
-                          if (state is ChatSuccessState) {
-                            Future.delayed(Duration(
-                              seconds: 1
-                            ));
-                           }
 
                         },
                         builder: (context, state) {
                           var cubit = ChatCubit.get(context).chatModel;
 
-                          if (state is ChatSuccessState) {
+
 
 
                             return SizedBox(
@@ -194,18 +190,14 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                                   controller: _scrollController,
                                   physics: BouncingScrollPhysics(),
                                   itemCount:
-                                      cubit.chats![widget.index].messages!.length,
+                                      widget.chats.messages!.length,
                                   itemBuilder: (context, index) {
                                     return chatMessageItem(
-                                        cubit.chats![widget.index], index);
+                                        widget.chats, index);
                                   }),
                             );
 
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
+
                         },
                       ),
                     ],

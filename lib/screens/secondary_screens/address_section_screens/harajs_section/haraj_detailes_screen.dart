@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,21 +76,55 @@ class HarajDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 23.h,
             ),
-            Image.network(
-              'https://taif-app.com/storage/app/${data.main_image}',
+            // Image.network(
+            //   'https://taif-app.com/storage/app/${data.main_image}',
+            //   height: 178.h,
+            //   width: 246.w,
+            //   fit: BoxFit.contain,
+            // ),
+
+
+            CachedNetworkImage(
+              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}',
+              // imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrv7f1Xb07z6-VGI5fJWc6-Wkasr33ugqXQ&usqp=CAU",
+              placeholder: (context, url) =>
+              const Center(
+                child: CircularProgressIndicator(),),
+              errorWidget: (context, url,
+                  error) =>
+                  Image.asset("images/no_image_avilable.png"),
               height: 178.h,
               width: 246.w,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
             ),
+
             SizedBox(
               height: 35.h,
             ),
-            Image.network(
-              'https://taif-app.com/storage/app/${data.main_image}',
+
+            // Image.network(
+            //   'https://taif-app.com/storage/app/${data.main_image}',
+            //   height: 219.h,
+            //   width: 380.w,
+            //   fit: BoxFit.contain,
+            // ),
+
+
+            CachedNetworkImage(
+              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}' ,
+              // imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrv7f1Xb07z6-VGI5fJWc6-Wkasr33ugqXQ&usqp=CAU",
+              placeholder: (context, url) =>
+              const Center(
+                child: CircularProgressIndicator(),),
+              errorWidget: (context, url,
+                  error) =>
+                  Image.asset("images/no_image_avilable.png"),
               height: 219.h,
               width: 380.w,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
             ),
+
+
             SizedBox(
               height: 35.h,
             ),

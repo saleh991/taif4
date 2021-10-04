@@ -2,6 +2,8 @@
 /// code : 200
 /// status : true
 
+// ignore_for_file: unnecessary_question_mark
+
 class EstateOnlyModel {
   Data? _data;
   int? _code;

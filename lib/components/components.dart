@@ -46,6 +46,8 @@ Widget languagesButton({
       ),
     );
 
+
+
 Widget languagesButtonWithIcon({
   required String title,
   required VoidCallback function,
@@ -1785,183 +1787,208 @@ InkWell harajslistViewItem(
   return InkWell(
     onTap: function,
     child: Center(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if(harajModel.data![index].main_image!=null)
-          CircleAvatar(
-            backgroundImage:
-             NetworkImage(
-                 'https://taif-app.com/storage/app/${harajModel.data![index].main_image!}',
-                 ),
+      child: Padding(
+        padding: EdgeInsets.only(left: 20,right: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if(harajModel.data![index].main_image!=null)
+              CircleAvatar(
+                backgroundImage:
+                NetworkImage(
+                  'https://taif-app.com/storage/app/${harajModel.data![index].main_image!}',
+                ),
 
-            maxRadius: 35,
-          )else
-            CircleAvatar(
-              backgroundImage:
-              AssetImage('images/circle_img.png'),
+                maxRadius: 35,
+              )else
+              CircleAvatar(
+                backgroundImage:
+                AssetImage('images/circle_img.png'),
 
-              maxRadius: 35,
+                maxRadius: 35,
+              ),
+
+            SizedBox(
+              width: 30.w,
             ),
 
-          SizedBox(
-            width: 30.w,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 6.h,
-              ),
-              Text(
-                harajModel.data![index].title.toString(),
-                style: TextStyle(
-                  fontFamily: 'JF Flat',
-                  fontSize: 18,
-                  color: const Color(0xff003e4f),
-                ),
-                textAlign: TextAlign.right,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              SizedBox(
-                width: 220.w,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                'images/save.png',
-                                height: 18.h,
-                                width: 12.w,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                '$categoryName',
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 13.sp,
-                                  color: const Color(0xff7a90b7),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          SizedBox(
+                    SizedBox(
+                      height: 6.h,
+                    ),
 
-                            child: Text(
-                              DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
-                              style: TextStyle(
-                                fontFamily: 'Tahoma',
-                                fontSize: 12.sp,
-                                color: const Color(0xff007c9d),
-                              ),
-                              textAlign: TextAlign.right,
+                    // * title
+                    Text(
+                      harajModel.data![index].title.toString(),
+                      style: TextStyle(
+                        fontFamily: 'JF Flat',
+                        fontSize: 18,
+                        color: const Color(0xff003e4f),
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+
+
+                    SizedBox(
+                      height: 10.h,
+                    ),
+
+                    //
+
+                    Expanded(
+                      // width: width220.w,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/save.png',
+                                      height: 18.h,
+                                      width: 12.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Text(
+                                      '$categoryName',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 13.sp,
+                                        color: const Color(0xff7a90b7),
+                                      ),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                SizedBox(
+
+                                  child: Text(
+                                    DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
+                                    style: TextStyle(
+                                      fontFamily: 'Tahoma',
+                                      fontSize: 12.sp,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                    maxLines: 2,
+                                  ),
+                                )
+                              ],
                             ),
-                          )
+                          ),
+                          SizedBox(width:22.w,),
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'images/eye.png',
+                                      height: 18.h,
+                                      width: 20.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Text(
+                                      harajModel.data![index].views==null?"0":harajModel.data![index].views.toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 12.sp,
+                                        color: const Color(0xff7a90b7),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                SizedBox(
+
+                                  child: Text(
+                                    harajModel.data![index].user!.name!,
+                                    style: TextStyle(
+                                      fontFamily: 'Tahoma',
+                                      fontSize: 13.sp,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 22.w,),
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'images/map.png',
+                                  width: 25.w,
+                                  height: 25.h,
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                Align(
+
+                                  child: Text(
+                                    '18k.m',
+                                    style: TextStyle(
+                                      fontFamily: 'Noto Kufi Arabic',
+                                      fontSize: 13.sp,
+                                      color: const Color(0xff003e4f),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
                         ],
                       ),
                     ),
-                    SizedBox(width:22.w,),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/eye.png',
-                                height: 18.h,
-                                width: 20.w,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                harajModel.data![index].views.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 12.sp,
-                                  color: const Color(0xff7a90b7),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          SizedBox(
-
-                            child: Text(
-                              harajModel.data![index].user!.name!,
-                              style: TextStyle(
-                                fontFamily: 'Tahoma',
-                                fontSize: 13.sp,
-                                color: const Color(0xff007c9d),
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 22.w,),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'images/map.png',
-                            width: 25.w,
-                            height: 25.h,
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          Align(
-
-                            child: Text(
-                              '18k.m',
-                              style: TextStyle(
-                                fontFamily: 'Noto Kufi Arabic',
-                                fontSize: 13.sp,
-                                color: const Color(0xff003e4f),
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                        ],
-                      ),
+                    SizedBox(
+                      height: 15.h,
                     ),
 
                   ],
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
+                )
+            ),
 
-            ],
-          )
-        ],
+          ],
+        ),
       ),
     ),
   );
 }
+
+
+
+
 
 InkWell eventListViewItem(
     {required VoidCallback function,

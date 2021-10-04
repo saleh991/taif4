@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 
@@ -36,7 +36,8 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     Center(
                       child: Text(
-                        'wt'.tr(),
+                        "سجل الآن للإستفادة بخدماتنا",
+                        // 'wt'.tr(),
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 20.sp,
@@ -69,7 +70,8 @@ class WelcomeScreen extends StatelessWidget {
             width: 197.w,
             height: 42.h,
             child: languagesButton(
-              title: 'wbtn'.tr(),
+              title: "دخول",
+              // title: 'wbtn'.tr(),
               function: () {
                 Navigator.pushReplacementNamed(context, loginRoute);
               },
@@ -96,7 +98,8 @@ class WelcomeScreen extends StatelessWidget {
           TextButton(
             onPressed: () {},
             child: Text(
-              'subscribe'.tr(),
+              "طريقة الإشتراك",
+              // 'subscribe'.tr(),
               style: TextStyle(
                 fontFamily: 'JF Flat',
                 fontSize: 20.sp,

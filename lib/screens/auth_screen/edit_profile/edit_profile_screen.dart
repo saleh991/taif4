@@ -8,7 +8,7 @@ import 'package:taif/components/components.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/cubit.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/state.dart';
 
@@ -68,7 +68,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'edit_profile'.tr(),
+          "تعديل ملفي الشخصي",
+          // 'edit_profile'.tr(),
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -290,7 +291,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     defaultTextField(
-                        hint: 'name_hint'.tr(),
+                        hint: "أدخل إسمك",
+                        // hint: 'name_hint'.tr(),
                         controller: _nameController,
                         hasSuffix: true,
                         suffixIcon: Icon(
@@ -301,7 +303,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: 18.h,
                     ),
                     defaultTextField(
-                      hint: 'email_hint'.tr(),
+                      hint: "البريد الإلكتروني",
+                      // hint: 'email_hint'.tr(),
                       controller: _emailController,
                       hasSuffix: true,
                       suffixIcon: Icon(
@@ -346,7 +349,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: 18.h,
                     ),
                     defaultTextField(
-                        hint: 'phone_hint'.tr(),
+                        hint: "رقم الهاتف",
+                        // hint: 'phone_hint'.tr(),
                         controller: _phoneNumberController,
                         readOnly: true),
                     Container(
@@ -356,7 +360,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       width: 301.w,
                       height: 45.h,
                       child: Text(
-                        'note_edit_prpfile'.tr(),
+                        "يمكنك التواصل مع الإدارة لتغير رقم الجوال",
+                        // 'note_edit_prpfile'.tr(),
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 15.sp,
@@ -391,7 +396,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             );
                           }
                         },
-                        title: 'save_edit'.tr(),
+                        title: "حفظ",
+                        // title: 'save_edit'.tr(),
                       ),
                     ),
                     SizedBox(

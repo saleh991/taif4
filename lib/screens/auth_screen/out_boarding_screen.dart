@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:taif/components/components.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
@@ -46,21 +46,30 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
               children: [
                 outBoardingItem(
                   img: 'images/out1.png',
-                  title: 'obt1'.tr(),
-                  subTitle1: 'obs11'.tr(),
-                  subTitle2: 'obs12'.tr(),
+                  title: "كل عقارات الطائف",
+                  subTitle1: "عروض العقارت بيع - شراء",
+                  subTitle2: "لدينا كل ماتبحث عنة في مجال العقارات",
+                  // title: 'obt1'.tr(),
+                  // subTitle1: 'obs11'.tr(),
+                  // subTitle2: 'obs12'.tr(),
                 ),
                 outBoardingItem(
                   img: 'images/out2.png',
-                  title: 'obt2'.tr(),
-                  subTitle1: 'obs21'.tr(),
-                  subTitle2: 'obs22'.tr(),
+                  title: "كل ماتريد معرفتة عن السياحة في الطائف",
+                  subTitle1: "كل الأمكان السياحة والمعالم",
+                  subTitle2: "المطاعم - المقاهي - الحدائق - المنتزهات",
+                  // title: 'obt2'.tr(),
+                  // subTitle1: 'obs21'.tr(),
+                  // subTitle2: 'obs22'.tr(),
                 ),
                 outBoardingItem(
                   img: 'images/out3.png',
-                  title: 'obt3'.tr(),
-                  subTitle1: 'obs31'.tr(),
-                  subTitle2: 'obs32'.tr(),
+                  title: "صيانة المنازل - صيانة السيارات - خدمة منزلية",
+                  subTitle1: "يمكنك البحث عن الخدمة  بأبسط الطرق",
+                  subTitle2: "كهرباء - سباكة - تنظيف - صيانة خدمات منزلية",
+                  // title: 'obt3'.tr(),
+                  // subTitle1: 'obs31'.tr(),
+                  // subTitle2: 'obs32'.tr(),
                 ),
               ],
             ),
@@ -86,7 +95,8 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
                       Navigator.pushReplacementNamed(context, welcomeRoute);
                     },
                     child: Text(
-                      'out_btn'.tr(),
+                      "تخطي",
+                      // 'out_btn'.tr(),
                       style: TextStyle(
                         fontFamily: 'JF Flat',
                         fontSize: 20,

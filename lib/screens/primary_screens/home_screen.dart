@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+
           BlocProvider(
             create: (context) =>
             MainCubit()
@@ -156,6 +157,8 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
+
+
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,

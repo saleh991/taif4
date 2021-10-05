@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/chat_model.dart';
@@ -891,11 +892,19 @@ Widget homeItem({
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                img,
+              // Image.asset(
+              //   img,
+              //   height: 66.h,
+              //   width: 68.h,
+              // ),
+
+              SvgPicture.asset(
+                  img,
+                  semanticsLabel: 'Acme Logo',
                 height: 66.h,
                 width: 68.h,
               ),
+
               SizedBox(
                 height: 12.h,
               ),

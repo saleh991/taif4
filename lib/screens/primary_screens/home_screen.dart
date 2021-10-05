@@ -163,14 +163,14 @@ class HomeScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               children: [
                 homeItem(
-                  img: 'images/building.png',
+                  img: 'images/building.svg',
                   title: 'العقارات',
                   function: () {
                     Navigator.pushNamed(context, estateRoute);
                   },
                 ),
                 homeItem(
-                  img: 'images/travel.png',
+                  img: 'images/travel.svg',
                   title: 'السياحة',
                   function: () {
                     Navigator.push(
@@ -182,14 +182,14 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 homeItem(
-                  img: 'images/house.png',
+                  img: 'images/house.svg',
                   title: 'خدمات عامة',
                   function: () {
                     Navigator.pushNamed(context, servicesProvidersRoute);
                   },
                 ),
                 homeItem(
-                  img: 'images/sem.png',
+                  img: 'images/sem.svg',
                   title: 'حراج منوع',
                   function: () {
                     Navigator.push(

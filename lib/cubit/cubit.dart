@@ -14,7 +14,7 @@ import 'package:taif/models/slider_model.dart';
 import 'package:taif/screens/primary_screens/home_screen.dart';
 import 'package:taif/screens/primary_screens/notifications_screen.dart';
 import 'package:taif/screens/primary_screens/profile_screen.dart';
-import 'package:taif/screens/primary_screens/search_screen.dart';
+import 'package:taif/screens/primary_screens/search/search_screen.dart';
 
 import '../global.dart';
 
@@ -83,6 +83,27 @@ class MainCubit extends Cubit<MainState> {
 
     }).catchError((e) {
       print('slider error ');
+
+    });
+  }
+  void removeFromFav({
+    required int estateId,
+    required String model,
+  }) {
+
+    DioHelper.init();
+    DioHelper.postData(url: 'favorites/remove', data: {
+      'model': model,
+      'id': estateId,
+      'user_id': AppController.instance.getId(),
+    }).then((value) {
+      print("value");
+      print(value);
+      print("ba");
+
+
+    }).catchError((e) {
+      print('Error add Fav $e');
 
     });
   }

@@ -59,16 +59,23 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
-      drawer: Drawer(),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
+
       body: BlocProvider(
         create: (context) => ContactCubit(),
         child: BlocConsumer<ContactCubit, ContactState>(
           listener: (context, state) {
             if (state is ContactSuccessState) {
               print('contact here listener success');
-
-
                 Fluttertoast.showToast(
                     msg: 'تم ارسال الرسالة بنجاح',
                     toastLength: Toast.LENGTH_SHORT,

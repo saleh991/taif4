@@ -144,7 +144,16 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: BlocProvider(
         create:
             (context) => cu..getUserData(),
@@ -164,12 +173,13 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                     ),
                     if(profileImage==null)
                       addFromGalleryItems(
-                          title: 'صورة شخصية', icon: Icons.camera_alt, function: () async {
+                          title: 'صورة شخصية',
+                          icon: Icons.camera_alt,
+                          function: () async {
                         print(profileImage);
                         await getImage();
                         print(profileImage);
-                        setState(() {
-
+                        setState((){
                         });
                       })
                     else
@@ -356,37 +366,45 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                         Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
                       ),
                       child: Center(
-                        child: ListTile(
-                          leading: Image.asset('images/placeholder.png'),
-                          title: StatefulBuilder(
-                            builder: (context, setState){
-                              return DropdownButton<String>(
-                                isExpanded: true,
-                                iconSize: 35,
-                                iconEnabledColor: Color(0xFF007C9D),
-                                hint: Text(
-                                  '$value',
-                                  style: TextStyle(color: Color(0xFF06A1CB)),
-                                ),
-                                items: widget.harajCategory.data!.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.name,
-                                    child: new Text('${value.name}'),
-                                    onTap: (){
-                                      id = value.id!;
-                                      print(id);
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                            horizontal: 12.w
+                          ),
+                          child: Row(
+                            children: [
+                               Image.asset('images/placeholder.png'),
+                               StatefulBuilder(
+                                builder: (context, setState){
+                                  return DropdownButton<String>(
+                                    isExpanded: true,
+                                    iconSize: 35,
+                                    iconEnabledColor: Color(0xFF007C9D),
+                                    hint: Text(
+                                      '$value',
+                                      style: TextStyle(color: Color(0xFF06A1CB)),
+                                    ),
+                                    items: widget.harajCategory.data!.map((value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value.name,
+                                        child: new Text('${value.name}'),
+                                        onTap: (){
+                                          id = value.id!;
+                                          print(id);
+                                        },
+                                      );
+
+                                    }).toList(),
+                                    onChanged: (value1) {
+                                      setState(() {
+                                        value = value1!;
+                                      });
+
                                     },
                                   );
-
-                                }).toList(),
-                                onChanged: (value1) {
-                                  setState(() {
-                                    value = value1!;
-                                  });
-
                                 },
-                              );
-                            },
+
+                              ),
+                            ],
 
                           ),
                         ),

@@ -482,6 +482,7 @@ var value = 0;
 
     String fileName = image.path.split('/').last;
     FormData formData = FormData.fromMap({
+      "user_id":"${AppController.instance.getId()}",
       "image":
       await MultipartFile.fromFile(image.path, filename:fileName),
       'title': title,

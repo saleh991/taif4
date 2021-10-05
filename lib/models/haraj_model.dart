@@ -3,8 +3,6 @@
 /// code : 200
 /// status : true
 
-// ignore_for_file: unnecessary_question_mark
-
 class HarajModel
 {
   List<Data>? _data;

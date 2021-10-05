@@ -1,18 +1,16 @@
 /// chats : [{"id":1,"anotherUser":{"id":11,"phone":"112233","created_at":"2021-08-20T12:38:05.000000Z","updated_at":"2021-08-21T03:53:53.000000Z","package_id":4,"start":null,"end":null,"active":1,"image":null,"code":"5935","api_token":null,"name":"مسوق الكتروني","email":"a@a.a","package_ads":350,"package_comments":0},"messages":[{"id":1,"user_id":4,"content":"test message","created_at":"2021-08-29T18:05:55.000000Z","updated_at":"2021-08-29T18:05:55.000000Z","to_user_id":11,"chat_id":1}],"subject":{"id":1,"title":"استراحة وشالية","user_id":11,"area":"2000","price":299999,"type":"villa","category":"offer","description":"الشاليه يوفر الأستمتاع الكامل والراحه التامه لجميع أفراد العائله\r\nمرافق الشاليه \r\nعدد1صاله واسعه للجلوس بجلسه عربيه بشاشة بلازما وجلسه افرنجي مطله على المسبح\r\nعدد 2 غرفة نوم غرفة رئيسيه بسرير عائلي غرفة نوم للمرافقين مكونه من 3 اسره \r\nوكل غرفه بدورة مياه عربي وأفرنجي مستقله مجهزه بغسالة ملابس \r\nوحسب الرغبه يوجد مسبح داخلي قسمين قسم للأطفال وقسم للبالغين والمسبح مجهز بسخان وفلاتر بتقنيه عاليه\r\nويتوفر بالشاليه مطبخ مجهز بكامل الأجهزه والأدوات\r\nبالشاليه حوش واسع مغطى بالانجيله ومجهز بألعاب حركيه للأطفال وكراسي للجلوس \r\nوحسب الرغبه والأحتياج يوجد قسم أضافي ملحق بالشاليه\r\nمكون من مجلس كبير بجلسه عربيه ودورة مياه مستقله وحوش مغطى بالأنجليه \r\nومن ناحية نظافة الشاليه  نهتم بتعقيمه بعد كل مستأجر والبطاطين والمفارش نغيرها بأخرى نظيفه من المغسله بعد خروج  كل مستاجر\r\n_______________________\r\n_______________________\r\nإجار الشاليه لليوم الواحد من دون مسبح بسعر 450 ريال فقط\r\n_______________________\r\n_____________________\r\nإجار الشاليه مع المسبح لليوم الواحد بسعر 600 ريال فقط\r\n______________________\r\n______________________\r\nإجار الشاليه مع المسبح لمدة يومين بسعر 1100 ريال","show_phone":1,"comments_enabled":1,"ownership":"delegate","auth_option":"staying","side_id":1,"image":"https://opencart3.const-tech.biz/tf/storage/app/estates/4-1629518250.jpg","location_lat":"19.7561079","location_lng":"41.929559399999995","views":8,"created_at":"2021-08-21T03:57:30.000000Z","updated_at":"2021-08-27T07:22:17.000000Z","street_wide":0},"lastMessage":{"id":1,"user_id":4,"content":"test message","created_at":"2021-08-29T18:05:55.000000Z","updated_at":"2021-08-29T18:05:55.000000Z","to_user_id":11,"chat_id":1}}]
 /// current_chat : null
 
-// ignore_for_file: unnecessary_question_mark
-
 class ChatModel {
   List<Chats>? _chats;
-  dynamic? _currentChat;
+  Chats? _currentChat;
 
   List<Chats>? get chats => _chats;
-  dynamic? get currentChat => _currentChat;
+  Chats? get currentChat => _currentChat;
 
   ChatModel({
-      List<Chats>? chats, 
-      dynamic? currentChat}){
+      List<Chats>? chats,
+    Chats? currentChat}){
     _chats = chats;
     _currentChat = currentChat;
 }
@@ -24,7 +22,7 @@ class ChatModel {
         _chats?.add(Chats.fromJson(v));
       });
     }
-    _currentChat = json['current_chat'];
+    _currentChat = Chats.fromJson(json['current_chat']);
   }
 
   Map<String, dynamic> toJson() {

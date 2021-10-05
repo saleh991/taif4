@@ -3,12 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
 import 'package:taif/helper/constants.dart';
-import 'package:taif/screens/primary_screens/home_screen.dart';
-import 'package:taif/screens/primary_screens/main_screen/cubit/cubit.dart';
-import 'package:taif/screens/primary_screens/main_screen/cubit/state.dart';
-import 'package:taif/screens/primary_screens/notifications_screen.dart';
-import 'package:taif/screens/primary_screens/profile_screen.dart';
-import 'package:taif/screens/primary_screens/search_screen.dart';
+
 
 class BottomNavigationController extends StatefulWidget {
   @override

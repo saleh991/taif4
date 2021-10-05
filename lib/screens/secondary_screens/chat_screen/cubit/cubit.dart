@@ -12,6 +12,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   ChatModel chatModel = ChatModel();
   Messages messages = Messages();
+
   void getAllChats() {
     emit(ChatLoadingState());
     DioHelper.init();
@@ -19,6 +20,26 @@ class ChatCubit extends Cubit<ChatState> {
         .then((value) {
       print('i am here chat ');
       print('user id ${AppController.instance.getId()}');
+      if (value.statusCode == 200) {
+        print('here chat');
+        chatModel = ChatModel.fromJson(value.data);
+      }
+      emit(ChatSuccessState());
+    }).catchError((e) {
+      print('chat error estate  $e');
+      emit(ChatErrorState());
+    });
+  }
+  void createChat({
+    required int subjectId,
+    required String model
+}) {
+    emit(ChatLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'chats?user_id=${AppController.instance.getId()}&subject_class=$model&subject_id=11')
+        .then((value) {
+      print(value.data);
+
       if (value.statusCode == 200) {
         print('here chat');
         chatModel = ChatModel.fromJson(value.data);

@@ -762,7 +762,7 @@ ListView favoriteItem({
                   model: 'estates');
           },
           child: Container(
-            height: 125.h,
+            height: 126.h,
 
             margin: EdgeInsets.symmetric(vertical: 10.h),
             decoration: BoxDecoration(

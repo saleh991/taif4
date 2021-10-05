@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
@@ -125,7 +125,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 41.h,
                           ),
                           Text(
-                            'login_title'.tr(),
+                            "تسجيل جديد",
+                            // 'login_title'.tr(),
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               fontSize: 18.sp,
@@ -140,7 +141,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: defaultTextField(
-                              hint: 'text_field_login'.tr(),
+                              hint: "أدخل رقم الجوال",
+                              // hint: 'text_field_login'.tr(),
                               controller: _phoneController,
                               keyboardType: TextInputType.number,
                             ),
@@ -155,7 +157,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 45.h,
                             child: membershipText(
                                 color: Color(0xfffefefe),
-                                text: 'note_login'.tr()),
+                                text: "لا يمكن أن يكون الرقم أقل من عشرة أرقام"),
+                                // text: 'note_login'.tr()),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(22.5),
                               color: Color.fromRGBO(252, 97, 100, 1),
@@ -174,7 +177,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                             title: membershipText(
                                 color: Color(0xff007c9d),
-                                text: 'checkbox_login'.tr()),
+                                text: "الموافقة على سياسة الاستخدام"),
+                                // text: 'checkbox_login'.tr()),
                           ),
                           SizedBox(
                             height: 18.h,

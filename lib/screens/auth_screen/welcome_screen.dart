@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 
@@ -35,7 +35,8 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     Center(
                       child: Text(
-                        'wt'.tr(),
+                        "سجل الآن للإستفادة بخدماتنا",
+                        // 'wt'.tr(),
                         style: TextStyle(
                           fontFamily: 'JF Flat',
                           fontSize: 20.sp,
@@ -57,26 +58,56 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+
+
+
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+          ),
+          SizedBox(
+            height: 31.h,
+          ),
+
+
+          SizedBox(
+            width: 197.w,
+            height: 42.h,
+            child: languagesButton(
+              title: "دخول",
+              // title: 'wbtn'.tr(),
+              function: () {
+                Navigator.pushReplacementNamed(context, loginRoute);
+              },
+              color: Color.fromRGBO(93, 155, 88, 1),
+            )
+          ),
+
+              SizedBox(
               width: MediaQuery.of(context).size.width,
             ),
-            SizedBox(
-              height: 31.h,
-            ),
-            SizedBox(
-              width: 197.w,
-              height: 42.h,
-              child: languagesButton(
-                title: 'wbtn'.tr(),
-                function: () {
-                  Navigator.pushReplacementNamed(context, loginRoute);
-                },
-                color: Color.fromRGBO(93, 155, 88, 1),
-              ),
-            ),
+
+
             SizedBox(
               height: 15.h,
-            ),
+
+          ),
+
+
+    //       SizedBox(
+    //         height: 24.h,
+    //       ),
+    //       TextButton(
+    //         onPressed: () {},
+    //         child: Text(
+    //           "طريقة الإشتراك",
+    //           // 'subscribe'.tr(),
+    //           style: TextStyle(
+    //             fontFamily: 'JF Flat',
+    //             fontSize: 20.sp,
+    //             color: Color.fromRGBO(0, 124, 157, 1)
+    // ))),
+
+
             SizedBox(
               width: 197.w,
               height: 42.h,
@@ -88,13 +119,17 @@ class WelcomeScreen extends StatelessWidget {
                 color: Color.fromRGBO(93, 155, 88, 1),
               ),
             ),
+
+
             SizedBox(
               height: 24.h,
             ),
+
+
             TextButton(
               onPressed: () {},
               child: Text(
-                'subscribe'.tr(),
+                "طريقة الإشتراك",
                 style: TextStyle(
                   fontFamily: 'JF Flat',
                   fontSize: 20.sp,
@@ -103,12 +138,15 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
+
             Image.asset(
               'images/bottom_welcome.png',
               height: 218.h,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
             ),
+
+
           ],
         ),
       ),

@@ -19,9 +19,12 @@ class _LaunchScreenState extends State<LaunchScreen> {
     super.initState();
     AppController.instance;
     Future.delayed(Duration(seconds: 3), () {}).then((value) {
-      String route = AppController.instance.loggedIn()
-          ? bottomNavRoute
-          : chooseLanguageRoute;
+
+      //AppController.instance.outBoarding() ? welcomeRoute: outBoardingRoute
+
+      String route = AppController.instance.loggedIn() ? bottomNavRoute :
+      // AppController.instance.outBoarding() ? welcomeRoute: outBoardingRoute;
+      chooseLanguageRoute;
       Navigator.pushReplacementNamed(context, route);
     });
   }

@@ -5,7 +5,7 @@ import 'package:taif/components/components.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/cubit.dart';
 import 'package:taif/screens/auth_screen/edit_profile/cubit/state.dart';
 import 'package:taif/models/user_data_model.dart';
@@ -52,25 +52,15 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'edit_profile'.tr(),
+          "تعديل ملفي الشخصي",
+          // 'edit_profile'.tr(),
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
             color: const Color(0xff007c9d),
           ),
         ),
-        actions: [InkWell(onTap:(){
-          Navigator.pushNamed(context, notificationsRoute);
-        },child: Padding(
-          padding:  EdgeInsets.symmetric(
-              horizontal: 12.w
-          ),
-          child: Icon(
-            Icons.notifications,
-            color: Color(0xFF007C9D),
-            size: 35.sp,
-          ),
-        ),)],
+        actions: [Image.asset('images/notification_icon.png')],
       ),
       drawer: Drawer(),
       body: BlocConsumer<ProfileCubit, ProfileState>(
@@ -152,7 +142,8 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
                     ),
                   ),
                   defaultTextField(
-                      hint: 'name_hint'.tr(),
+                      hint: "أدخل إسمك",
+                      // hint: 'name_hint'.tr(),
                       controller: _nameController,
                       hasSuffix: true,
                       suffixIcon: Icon(
@@ -163,7 +154,8 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
                     height: 18.h,
                   ),
                   defaultTextField(
-                    hint: 'email_hint'.tr(),
+                    hint: "البريد الإلكتروني",
+                    // hint: 'email_hint'.tr(),
                     controller: _emailController,
                     hasSuffix: true,
                     suffixIcon: Icon(
@@ -196,7 +188,8 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
                     height: 18.h,
                   ),
                   defaultTextField(
-                      hint: 'phone_hint'.tr(),
+                      hint: "رقم الهاتف",
+                      // hint: 'phone_hint'.tr(),
                       controller: _phoneNumberController,
                       readOnly: true),
                   Container(
@@ -206,7 +199,8 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
                     width: 301.w,
                     height: 45.h,
                     child: Text(
-                      'note_edit_prpfile'.tr(),
+                      "يمكنك التواصل مع الإدارة لتغير رقم الجوال",
+                      // 'note_edit_prpfile'.tr(),
                       style: TextStyle(
                         fontFamily: 'JF Flat',
                         fontSize: 15.sp,
@@ -271,7 +265,8 @@ class _EditFirstProfileScreenState extends State<EditFirstProfileScreen> {
                               }
 
                             },
-                            title: 'save_edit'.tr(),
+                            title: "حفظ",
+                            // title: 'save_edit'.tr(),
                           ),
                         );
                       },

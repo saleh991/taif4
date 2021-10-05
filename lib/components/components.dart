@@ -754,6 +754,7 @@ ListView favoriteItem({
             ),
           ),
 
+
           key: UniqueKey(),
           onDismissed: (_){
               MainCubit()..removeFromFav(estateId:
@@ -762,7 +763,7 @@ ListView favoriteItem({
                   model: 'estates');
           },
           child: Container(
-            height: 125.h,
+            height: 126.h,
 
             margin: EdgeInsets.symmetric(vertical: 10.h),
             decoration: BoxDecoration(
@@ -1355,6 +1356,8 @@ Container chatMessageItem(Chats chats, int index) {
     ),
   );
 }
+
+
 
 Widget addFromGalleryItems({
   required String title,

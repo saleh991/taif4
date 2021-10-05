@@ -5,11 +5,19 @@ import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class ChooseLanguageScreen extends StatelessWidget {
+
+class ChooseLanguageScreen extends StatefulWidget {
   const ChooseLanguageScreen({Key? key}) : super(key: key);
 
   @override
+  _ChooseLanguageScreenState createState() => _ChooseLanguageScreenState();
+}
+
+class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Stack(
         children: [

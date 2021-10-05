@@ -3,7 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:taif/screens/secondary_screens/chat_screen/chats_screen_subject.dart';
+import 'package:taif/controller/app_controller.dart';
+import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen_subject.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -575,6 +576,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        if (widget.estateData.user!.id != AppController.instance.getId())
                         Container(
 
                           width: 154.w,
@@ -588,7 +590,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => ChatScreenSubject(
+                                MaterialPageRoute(builder: (context) => PrivateChatSubjectScreen(
                                   subjectId: widget.estateData.id!,
                                   model: 'App\\Models\\Estate',
                                 )),

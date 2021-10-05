@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:taif/components/components.dart';
@@ -138,6 +138,7 @@ class _PinScreenState extends State<PinScreen> {
                         },
                         appContext: context,
                       ),
+
                       SizedBox(
                         height: 30.h,
                       ),
@@ -145,7 +146,7 @@ class _PinScreenState extends State<PinScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'dont_receive'.tr(),
+                            "لم تستلم الكود",
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               color: Colors.red,
@@ -156,7 +157,8 @@ class _PinScreenState extends State<PinScreen> {
                             width: 19.w,
                           ),
                           Text(
-                            'resend'.tr(),
+                            "إعادة إرسال",
+                            // 'resend'.tr(),
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               fontSize: 21,
@@ -173,7 +175,8 @@ class _PinScreenState extends State<PinScreen> {
                         height: 45.h,
                         width: 212.w,
                         child: defaultButton(
-                            title: "login_btn".tr(),
+                            title: "دخول",
+                            // title: "login_btn".tr(),
                             function: () {
                               if(currentText == '${widget.code}'){
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ActivationScreen(widget.phone)));

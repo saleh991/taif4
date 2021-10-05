@@ -28,7 +28,8 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
 
   Timer? _timer;
   int _start = 7;
-
+  var cubit;
+  ChatCubit cu= ChatCubit();
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer =  Timer.periodic(
@@ -39,14 +40,21 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
           print('re');  print('re');
 
 
-            _start=5;
-            ChatCubit()..createChat(subjectId: widget.subjectId,
-                model: widget.model);
+          _start=5;
+          cu..createChat(subjectId: widget.subjectId,
+          model: widget.model
+          );
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 700),
+          );
+
 
 
         } else {
 
-            _start--;
+          _start--;
 
         }
       },
@@ -101,15 +109,18 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
           ),
         ),)],      ),
       body: BlocProvider(
-        create: (context) => ChatCubit()..createChat(subjectId: widget.subjectId,
-            model: widget.model),
+        create: (context) =>    cu..createChat(subjectId: widget.subjectId,
+            model: widget.model
+        ),
         child:   BlocConsumer<ChatCubit, ChatState>(
           listener: (context, state) {
 
 
+
+
           },
           builder: (context, state) {
-            var cubit = ChatCubit.get(context).chatModel;
+            cubit = ChatCubit.get(context).chatModel;
 
             if (state is ChatSuccessState) {
 
@@ -289,7 +300,7 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
                                   suffixIcon: BlocConsumer<ChatCubit, ChatState>(
                                     listener: (context, state) {
                                       if (state is ChatSuccessState) {
-                                        _contentController.text = '';
+
                                       }
                                     },
                                     builder: (context, state) {
@@ -308,24 +319,34 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
                                             onPressed: () {
                                               if (checkData()) {
                                                 ChatCubit.get(context).sendMessage(
-                                                    content: _contentController.text,
-                                                    chatId: cubit.currentChat!.id!,
+                                                  content: _contentController.text,
+                                                  chatId: cubit.currentChat!.id!,
 
 
                                                 );
                                                 cubit.currentChat!.messages!.add(Messages(
-                                                  content: _contentController.text,
-                                                  userId: AppController.instance.getId(),
+                                                    content: _contentController.text,
+                                                    userId: AppController.instance.getId(),
                                                     toUserId: cubit.currentChat!.anotherUser!.id,
-                                                  createdAt: DateTime.now().toString()
+                                                    createdAt: DateTime.now().toString()
 
                                                 ));
                                                 _contentController.text='';
+                                                _scrollController.animateTo(
+                                                  _scrollController.position.maxScrollExtent,
+                                                  curve: Curves.easeOut,
+                                                  duration: const Duration(milliseconds: 700),
+                                                );
+
+                                                FocusScopeNode currentFocus = FocusScope.of(context);
+
+                                                if (!currentFocus.hasPrimaryFocus) {
+                                                  currentFocus.unfocus();
+                                                }
                                                 setState(() {
 
                                                 });
 
-                                                FocusScope.of(context).unfocus();
 
                                               }
                                             },

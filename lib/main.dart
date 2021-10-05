@@ -40,7 +40,7 @@ import 'package:taif/screens/secondary_screens/contracts_section_screens/request
 import 'package:taif/screens/secondary_screens/documentation_screen/documentation_screen.dart';
 import 'package:taif/screens/secondary_screens/favorite_screen.dart';
 import 'package:taif/screens/secondary_screens/know_taif/know_taif.dart';
-import 'package:taif/screens/secondary_screens/my_ads_screen.dart';
+import 'package:taif/screens/secondary_screens/my_adds/my_ads_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/add_guide_screen.dart';
 import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/services_provider_details_screen.dart';

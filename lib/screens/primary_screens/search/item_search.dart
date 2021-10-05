@@ -282,8 +282,8 @@ class _ItemSearchState extends State<ItemSearch> {
                          child: CachedNetworkImage(
                            fit: BoxFit.fill,
                            imageUrl:
-                           "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg",
-                           // "https://taif-app.com/storage/app/${widget.estateModel.data![index].mainImage}",
+                           // "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg",
+                           "https://taif-app.com/storage/app/${widget.estateModel.data![index].mainImage}",
 
                            errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
                            imageBuilder: (context, imageProvider) { // you can access to imageProvider

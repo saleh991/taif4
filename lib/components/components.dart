@@ -404,6 +404,8 @@ Widget profileItemSvg({
   required String title,
   required String icon,
   required Color color,
+  required height,
+  required widthImge,
   required VoidCallback function,
 }) =>
     InkWell(
@@ -413,8 +415,8 @@ Widget profileItemSvg({
         child: Row(
           children: [
             SizedBox(
-              height:30.h ,
-              width:22.w ,
+              height:height ,
+              width:widthImge ,
               child: SvgPicture.asset(
                 icon,
                 color: color,

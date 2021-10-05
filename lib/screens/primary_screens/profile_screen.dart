@@ -176,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 24.h,
               ),
-              profileItem(
+              profileItemSvg(
                   function: () {
                     Navigator.push(
                       context,
@@ -185,36 +185,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ).then((value) => setState(() {}));
                   },
+                  color: Color(0xFF009fcf),
+                  widthImge:22.w ,
+                  height:22.h ,
                   title: 'تعديل ملفي الشخصي',
-                  icon: 'images/edit_profile_icon.png'
-              ),
-              Divider(
-                height: 0,
-                thickness: 1.5,
-              ),
-              profileItem(
-                function: () {
-                  Navigator.pushNamed(context, searchRoute);
-                },
-                title: 'بحث',
-                icon: 'images/search.png',
-              ),
-              Divider(
-                height: 0,
-                thickness: 1.5,
-              ),
-              profileItem(
-                function: () {
-                  Navigator.pushNamed(context, myAdsRoute);
-                },
-                title: 'إعلاناتي',
-                icon: 'images/ads_icon.png',
+                  icon: 'images/profile.svg'
               ),
               Divider(
                 height: 0,
                 thickness: 1.5,
               ),
               profileItemSvg(
+                color: Color(0xFF009fcf),
+                function: () {
+                  Navigator.pushNamed(context, searchRoute);
+                },
+                title: 'بحث',
+                height: 18.h,
+                widthImge: 18.w,
+                icon: 'images/search.svg',
+              ),
+              Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+
+              profileItemSvg(
+                function: () {
+                  Navigator.pushNamed(context, myAdsRoute);
+                },
+                color: Color(0xFF009fcf),
+                height: 21.h,
+                widthImge: 24.w,
+                title: 'إعلاناتي',
+                icon: 'images/myAdds.svg',
+              ),
+              Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+              profileItemSvg(
+                height: 23.h,
+                widthImge: 25.w,
                 color: Color(0xFF009fcf),
                 function: () {
                   Navigator.pushNamed(context, favoriteRoute);
@@ -226,12 +238,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 0,
                 thickness: 1.5,
               ),
-              profileItem(
+              profileItemSvg(
                 function: () {
                   Navigator.pushNamed(context, englishSectionRoute);
                 },
+                height: 23.h,
+                widthImge: 18.w,
+                color: Color(0xFF009fcf),
                 title: 'القسم الانكليزي',
-                icon: 'images/terms.png',
+                icon: 'images/terms.svg',
               ),
               Divider(
                 height: 0,
@@ -248,7 +263,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 0,
                 thickness: 1.5,
               ),
-              profileItem(
+
+
+              profileItemSvg(
                 function: () {
                   if(cubit!=null)
                     {
@@ -270,41 +287,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 },
                 title: 'خطط الاشتراكات',
-                icon: 'images/member_card.png',
+                icon: 'images/member_card.svg',
+                height: 18.h,
+                widthImge: 22.w,
+                color: Color(0xFF009fcf),
               ),
       
               Divider(
                 height: 0,
                 thickness: 1.5,
               ),
-              profileItem(
+              profileItemSvg(
                 function: () {},
                 title: 'اتفاقية الاستخدام',
-                icon: 'images/terms.png',
+                icon: 'images/terms.svg',
+                height: 23.h,
+                widthImge: 18.w,
+                color: Color(0xFF009fcf),
               ),
               Divider(
                 height: 0,
                 thickness: 1.5,
               ),
-              profileItem(
+              profileItemSvg(
                 function: () {
                   Share.share('check out my website https://www.facebook.com');
 
 
                 },
                 title: 'شارك التطبيق',
-                icon: 'images/share.png',
+                icon: 'images/share.svg',
+                height: 21.h,
+                widthImge: 20.w,
+                color: Color(0xFF009fcf),
               ),
               Divider(
                 height: 0,
                 thickness: 1.5,
               ),
-              profileItem(
+              profileItemSvg(
                 function: () {
                   Navigator.pushNamed(context, contactRoute);
                 },
                 title: 'تواصل معنا',
-                icon: 'images/terms.png',
+                icon: 'images/call.svg',
+                height: 23.h,
+                widthImge: 20.w,
+                color: Color(0xFF009fcf),
               ),
               Divider(
                 height: 0,

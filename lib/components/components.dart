@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/chat_model.dart';
@@ -45,6 +47,8 @@ Widget languagesButton({
         elevation: 0,
       ),
     );
+
+
 
 Widget languagesButtonWithIcon({
   required String title,
@@ -344,16 +348,18 @@ Widget notificationsItem(
           notificationModel.data![index].content.toString(),
           style: TextStyle(
             fontFamily: 'JF Flat',
-            fontSize: 19.sp,
+            fontSize: 15.sp,
             color: const Color(0xff007c9d),
           ),
           textAlign: TextAlign.right,
         ),
         subtitle: Text(
-          notificationModel.data![index].createdAt.toString(),
+          DateFormat('yyyy-MM-dd','en').format(DateTime.parse(
+              notificationModel.data![index].createdAt.toString())),
+
           style: TextStyle(
             fontFamily: 'JF Flat',
-            fontSize: 10.sp,
+            fontSize: 13.sp,
             color: const Color(0xff007c9d),
           ),
           textAlign: TextAlign.left,
@@ -431,15 +437,24 @@ ListView itemsListView({
             },
             child: Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: estateModel.data![index].mainImage != null
-                      ? NetworkImage(
-                          'https://taif-app.com/storage/app/${estateModel.data![index].mainImage}',
-                        )
-                      : NetworkImage(
-                          'https://taif-app.com/api/public/taaef/images/logo-l.png'),
-                  maxRadius: 35.h,
+                Container(
+                  height: 80.w,
+                  width: 80.w,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    imageUrl: "https://taif-app.com/storage/app/${estateModel.data![index].mainImage}",
+
+                    errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+                    imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                      return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                        backgroundImage: imageProvider,
+                      );
+                    },
+                  ),
+
+
                 ),
+
                 SizedBox(
                   width: 30.w,
                 ),
@@ -486,26 +501,26 @@ ListView itemsListView({
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Image.asset(
-                              'images/location.png',
-                              height: 18.h,
-                              width: 20.w,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'الحوية',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 10.sp,
-                                color: const Color(0xff7a90b7),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+                            // Image.asset(
+                            //   'images/location.png',
+                            //   height: 18.h,
+                            //   width: 20.w,
+                            // ),
+                            // SizedBox(
+                            //   width: 10,
+                            // ),
+                            // Text(
+                            //   'الحوية',
+                            //   style: TextStyle(
+                            //     fontFamily: 'JF Flat',
+                            //     fontSize: 10.sp,
+                            //     color: const Color(0xff7a90b7),
+                            //   ),
+                            //   textAlign: TextAlign.center,
+                            // ),
                             SizedBox(
                               width: 5,
                             ),
@@ -707,16 +722,24 @@ ListView favoriteItem({
             },
             child: Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: favoriteModel.data!.appModelsEstate![index].favorite!.image !=
-                          null
-                      ? NetworkImage(
-                          'https://taif-app.com/storage/app/${favoriteModel.data!.appModelsEstate![index].favorite!.image}',
-                        )
-                      : NetworkImage(
-                          'https://taif-app.com/public/taaef/images/logo-l.png'),
-                  maxRadius: 35.h,
+                Container(
+                  height: 80.w,
+                  width: 80.w,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    imageUrl: "https://taif-app.com/storage/app/${favoriteModel.data!.appModelsEstate![index].favorite!.image}",
+
+                    errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+                    imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                      return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                        backgroundImage: imageProvider,
+                      );
+                    },
+                  ),
+
+
                 ),
+
                 SizedBox(
                   width: 30.w,
                 ),
@@ -869,11 +892,19 @@ Widget homeItem({
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                img,
+              // Image.asset(
+              //   img,
+              //   height: 66.h,
+              //   width: 68.h,
+              // ),
+
+              SvgPicture.asset(
+                  img,
+                  semanticsLabel: 'Acme Logo',
                 height: 66.h,
                 width: 68.h,
               ),
+
               SizedBox(
                 height: 12.h,
               ),
@@ -986,7 +1017,7 @@ Widget tapHomeItem({
             title,
             style: TextStyle(
               fontFamily: 'JF Flat',
-              fontSize: 15,
+              fontSize: 12,
               color: const Color(0xffffffff),
               letterSpacing: -0.3,
             ),
@@ -1153,18 +1184,31 @@ Widget membershipDetails({
 Widget listTileItem(Widget leading, String title, Widget trailing) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-    child: ListTile(
-        leading: leading,
-        title: Text(
-          title,
-          style: TextStyle(
-            fontFamily: 'JF Flat',
-            fontSize: 21.sp,
-            color: const Color(0xff003e4f),
-          ),
-          textAlign: TextAlign.right,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            leading,
+            SizedBox(
+              width: 18.w,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'JF Flat',
+                fontSize: 21.sp,
+                color: const Color(0xff003e4f),
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ],
         ),
-        trailing: trailing),
+
+        trailing
+      ],
+
+         ),
   );
 }
 
@@ -1295,21 +1339,26 @@ InkWell secondlistViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if(locationModel.data![index].mainImage!=null)
-            CircleAvatar(
-              backgroundImage:
-              NetworkImage(
-                'https://taif-app.com/storage/app/${locationModel.data![index].mainImage!}',
-              ),
 
-              maxRadius: 35,
-            )else
-            CircleAvatar(
-              backgroundImage:
-              AssetImage('images/circle_img.png'),
+          Container(
+            height: 80.w,
+            width: 80.w,
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://taif-app.com/storage/app/${locationModel.data![index].mainImage}",
 
-              maxRadius: 35,
+              errorWidget: (context, url, error) =>
+                  Image.asset('images/ee.png',
+                fit: BoxFit.fill,),
+              imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                  backgroundImage: imageProvider,
+                );
+              },
             ),
+
+
+          ),
           SizedBox(
             width: 30.w,
           ),
@@ -1323,7 +1372,7 @@ InkWell secondlistViewItem(
                 locationModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 18,
+                  fontSize: 16.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.center,
@@ -1380,32 +1429,10 @@ InkWell secondlistViewItem(
                     SizedBox(width: 15.w,),
                     Expanded(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/eye.png',
-                                height: 18.h,
-                                width: 20.w,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                '50',
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 14.sp,
-                                  color: const Color(0xff7a90b7),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 14.h,
-                          ),
+
                           if(locationModel.data![index].user!=null)
                           Text(
                             locationModel.data![index].user!.name!,
@@ -1414,7 +1441,7 @@ InkWell secondlistViewItem(
                               fontSize: 13.sp,
                               color: const Color(0xff003e4f),
                             ),
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.start,
                           ),
 
                         ],
@@ -1424,11 +1451,13 @@ InkWell secondlistViewItem(
                     Expanded(
                       child: Column(
                         children: [
+                          if(locationModel.data![index].km!>0)
                           Image.asset(
                             'images/map.png',
                             width: 25.w,
                             height: 25.h,
                           ),
+                          if(locationModel.data![index].km!>0)
                           SizedBox(
                             height: 14.h,
                           ),
@@ -1486,21 +1515,24 @@ InkWell englishListViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if(englishModel.data![index].image!=null)
-            CircleAvatar(
-              backgroundImage:
-              NetworkImage(
-                'https://taif-app.com/storage/app/${englishModel.data![index].image!}',
-              ),
 
-              maxRadius: 35,
-            )else
-            CircleAvatar(
-              backgroundImage:
-              AssetImage('images/circle_img.png'),
+          Container(
+            height: 80.w,
+            width: 80.w,
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://taif-app.com/storage/app/${englishModel.data![index].image!}",
 
-              maxRadius: 35,
+              errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+              imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                  backgroundImage: imageProvider,
+                );
+              },
             ),
+
+
+          ),
           SizedBox(
             width: 30.w,
           ),
@@ -1590,32 +1622,27 @@ InkWell englishListViewItem(
                           ],
                         ),
                         SizedBox(
-                          height: 14.h,
+                          height: 24.h,
                         ),
-                        Text(
-                          'علي احمد',
-                          style: TextStyle(
-                            fontFamily: 'Noto Kufi Arabic',
-                            fontSize: 13.sp,
-                            color: const Color(0xff003e4f),
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
+
 
                       ],
                     ),
                     Column(
                       children: [
+                        if(englishModel.data![index].km!>0)
                         Image.asset(
                           'images/map.png',
                           width: 25.w,
                           height: 25.h,
                         ),
+                        if(englishModel.data![index].km!>0)
                         SizedBox(
                           height: 14.h,
                         ),
+                        if(englishModel.data![index].km!>0)
                         Text(
-                          '18k.m',
+                          '${englishModel.data![index].km!} k.m',
                           style: TextStyle(
                             fontFamily: 'Noto Kufi Arabic',
                             fontSize: 14.sp,
@@ -1664,21 +1691,26 @@ InkWell tourismGuidingViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if(guidingModel.data![index].image!=null)
-            CircleAvatar(
-              backgroundImage:
-              NetworkImage(
-                'https://taif-app.com/storage/app/${guidingModel.data![index].image!}',
-              ),
 
-              maxRadius: 35,
-            )else
-            CircleAvatar(
-              backgroundImage:
-              AssetImage('images/circle_img.png'),
+          Container(
+            height: 80.w,
+            width: 80.w,
 
-              maxRadius: 35,
+
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://taif-app.com/storage/app/${guidingModel.data![index].image}",
+
+              errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+              imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                  backgroundImage: imageProvider,
+                );
+              },
             ),
+
+
+          ),
           SizedBox(
             width: 30.w,
           ),
@@ -1785,25 +1817,57 @@ InkWell harajslistViewItem(
   return InkWell(
     onTap: function,
     child: Center(
-      child: Row(
+      child: Padding(
+        padding: EdgeInsets.only(left: 20,right: 20),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if(harajModel.data![index].main_image!=null)
+              CircleAvatar(
+                backgroundImage:
+                NetworkImage(
+                  'https://taif-app.com/storage/app/${harajModel.data![index].main_image!}',
+                ),
+
+                maxRadius: 35,
+              )else
+              CircleAvatar(
+                backgroundImage:
+                AssetImage('images/circle_img.png'),
+
+                maxRadius: 35,
+              ),
+
+            SizedBox(
+              width: 30.w,
+            ),
+
+            Expanded(
+                child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if(harajModel.data![index].main_image!=null)
-          CircleAvatar(
-            backgroundImage:
-             NetworkImage(
-                 'https://taif-app.com/storage/app/${harajModel.data![index].main_image!}',
-                 ),
 
-            maxRadius: 35,
-          )else
-            CircleAvatar(
-              backgroundImage:
-              AssetImage('images/circle_img.png'),
+          Container(
+            height: 80.w,
+            width: 80.w,
 
-              maxRadius: 35,
+
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://taif-app.com/storage/app/${harajModel.data![index].main_image}",
+
+              errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+              imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                  backgroundImage: imageProvider,
+                );
+              },
             ),
+
+
+          ),
 
           SizedBox(
             width: 30.w,
@@ -1832,89 +1896,157 @@ InkWell harajslistViewItem(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                'images/save.png',
-                                height: 18.h,
-                                width: 12.w,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                '$categoryName',
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 13.sp,
-                                  color: const Color(0xff7a90b7),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          SizedBox(
+                    SizedBox(
+                      height: 6.h,
+                    ),
 
-                            child: Text(
-                              DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
-                              style: TextStyle(
-                                fontFamily: 'Tahoma',
-                                fontSize: 12.sp,
-                                color: const Color(0xff007c9d),
-                              ),
-                              textAlign: TextAlign.right,
+                    // * title
+                    Text(
+                      harajModel.data![index].title.toString(),
+                      style: TextStyle(
+                        fontFamily: 'JF Flat',
+                        fontSize: 18,
+                        color: const Color(0xff003e4f),
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+
+
+                    SizedBox(
+                      height: 10.h,
+                    ),
+
+
+
+                    Expanded(
+                      // width: width220.w,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/save.png',
+                                      height: 18.h,
+                                      width: 12.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Text(
+                                      '$categoryName',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 13.sp,
+                                        color: const Color(0xff7a90b7),
+                                      ),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                SizedBox(
+
+                                  child: Text(
+                                    DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
+                                    style: TextStyle(
+                                      fontFamily: 'Tahoma',
+                                      fontSize: 12.sp,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                    maxLines: 2,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(width:22.w,),
+
+                          SizedBox(
+                            child: Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'images/eye.png',
+                                      height: 18.h,
+                                      width: 20.w,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Text(
+                                      harajModel.data![index].views==null?"0":harajModel.data![index].views.toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 12.sp,
+                                        color: const Color(0xff7a90b7),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                SizedBox(
+                                  child: Text(
+                                    harajModel.data![index].user!.name!,
+                                    style: TextStyle(
+                                      fontFamily: 'Tahoma',
+                                      fontSize: 13.sp,
+                                      color: const Color(0xff007c9d),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                )
+                              ],
                             ),
                           )
-                        ],
-                      ),
-                    ),
-                    SizedBox(width:22.w,),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/eye.png',
-                                height: 18.h,
-                                width: 20.w,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                harajModel.data![index].views.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 12.sp,
-                                  color: const Color(0xff7a90b7),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
                           ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          SizedBox(
 
-                            child: Text(
-                              harajModel.data![index].user!.name!,
-                              style: TextStyle(
-                                fontFamily: 'Tahoma',
-                                fontSize: 13.sp,
-                                color: const Color(0xff007c9d),
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
+                          SizedBox(width: 22.w,),
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'images/map.png',
+                                  width: 25.w,
+                                  height: 25.h,
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                Align(
+
+                                  child: Text(
+                                    '18k.m',
+                                    style: TextStyle(
+                                      fontFamily: 'Noto Kufi Arabic',
+                                      fontSize: 13.sp,
+                                      color: const Color(0xff003e4f),
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ],
+                          )
                           )
                         ],
                       ),
@@ -1922,8 +2054,9 @@ InkWell harajslistViewItem(
                     SizedBox(width: 22.w,),
                     Expanded(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          if(harajModel.data![index].km!>0)
                           Image.asset(
                             'images/map.png',
                             width: 25.w,
@@ -1932,36 +2065,43 @@ InkWell harajslistViewItem(
                           SizedBox(
                             height: 12.h,
                           ),
-                          Align(
-
-                            child: Text(
-                              '18k.m',
-                              style: TextStyle(
-                                fontFamily: 'Noto Kufi Arabic',
-                                fontSize: 13.sp,
-                                color: const Color(0xff003e4f),
-                              ),
-                              textAlign: TextAlign.right,
+                          if(harajModel.data![index].km!>0)
+                          Text(
+                            '${harajModel.data![index].km} k.m',
+                            style: TextStyle(
+                              fontFamily: 'Noto Kufi Arabic',
+                              fontSize: 13.sp,
+                              color: const Color(0xff003e4f),
                             ),
+                            textAlign: TextAlign.center,
                           ),
+
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
 
                   ],
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
+                )
+            ),
 
-            ],
-          )
-        ],
+          ],
+        ),
+                  ]
+  )
+      ),
+]
+      ),
       ),
     ),
   );
 }
+
+
+
+
 
 InkWell eventListViewItem(
     {required VoidCallback function,
@@ -1975,11 +2115,26 @@ InkWell eventListViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://taif-app.com/storage/app/${eventModel.data![index].image}'),
-            maxRadius: 35,
+          Container(
+            height: 80.w,
+            width: 80.w,
+
+
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://taif-app.com/storage/app/${eventModel.data![index].image}",
+
+              errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+              imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                  backgroundImage: imageProvider,
+                );
+              },
+            ),
+
+
           ),
+
           SizedBox(
             width: 30.w,
           ),
@@ -2018,7 +2173,7 @@ InkWell eventListViewItem(
                           width: 5.w,
                         ),
                         Text(
-                          '',
+                          'فعاليات الطائف',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
                             fontSize: 13.sp,
@@ -2052,13 +2207,14 @@ InkWell eventListViewItem(
                     SizedBox(
                       width: 10,
                     ),
+                    if(eventModel.data![index].km! >0)
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '18k.m',
+                        '${eventModel.data![index].km!} k.m',
                         style: TextStyle(
                           fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14,
+                          fontSize: 13.sp,
                           color: const Color(0xff003e4f),
                         ),
                         textAlign: TextAlign.right,
@@ -2078,7 +2234,7 @@ InkWell eventListViewItem(
 InkWell offerListViewItem(
     {required VoidCallback function,
     required OffersModel offerModel,
-    required String section,
+
     required int index}) {
   return InkWell(
     onTap: function,
@@ -2087,10 +2243,24 @@ InkWell offerListViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://taif-app.com/storage/app/${offerModel.data![index].image}'),
-            maxRadius: 35,
+          Container(
+            height: 80.w,
+           width: 80.w,
+
+
+           child: CachedNetworkImage(
+             fit: BoxFit.fill,
+             imageUrl: "https://taif-app.com/storage/app/${offerModel.data![index].image}",
+
+             errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+             imageBuilder: (context, imageProvider) { // you can access to imageProvider
+               return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                 backgroundImage: imageProvider,
+               );
+             },
+           ),
+
+
           ),
           SizedBox(
             width: 30.w,
@@ -2163,13 +2333,14 @@ InkWell offerListViewItem(
                     SizedBox(
                       width: 10,
                     ),
+                    if(offerModel.data![index].km! >0)
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '',
+                        '${offerModel.data![index].km} km',
                         style: TextStyle(
                           fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: const Color(0xff003e4f),
                         ),
                         textAlign: TextAlign.right,
@@ -2198,11 +2369,26 @@ InkWell taifListViewItem(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://taif-app.com/storage/app/${taifModel.data![index].image}'),
-            maxRadius: 35,
+          Container(
+            height: 80.w,
+            width: 80.w,
+
+
+            child: CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl: "https://taif-app.com/storage/app/${taifModel.data![index].image}",
+
+              errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+              imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                  backgroundImage: imageProvider,
+                );
+              },
+            ),
+
+
           ),
+
           SizedBox(
             width: 30.w,
           ),
@@ -2244,7 +2430,7 @@ InkWell taifListViewItem(
                           '$section',
                           style: TextStyle(
                             fontFamily: 'JF Flat',
-                            fontSize: 13.sp,
+                            fontSize: 14.sp,
                             color: const Color(0xff7a90b7),
                           ),
                           textAlign: TextAlign.center,
@@ -2266,7 +2452,7 @@ InkWell taifListViewItem(
                      DateFormat('yyyy-MM-dd','en').format(DateTime.parse( taifModel.data![index].createdAt.toString())),
                       style: TextStyle(
                         fontFamily: 'Tahoma',
-                        fontSize: 13.sp,
+                        fontSize: 14.sp,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.right,
@@ -2274,13 +2460,14 @@ InkWell taifListViewItem(
                     SizedBox(
                       width: 10,
                     ),
+                    if(taifModel.data![index].km! >0)
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '18k.m',
+                        '${taifModel.data![index].km} k.m',
                         style: TextStyle(
                           fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: const Color(0xff003e4f),
                         ),
                         textAlign: TextAlign.right,

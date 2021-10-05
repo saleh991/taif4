@@ -11,11 +11,7 @@ import 'package:taif/screens/auth_screen/login_screen/login_screen.dart';
 import 'package:taif/screens/auth_screen/out_boarding_screen.dart';
 import 'package:taif/screens/auth_screen/register_screen/register_screen.dart';
 import 'package:taif/screens/primary_screens/main_screen/bottom_nav_controller.dart';
-import 'screens/primary_screens/estates_section/add_ad_screen1.dart';
-import 'screens/primary_screens/estates_section/add_ad_screen2.dart';
-import 'screens/primary_screens/estates_section/add_ad_screen3.dart';
 import 'package:taif/screens/primary_screens/estates_section/estate_screen.dart';
-import 'package:taif/screens/primary_screens/membership_screen/membership_screen.dart';
 import 'package:taif/screens/primary_screens/search_screen.dart';
 
 import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/tourism_guiding_screen.dart';
@@ -23,26 +19,20 @@ import 'package:taif/screens/secondary_screens/address_section_screens/tourism_g
 import 'package:taif/screens/secondary_screens/address_section_screens/add_address_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/addedd_succefully_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/address_conditon_screen.dart';
-import 'package:taif/screens/secondary_screens/address_section_screens/address_detailes_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/events_sections/events_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/offers_sections/offers_screen.dart';
-import 'package:taif/screens/primary_screens/estates_section/ads_conditions_screen.dart';
 import 'package:taif/screens/secondary_screens/chat_screen/chats_screen.dart';
 import 'package:taif/screens/secondary_screens/contact_screen/contact_screen.dart';
 import 'package:taif/screens/auth_screen/edit_profile/edit_profile_screen.dart';
 import 'package:taif/screens/auth_screen/launch_screen.dart';
 import 'package:taif/screens/auth_screen/localizations_screen.dart';
 import 'package:taif/screens/primary_screens/notifications_screen.dart';
-import 'package:taif/screens/auth_screen/pin_screen.dart';
 import 'package:taif/screens/primary_screens/profile_screen.dart';
 import 'package:taif/screens/secondary_screens/contracts_section_screens/contracts_screen.dart';
-import 'package:taif/screens/secondary_screens/contracts_section_screens/request_rental_right_screen.dart';
 import 'package:taif/screens/secondary_screens/documentation_screen/documentation_screen.dart';
 import 'package:taif/screens/secondary_screens/favorite_screen.dart';
-import 'package:taif/screens/secondary_screens/know_taif/know_taif.dart';
 import 'package:taif/screens/secondary_screens/my_ads_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/add_guide_screen.dart';
-import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/services_provider_details_screen.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/services_providers_screen.dart';
 import 'package:taif/screens/test.dart';
@@ -97,8 +87,6 @@ class _MainAppState extends State<MainApp> {
           initialRoute: launchScreenRoute,
           routes: {
             launchScreenRoute: (context) => LaunchScreen(),
-
-
             chooseLanguageRoute: (context) => ChooseLanguageScreen(),
             outBoardingRoute: (context) => OutBoardingScreen(),
             welcomeRoute: (context) => WelcomeScreen(),

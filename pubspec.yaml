@@ -37,7 +37,7 @@ dependencies:
   shared_preferences: ^2.0.6
   dio: ^4.0.0
   carousel_slider: ^4.0.0
-  google_maps_flutter: ^2.0.6
+  google_maps_flutter: ^2.0.11
   fluttertoast: ^8.0.7
   http: ^0.13.3
   image_picker: ^0.8.3+3
@@ -50,6 +50,8 @@ dependencies:
   geolocator: ^7.6.2
   flutter_datetime_picker: ^1.5.1
   geocoding: ^2.0.1
+  cached_network_image:
+  flutter_svg:
 
 
 dev_dependencies:
@@ -61,7 +63,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.`
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

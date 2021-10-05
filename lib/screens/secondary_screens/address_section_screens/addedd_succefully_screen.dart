@@ -12,11 +12,11 @@ class AddedSuccefullyScreen extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Column(children: [
-            SizedBox(height: 100.h,),
+            SizedBox(height: 130.h,),
             Container(
                 height: 180.h,
                 child: Center(child: Image.asset('images/checked.png'))),
-            SizedBox(height: 50.h,),
+            SizedBox(height: 20.h,),
             Center(
               child: Container(
                 width: 383.w,

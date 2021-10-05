@@ -57,88 +57,127 @@ class TaifModel {
 /// phone : null
 
 class TaifData {
-  int? _id;
-  int? _tagId;
-  String? _image;
-  String? _title;
-  String? _content;
-  String? _createdAt;
-  String? _updatedAt;
-  dynamic? _youtube;
-  int? _views;
-  dynamic? _locationLng;
-  dynamic? _locationLat;
-  dynamic? _phone;
+  double? km;
+  int? id;
+  int? tagId;
+  String? image;
+  String? title;
+  String? content;
+  String? createdAt;
+  String? updatedAt;
+  dynamic? youtube;
+  int? views;
+  dynamic? locationLng;
+  dynamic? locationLat;
+  dynamic? phone;
+  List<Images>? images;
 
-  int? get id => _id;
-  int? get tagId => _tagId;
-  String? get image => _image;
-  String? get title => _title;
-  String? get content => _content;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  dynamic? get youtube => _youtube;
-  int? get views => _views;
-  dynamic? get locationLng => _locationLng;
-  dynamic? get locationLat => _locationLat;
-  dynamic? get phone => _phone;
+
 
   TaifData({
-      int? id, 
-      int? tagId, 
-      String? image, 
-      String? title, 
-      String? content, 
-      String? createdAt, 
-      String? updatedAt, 
-      dynamic? youtube, 
-      int? views, 
-      dynamic? locationLng, 
-      dynamic? locationLat, 
-      dynamic? phone}){
-    _id = id;
-    _tagId = tagId;
-    _image = image;
-    _title = title;
-    _content = content;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _youtube = youtube;
-    _views = views;
-    _locationLng = locationLng;
-    _locationLat = locationLat;
-    _phone = phone;
-}
+      this.km,
+this.content,
+    this.image,
+    this.id,
+    this.phone,
+    this.title,
+    this.locationLng,
+    this.locationLat,
+    this.createdAt,
+    this.views,
+    this.tagId,
+    this.updatedAt,
+    this.youtube,
+    this.images
+  });
 
   TaifData.fromJson(dynamic json) {
+    id = json['id'];
+    tagId = json['tag_id'];
+    image = json['image'];
+    title = json['title'];
+    content = json['content'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    youtube = json['youtube'];
+    views = json['views'];
+    locationLng = json['location_lng'];
+    locationLat = json['location_lat'];
+    phone = json['phone'];
+    if (json['images'] != null) {
+      images = [];
+      json['images'].forEach((v) {
+        images?.add(Images.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map['id'] = id;
+    map['tag_id'] = tagId;
+    map['image'] = image;
+    map['title'] = title;
+    map['content'] = content;
+    map['created_at'] = createdAt;
+    map['updated_at'] = updatedAt;
+    map['youtube'] = youtube;
+    map['views'] = views;
+    map['location_lng'] = locationLng;
+    map['location_lat'] = locationLat;
+    map['phone'] = phone;
+    return map;
+  }
+
+}
+
+class Images {
+  int? _id;
+  String? _path;
+  String? _viewableType;
+  int? _viewableId;
+  String? _createdAt;
+  String? _updatedAt;
+
+  int? get id => _id;
+  String? get path => _path;
+  String? get viewableType => _viewableType;
+  int? get viewableId => _viewableId;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+
+  Images({
+    int? id,
+    String? path,
+    String? viewableType,
+    int? viewableId,
+    String? createdAt,
+    String? updatedAt}){
+    _id = id;
+    _path = path;
+    _viewableType = viewableType;
+    _viewableId = viewableId;
+    _createdAt = createdAt;
+    _updatedAt = updatedAt;
+  }
+
+  Images.fromJson(dynamic json) {
     _id = json['id'];
-    _tagId = json['tag_id'];
-    _image = json['image'];
-    _title = json['title'];
-    _content = json['content'];
+    _path = json['path'];
+    _viewableType = json['viewable_type'];
+    _viewableId = json['viewable_id'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    _youtube = json['youtube'];
-    _views = json['views'];
-    _locationLng = json['location_lng'];
-    _locationLat = json['location_lat'];
-    _phone = json['phone'];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['id'] = _id;
-    map['tag_id'] = _tagId;
-    map['image'] = _image;
-    map['title'] = _title;
-    map['content'] = _content;
+    map['path'] = _path;
+    map['viewable_type'] = _viewableType;
+    map['viewable_id'] = _viewableId;
     map['created_at'] = _createdAt;
     map['updated_at'] = _updatedAt;
-    map['youtube'] = _youtube;
-    map['views'] = _views;
-    map['location_lng'] = _locationLng;
-    map['location_lat'] = _locationLat;
-    map['phone'] = _phone;
     return map;
   }
 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,7 @@ class HarajDetailsScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-          'تفاصيل الموقع',
+          'تفاصيل الحراج',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
@@ -42,7 +43,7 @@ class HarajDetailsScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 35),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: const Color(0xa1ffffff),
+                color:  Color(0xa1ffffff),
                 border: Border.all(width: 1.0, color: const Color(0xa1c5c0c0)),
               ),
               child: Row(
@@ -56,7 +57,7 @@ class HarajDetailsScreen extends StatelessWidget {
                         fontSize: 18.sp,
                         color: const Color(0xff1e8aa8),
                       ),
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                     ),
                   ),
                   Text(
@@ -64,10 +65,10 @@ class HarajDetailsScreen extends StatelessWidget {
 
                     style: TextStyle(
                       fontFamily:fontName,
-                      fontSize: 10.sp,
+                      fontSize: 13.sp,
                       color: const Color(0xfff92a0a),
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.end,
                   )
                 ],
               ),
@@ -75,21 +76,65 @@ class HarajDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 23.h,
             ),
-            Image.network(
-              'https://taif-app.com/storage/app/${data.main_image}',
+// <<<<<<< HEAD
+            // Image.network(
+            //   'https://taif-app.com/storage/app/${data.main_image}',
+            //   height: 178.h,
+            //   width: 246.w,
+            //   fit: BoxFit.contain,
+            // ),
+
+
+            CachedNetworkImage(
+              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}',
+              // imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrv7f1Xb07z6-VGI5fJWc6-Wkasr33ugqXQ&usqp=CAU",
+              placeholder: (context, url) =>
+              const Center(
+                child: CircularProgressIndicator(),),
+              errorWidget: (context, url,
+                  error) =>
+                  Image.asset("images/no_image_avilable.png"),
               height: 178.h,
               width: 246.w,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
             ),
+
             SizedBox(
               height: 35.h,
             ),
-            Image.network(
-              'https://taif-app.com/storage/app/${data.main_image}',
+
+            // Image.network(
+            //   'https://taif-app.com/storage/app/${data.main_image}',
+            //   height: 219.h,
+            //   width: 380.w,
+            //   fit: BoxFit.contain,
+            // ),
+
+
+            CachedNetworkImage(
+              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}' ,
+              // imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrv7f1Xb07z6-VGI5fJWc6-Wkasr33ugqXQ&usqp=CAU",
+              placeholder: (context, url) =>
+              const Center(
+                child: CircularProgressIndicator(),),
+              errorWidget: (context, url,
+                  error) =>
+                  Image.asset("images/no_image_avilable.png"),
               height: 219.h,
               width: 380.w,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
             ),
+// =======
+            CachedNetworkImage(
+              fit: BoxFit.fill,
+              height: 178.h,
+              width: 246.w,
+              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}',
+
+              errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+// >>>>>>> origin/amjad
+
+
             SizedBox(
               height: 35.h,
             ),

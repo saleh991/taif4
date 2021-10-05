@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';//؟؟؟؟؟؟؟؟
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/controller/app_controller.dart';
@@ -25,8 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _phoneController = TextEditingController();
-    _passwordController = TextEditingController();
+    _phoneController = TextEditingController()..text="112233";
+    _passwordController = TextEditingController()..text="123456";
   }
 
   @override
@@ -111,7 +111,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 41.h,
                           ),
                           Text(
-                            'login_title'.tr(),
+                            "تسجيل جديد",
+                            // 'login_title'.tr(),
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               fontSize: 18.sp,
@@ -121,18 +122,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: 37.h,
+                            height: 32.h,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: defaultTextField(
-                              hint: 'text_field_login'.tr(),
+                              hint:"أدخل رقم الجوال",
                               controller: _phoneController,
                               keyboardType: TextInputType.number,
                             ),
                           ),
                           SizedBox(
-                            height: 15.h,
+                            height: 4.h,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -153,10 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 39.h,
+                            height: 20.h,
                           ),
                           SizedBox(
-                            height: 18.h,
+                            height: 8.h,
                           ),
                           SizedBox(
                             height: 45.h,
@@ -179,7 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
 
                               },
-                              title: 'login_btn'.tr(),
+                              title:"دخول",
+                              // title: 'login_btn'.tr(),
                             ),
                           ),
                           SizedBox(
@@ -199,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 30.h,
+                            height: 8.h,
                           ),
                           TextButton(
                             onPressed: () {

@@ -20,7 +20,7 @@ class _EstateMapState extends State<EstateMap> {
   Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
   int selected=-1;
   List<Marker> markers = [];
-  String location='';
+
 
   @override
   void initState() {

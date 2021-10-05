@@ -1,6 +1,3 @@
-/// status : true
-/// code : 200
-/// data : [{"id":3,"tag_id":3,"image":"posts/4-1629520033.jpg","title":"خصم خاص","content":"تعد طريقة عرض المنتجات في المحلات من أهم وسائل التسويق للمنتجات، حيث أن طريقة العرض المنظمة أمر في غاية الأهمية لأن العرض المميز هو أحد أهم العوامل الجاذبة للمتسوقين.","created_at":"2021-07-02T06:09:01.000000Z","updated_at":"2021-08-27T08:43:14.000000Z","youtube":null,"views":13,"location_lng":null,"location_lat":null,"phone":null,"images":[]},{"id":10,"tag_id":3,"image":"posts/4-1629520193.jpg","title":"عروض خاصة للمتاجر","content":"تعد طريقة عرض المنتجات في المحلات من أهم وسائل التسويق للمنتجات، حيث أن طريقة العرض المنظمة أمر في غاية الأهمية لأن العرض المميز هو أحد أهم العوامل الجاذبة للمتسوقين.","created_at":"2021-07-02T06:09:01.000000Z","updated_at":"2021-09-06T06:29:10.000000Z","youtube":null,"views":19,"location_lng":null,"location_lat":null,"phone":null,"images":[]},{"id":11,"tag_id":3,"image":"posts/4-1629520137.jpg","title":"عرض خاص للفحص","content":"تعد طريقة عرض المنتجات في المحلات من أهم وسائل التسويق للمنتجات، حيث أن طريقة العرض المنظمة أمر في غاية الأهمية لأن العرض المميز هو أحد أهم العوامل الجاذبة للمتسوقين.","created_at":"2021-07-02T06:09:01.000000Z","updated_at":"2021-09-06T06:29:09.000000Z","youtube":null,"views":11,"location_lng":null,"location_lat":null,"phone":null,"images":[]},{"id":12,"tag_id":3,"image":"posts/4-1629520093.jpg","title":"بطاقة خصومات","content":"تعد طريقة عرض المنتجات في المحلات من أهم وسائل التسويق للمنتجات، حيث أن طريقة العرض المنظمة أمر في غاية الأهمية لأن العرض المميز هو أحد أهم العوامل الجاذبة للمتسوقين.","created_at":"2021-07-02T06:09:01.000000Z","updated_at":"2021-09-04T15:05:11.000000Z","youtube":null,"views":9,"location_lng":null,"location_lat":null,"phone":null,"images":[]}]
 
 class OffersModel {
   bool? _status;
@@ -43,116 +40,132 @@ class OffersModel {
 
 }
 
-/// id : 3
-/// tag_id : 3
-/// image : "posts/4-1629520033.jpg"
-/// title : "خصم خاص"
-/// content : "تعد طريقة عرض المنتجات في المحلات من أهم وسائل التسويق للمنتجات، حيث أن طريقة العرض المنظمة أمر في غاية الأهمية لأن العرض المميز هو أحد أهم العوامل الجاذبة للمتسوقين."
-/// created_at : "2021-07-02T06:09:01.000000Z"
-/// updated_at : "2021-08-27T08:43:14.000000Z"
-/// youtube : null
-/// views : 13
-/// location_lng : null
-/// location_lat : null
-/// phone : null
-/// images : []
-
 class Data {
-  int? _id;
-  int? _tagId;
-  String? _image;
-  String? _title;
-  String? _content;
-  String? _createdAt;
-  String? _updatedAt;
-  dynamic? _youtube;
-  int? _views;
-  dynamic? _locationLng;
-  dynamic? _locationLat;
-  dynamic? _phone;
-  List<dynamic>? _images;
+  int? id;
+  double? km;
+  int? tagId;
+  String? image;
+  String? title;
+  String? content;
+  String? createdAt;
+  String? updatedAt;
+  dynamic? youtube;
+  int? views;
+  dynamic? locationLng;
+  dynamic? locationLat;
+  dynamic? phone;
+  List<Images>? images;
 
-  int? get id => _id;
-  int? get tagId => _tagId;
-  String? get image => _image;
-  String? get title => _title;
-  String? get content => _content;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  dynamic? get youtube => _youtube;
-  int? get views => _views;
-  dynamic? get locationLng => _locationLng;
-  dynamic? get locationLat => _locationLat;
-  dynamic? get phone => _phone;
-  List<dynamic>? get images => _images;
 
   Data({
-      int? id, 
-      int? tagId, 
-      String? image, 
-      String? title, 
-      String? content, 
-      String? createdAt, 
-      String? updatedAt, 
-      dynamic? youtube, 
-      int? views, 
-      dynamic? locationLng, 
-      dynamic? locationLat, 
-      dynamic? phone, 
-      List<String>? images}){
-    _id = id;
-    _tagId = tagId;
-    _image = image;
-    _title = title;
-    _content = content;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _youtube = youtube;
-    _views = views;
-    _locationLng = locationLng;
-    _locationLat = locationLat;
-    _phone = phone;
-    _images = images;
-}
+      this.locationLng,
+  this.locationLat,
+  this.views,
+  this.content,
+  this.id,
+    this.title,
+    this.createdAt,
+    this.updatedAt,
+    this.youtube,
+    this.image,
+    this.tagId,
+    this.phone,
+    this.images,
+    this.km
+
+
+  });
 
   Data.fromJson(dynamic json) {
-    _id = json['id'];
-    _tagId = json['tag_id'];
-    _image = json['image'];
-    _title = json['title'];
-    _content = json['content'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-    _youtube = json['youtube'];
-    _views = json['views'];
-    _locationLng = json['location_lng'];
-    _locationLat = json['location_lat'];
-    _phone = json['phone'];
+    id = json['id'];
+    tagId = json['tag_id'];
+    image = json['image'];
+    title = json['title'];
+    content = json['content'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    youtube = json['youtube'];
+    views = json['views'];
+    locationLng = json['location_lng'];
+    locationLat = json['location_lat'];
+    phone = json['phone'];
     if (json['images'] != null) {
-      _images = [];
+      images = [];
       json['images'].forEach((v) {
-        _images?.add(v.fromJson(v));
+        images?.add(v.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
+    map['id'] = id;
+    map['tag_id'] = tagId;
+    map['image'] = image;
+    map['title'] = title;
+    map['content'] = content;
+    map['created_at'] = createdAt;
+    map['updated_at'] = updatedAt;
+    map['youtube'] = youtube;
+    map['views'] = views;
+    map['location_lng'] = locationLng;
+    map['location_lat'] = locationLat;
+    map['phone'] = phone;
+    if (images != null) {
+      map['images'] = images?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+class Images {
+  int? _id;
+  String? _path;
+  String? _viewableType;
+  int? _viewableId;
+  String? _createdAt;
+  String? _updatedAt;
+
+  int? get id => _id;
+  String? get path => _path;
+  String? get viewableType => _viewableType;
+  int? get viewableId => _viewableId;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+
+  Images({
+    int? id,
+    String? path,
+    String? viewableType,
+    int? viewableId,
+    String? createdAt,
+    String? updatedAt}){
+    _id = id;
+    _path = path;
+    _viewableType = viewableType;
+    _viewableId = viewableId;
+    _createdAt = createdAt;
+    _updatedAt = updatedAt;
+  }
+
+  Images.fromJson(dynamic json) {
+    _id = json['id'];
+    _path = json['path'];
+    _viewableType = json['viewable_type'];
+    _viewableId = json['viewable_id'];
+    _createdAt = json['created_at'];
+    _updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
     map['id'] = _id;
-    map['tag_id'] = _tagId;
-    map['image'] = _image;
-    map['title'] = _title;
-    map['content'] = _content;
+    map['path'] = _path;
+    map['viewable_type'] = _viewableType;
+    map['viewable_id'] = _viewableId;
     map['created_at'] = _createdAt;
     map['updated_at'] = _updatedAt;
-    map['youtube'] = _youtube;
-    map['views'] = _views;
-    map['location_lng'] = _locationLng;
-    map['location_lat'] = _locationLat;
-    map['phone'] = _phone;
-    if (_images != null) {
-      map['images'] = _images?.map((v) => v.toJson()).toList();
-    }
     return map;
   }
 

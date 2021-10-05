@@ -3,6 +3,8 @@
 /// code : 200
 /// status : true
 
+// ignore_for_file: unnecessary_question_mark
+
 class HarajModel
 {
   List<Data>? _data;
@@ -58,97 +60,73 @@ class HarajModel
 /// views : 5
 
 class Data {
-  int? _id;
-  User? _user;
-  Category? _category;
-  int? _userId;
-  int? _harajCategoryId;
-  String? _title;
-  String? _message;
-  String? _createdAt;
-  String? _updatedAt;
-  String? _main_image;
-  dynamic? _locationLat;
-  dynamic? _locationLng;
-  int? _views;
+  int? id;
+  double? km;
+  User? user;
+  Category? category;
+  int? userId;
+  int? harajCategoryId;
+  String? title;
+  String? message;
+  String? createdAt;
+  String? updatedAt;
+  String? main_image;
+  dynamic? locationLat;
+  dynamic? locationLng;
+  int? views;
 
-  int? get id => _id;
-  int? get userId => _userId;
-  int? get harajCategoryId => _harajCategoryId;
-  String? get title => _title;
-  String? get message => _message;
-  String? get createdAt => _createdAt;
-  String? get updatedAt => _updatedAt;
-  Category? get category => _category;
-  User? get user => _user;
-  String? get main_image => _main_image;
-  dynamic? get locationLat => _locationLat;
-  dynamic? get locationLng => _locationLng;
-  int? get views => _views;
+
 
   Data({
-      int? id, 
-      int? userId, 
-      int? harajCategoryId,
-    Category? category,
-    User? user,
-    String? title,
-      String? message, 
-      String? createdAt, 
-      String? updatedAt, 
-      String? main_image,
-      dynamic? locationLat, 
-      dynamic? locationLng, 
-      int? views}){
-    _id = id;
-    _userId = userId;
-    _harajCategoryId = harajCategoryId;
-    _title = title;
-    _message = message;
-    _createdAt = createdAt;
-    _updatedAt = updatedAt;
-    _main_image = main_image;
-    _locationLat = locationLat;
-    _user = user;
-    _category = category;
-    _locationLng = locationLng;
-    _views = views;
-}
+      this.id,
+    this.userId,
+    this.km,
+    this.harajCategoryId,
+    this.category,
+    this.user,
+    this.title,
+    this.message,
+    this.createdAt,
+    this.updatedAt,
+    this.main_image,
+    this.locationLat,
+    this.locationLng,
+    this.views});
 
   Data.fromJson(dynamic json) {
-    _id = json['id'];
-    _userId = json['user_id'];
-    _harajCategoryId = json['haraj_category_id'];
-    _category = json['category'] != null ? Category.fromJson(json['category']) : null;
-    _user = json['user'] != null ? User.fromJson(json['user']) : null;
-    _title = json['title'];
-    _message = json['message'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-    _main_image = json['main_image'];
-    _locationLat = json['location_lat'];
-    _locationLng = json['location_lng'];
-    _views = json['views'];
+    id = json['id'];
+    userId = json['user_id'];
+    harajCategoryId = json['haraj_category_id'];
+    category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    title = json['title'];
+    message = json['message'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    main_image = json['main_image'];
+    locationLat = json['location_lat'];
+    locationLng = json['location_lng'];
+    views = json['views'];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['user_id'] = _userId;
-    map['haraj_category_id'] = _harajCategoryId;
-    map['title'] = _title;
-    map['message'] = _message;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    map['main_image'] = _main_image;
-    map['location_lat'] = _locationLat;
-    map['location_lng'] = _locationLng;
-    map['views'] = _views;
-    if (_user != null) {
-      map['user'] = _user?.toJson();
+    map['id'] = id;
+    map['user_id'] = userId;
+    map['haraj_category_id'] = harajCategoryId;
+    map['title'] = title;
+    map['message'] = message;
+    map['created_at'] = createdAt;
+    map['updated_at'] = updatedAt;
+    map['main_image'] = main_image;
+    map['location_lat'] = locationLat;
+    map['location_lng'] = locationLng;
+    map['views'] = views;
+    if (user != null) {
+      map['user'] = user?.toJson();
     }
-    if (_category != null) {
-      map['category'] = _category?.toJson();
+    if (category != null) {
+      map['category'] = category?.toJson();
     }
     return map;
   }

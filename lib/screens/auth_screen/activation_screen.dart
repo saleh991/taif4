@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/helper/constants.dart';
@@ -51,7 +51,8 @@ class _ActivationScreenState extends State<ActivationScreen> {
                   ),
                 ],
               ),
-              height: context.locale == Locale('en') ? 570.h : 524.h,
+              height: 524.h,
+              // height: context.locale == Locale('en') ? 570.h : 524.h,
               width: 396.w,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7.w),
@@ -69,7 +70,8 @@ class _ActivationScreenState extends State<ActivationScreen> {
                       height: 52.h,
                     ),
                     Text(
-                      'act_title'.tr(),
+                      "تم التحقق",
+                      // 'act_title'.tr(),
                       style: TextStyle(
                         fontFamily: fontName,
                         fontSize: 30.sp,
@@ -82,7 +84,8 @@ class _ActivationScreenState extends State<ActivationScreen> {
                       height: 16.h,
                     ),
                     Text(
-                      'act_sub1'.tr(),
+                      "لقد تم بالفعل التحقق من حسابك بنجاح",
+                      // 'act_sub1'.tr(),
                       style: TextStyle(
                         fontFamily: fontName,
                         fontSize: 18.sp,
@@ -94,7 +97,8 @@ class _ActivationScreenState extends State<ActivationScreen> {
                       height: 23.h,
                     ),
                     Text(
-                      'act_sub2'.tr(),
+                      "نسعد بانضمامك الى تطبيق الطائف \nونأمل أن تحوز خدماتنا على رضاك",
+                      // 'act_sub2'.tr(),
                       style: TextStyle(
                         fontFamily: fontName,
                         fontSize: 20,
@@ -125,7 +129,8 @@ class _ActivationScreenState extends State<ActivationScreen> {
                                     ),
                                   );
                                 },
-                                title: 'act_btn'.tr()),
+                                title: "انتقل لتعديل بيناتك"),
+                                // title: 'act_btn'.tr()),
                           );
                         },
 

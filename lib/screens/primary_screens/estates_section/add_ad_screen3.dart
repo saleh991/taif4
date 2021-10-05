@@ -105,7 +105,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
                 height: 12.h,
               ),
               contactTextField(
-                hint: 'عنوان الشارع',
+                hint: 'عرض الشارع',
                 controller: _addressController,
               ),
               SizedBox(

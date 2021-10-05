@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +75,7 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                       DateFormat('yyyy-MM-dd').format(DateTime.parse( widget.data.createdAt.toString())),
                       style: TextStyle(
                         fontFamily:fontName,
-                        fontSize: 10.sp,
+                        fontSize: 13.sp,
                         color: const Color(0xfff92a0a),
                       ),
                       textAlign: TextAlign.center,
@@ -85,12 +86,14 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
               SizedBox(
                 height: 23.h,
               ),
-              Image.network(
-                'https://taif-app.com/storage/app/${ widget.data.mainImage}',
+              CachedNetworkImage(
+                fit: BoxFit.fill,
                 height: 178.h,
                 width: 246.w,
-                fit: BoxFit.contain,
-              ),
+                imageUrl: "https://taif-app.com/storage/app/${ widget.data.mainImage}",
+
+                errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+
               SizedBox(
                 height: 35.h,
               ),
@@ -100,14 +103,13 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
-                        Image.network(
-                          'https://taif-app.com/storage/app/${ widget.data.images![i].path}',
+                        CachedNetworkImage(
+                          fit: BoxFit.fill,
                           height: 219.h,
                           width: 300.w,
-                          fit: BoxFit.fill,
-                        ),
+                          imageUrl: "https://taif-app.com/storage/app/${ widget.data.images![i].path}",
 
+                          errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
 
                       ],
                     ),

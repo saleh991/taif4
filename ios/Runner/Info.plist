@@ -63,5 +63,19 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+
+	<key>NSCameraUsageDescription</key>
+        	<string>To capture profile photo please grant camera access</string>
+        	<key>NSLocationAlwaysAndWhenInUsageDescription</key>
+        	<string>Always and in usage permissions</string>
+        	<key>NSLocationAlwaysUsageDescription</key>
+        	<string>Your location is required for get price of delivery and navigate to some location</string>
+        	<key>NSLocationWhenInUseUsageDescription</key>
+        	<string>Your location is required for get price of delivery and navigate to some location</string>
+        	<key>NSPhotoLibraryUsageDescription</key>
+        	<string>App needs access to photo lib for profile images</string>
+
+
 </dict>
 </plist>

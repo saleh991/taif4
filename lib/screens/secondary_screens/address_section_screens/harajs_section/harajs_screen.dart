@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/components/components.dart';
@@ -8,11 +9,10 @@ import 'package:taif/screens/secondary_screens/address_section_screens/cubit/sta
 import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/haraj_detailes_screen.dart';
 import 'haraj_conditon_screen.dart';
 
-
 class HarajsScreen extends StatelessWidget {
-
   var value = 'اختر القسم';
   var id = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,163 +22,164 @@ class HarajsScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF003E4F)),
         centerTitle: false,
         title: Text(
-         'حراج الطائف',
+          'حراج الطائف',
           style: TextStyle(
             fontFamily: fontName,
             fontSize: 20.sp,
             color: const Color(0xff007c9d),
           ),
         ),
-        actions: [InkWell(onTap:(){
-          Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        actions: [
+          InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, notificationsRoute);
+              },
+              child: Image.asset('images/notification_icon.png'))
+        ],
+      ),
       body: BlocProvider(
-        create:
-            (context) => LocationsCubit()..getHarajCategory()..getUserData()
-             ,
-        child: BlocConsumer<LocationsCubit,LocationsState>(
+        create: (context) => LocationsCubit()
+          ..getHarajCategory()
+          ..getUserData(),
+        child: BlocConsumer<LocationsCubit, LocationsState>(
           listener: (context, state) {},
           builder: (context, state) {
-            var harajsCubit = LocationsCubit
-                .get(context)
-                .harajModel;
+            var harajsCubit = LocationsCubit.get(context).harajModel;
             var categoryCubit = LocationsCubit.get(context).harajCategory;
             var cubitG = LocationsCubit.get(context);
-            var userCubit = LocationsCubit.get(context).userDataModel;
 
-            if  (state is HarajsSuccessState)
-             {
+
+            if (state is HarajsSuccessState) {
               return SingleChildScrollView(
-              child: SizedBox(
-                width: ScreenUtil().screenWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    Container(
-                      width: ScreenUtil().screenWidth - 40,
-                      height: 55.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: const Color(0xffffffff),
-                        border:
-                            Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
+                child: SizedBox(
+                  width: ScreenUtil().screenWidth,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 16.h,
                       ),
-                      child: Center(
-                        child: ListTile(
-                          leading: Image.asset('images/placeholder.png'),
-                          title: StatefulBuilder(
-                            builder: (context, setState){
-                              return DropdownButton<String>(
-                                isExpanded: true,
-                                iconSize: 35,
-                                iconEnabledColor: Color(0xFF007C9D),
-                                hint: Text(
-                                  '$value',
-                                  style: TextStyle(color: Color(0xFF06A1CB)),
-                                ),
-                                items: categoryCubit.data!.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value.name,
-                                    child: new Text('${value.name}'),
-                                    onTap: (){
-                                      id = value.id!;
-                                    },
-                                  );
-
-                                }).toList(),
-                                onChanged: (value1) {
-                                  setState(() {
-                                    value = value1!;
-                                  });
-                                  cubitG.changeValue(id);
-                                  print('value1 $value1');
-                                },
-                              );
-                            },
-
-                          ),
+                      Container(
+                        padding: EdgeInsets.all(2.h),
+                        width: ScreenUtil().screenWidth - 40,
+                        height: 55.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: const Color(0xffffffff),
+                          border: Border.all(
+                              width: 1.0, color: const Color(0xffd5ddeb)),
                         ),
+                        child: Container(
+                          alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'images/placeholder.png',
+                                  height: 32.h,
+                                  width: 32.w,
+                                ),
+                                SizedBox(width: 16.w,),
+                                Expanded(
+                                  child: StatefulBuilder(
+                                    builder: (context, setState) {
+                                      return DropdownButton<String>(
+                                        isExpanded: true,
+                                        iconSize: 35.sp,
+                                        iconEnabledColor: Color(0xFF007C9D),
+                                        hint: Text(
+                                          '$value',
+                                          style: TextStyle(color: Color(0xFF06A1CB)),
+                                        ),
+                                        items: categoryCubit.data!.map((value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value.name,
+                                            child: new Text('${value.name}'),
+                                            onTap: () {
+                                              id = value.id!;
+                                            },
+                                          );
+                                        }).toList(),
+                                        onChanged: (value1) {
+                                          setState(() {
+                                            value = value1!;
+                                          });
+                                          cubitG.changeValue(id);
+                                          print('value1 $value1');
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )),
                       ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                   /* if (userCubit.data!.currentSub != null)
-                      if (userCubit.data!.currentSub!.remainningAds != 0)
+                      SizedBox(
+                        height: 25.h,
+                      ),
+
 
                       SizedBox(
-                        width: 354.w,
-                        height: 51.h,
-                        child: languagesButton(
-                          title:'أضافة أعلان جديد',
-                          function: () {
-                            Navigator.pushNamed(context, addressConditionRoute);
-                          },
-                          color: Color(0xFF007C9D),
-                        )),*/
-
-
-                    SizedBox(
-                        width: 354.w,
-                        height: 51.h,
-                        child: languagesButton(
-                          title:'أضافة حراج',
-                          function: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HarajCondtionsScreen(
-                                harajCategory: categoryCubit,
-                              )),
-                            );
-                          },
-                          color: Color(0xFF007C9D),
-                        )),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-
-
-                            for(int index=0;index<harajsCubit.data!.length;index++)
-
-                              Container(
-                              width: 394.w,
-                              height: 135.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(
-                                    width: 1.0, color: const Color(0xffcee3fb)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0x1fd5ddeb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 6,
-                                  ),
-                                ],
+                          width: 354.w,
+                          height: 51.h,
+                          child: languagesButton(
+                            title: 'أضافة حراج',
+                            function: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HarajCondtionsScreen(
+                                          harajCategory: categoryCubit,
+                                        )),
+                              );
+                            },
+                            color: Color(0xFF007C9D),
+                          )),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                      for (int index = 0;
+                          index < harajsCubit.data!.length;
+                          index++)
+                        Container(
+                          width: 394.w,
+                          height: 135.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                                width: 1.0, color: const Color(0xffcee3fb)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0x1fd5ddeb),
+                                offset: Offset(0, 3),
+                                blurRadius: 6,
                               ),
-                              child: harajslistViewItem(
-                                  categoryName:harajsCubit.data![index].category!.name!,
-                                  harajModel: harajsCubit,
-                                  index: index,
-                                  //screenType: screenType,
-                                  function: () {
+                            ],
+                          ),
+                          child: harajslistViewItem(
+                              categoryName:
+                                  harajsCubit.data![index].category!.name!,
+                              harajModel: harajsCubit,
+                              index: index,
 
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>HarajDetailsScreen(data: harajsCubit.data![index],)));
-                                  }),
-                            ),
-
-                    SizedBox(
-                      height: 25.h,
-                    ),
-
-
-                  ],
+                              function: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HarajDetailsScreen(
+                                              data: harajsCubit.data![index],
+                                            )));
+                              }),
+                        ),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-                        );
-            }else{
+              );
+            } else {
               return Center(
                 child: CircularProgressIndicator(),
               );

@@ -2,6 +2,8 @@
 /// status : true
 /// code : 200
 
+// ignore_for_file: unnecessary_question_mark
+
 class EstateModel {
   List<EstateData>? _data;
   bool? _status;
@@ -308,12 +310,12 @@ class User {
   String? _createdAt;
   String? _updatedAt;
   int? _packageId;
-  dynamic? _start;
-  dynamic? _end;
+  dynamic _start;
+  dynamic _end;
   int? _active;
-  dynamic? _image;
+  dynamic _image;
   String? _code;
-  dynamic? _apiToken;
+  dynamic _apiToken;
   String? _name;
   String? _email;
   int? _packageAds;
@@ -324,7 +326,7 @@ class User {
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   int? get packageId => _packageId;
-  dynamic? get start => _start;
+  dynamic get start => _start;
   dynamic? get end => _end;
   int? get active => _active;
   dynamic? get image => _image;

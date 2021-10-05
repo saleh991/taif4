@@ -757,6 +757,7 @@ ListView favoriteItem({
           key: UniqueKey(),
           onDismissed: (_){
               MainCubit()..removeFromFav(estateId:
+
               favoriteModel.data!.appModelsEstate![index].favorite!.id!,
                   model: 'estates');
           },

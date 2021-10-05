@@ -86,6 +86,27 @@ class MainCubit extends Cubit<MainState> {
 
     });
   }
+  void removeFromFav({
+    required int estateId,
+    required String model,
+  }) {
+
+    DioHelper.init();
+    DioHelper.postData(url: 'favorites/remove', data: {
+      'model': model,
+      'id': estateId,
+      'user_id': AppController.instance.getId(),
+    }).then((value) {
+      print("value");
+      print(value);
+      print("ba");
+
+
+    }).catchError((e) {
+      print('Error add Fav $e');
+
+    });
+  }
   void getSearchData({
     required String searchTitle,
   }) {

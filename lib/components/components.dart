@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/controller/app_controller.dart';
+import 'package:taif/cubit/cubit.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/chat_model.dart';
 import 'package:taif/models/english_section_model.dart';
@@ -734,174 +735,200 @@ ListView favoriteItem({
       itemCount: favoriteModel.data!.appModelsEstate!.length,
       itemBuilder: (context, index) {
         if(favoriteModel.data!.appModelsEstate![index].favorite !=null)
-        return Container(
-          height: 125.h,
-          // width: 394.w,
-          margin: EdgeInsets.symmetric(vertical: 10.h),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0x1fd5ddeb),
-                offset: Offset(0, 3),
-                blurRadius: 6,
-              ),
-            ],
-          ),
-          padding: EdgeInsets.only(right: 15),
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      FavoriteDetailsScreen(favoriteModel.data!.appModelsEstate![index]),
-                ),
-              );
-            },
-            child: Row(
-              children: [
-                Container(
-                  height: 80.w,
-                  width: 80.w,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    imageUrl: "https://taif-app.com/storage/app/${favoriteModel.data!.appModelsEstate![index].favorite!.image}",
+        return Dismissible(
+          direction: DismissDirection.startToEnd,
+          background: Container(
+            color: Colors.red,
 
-                    errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
-                    imageBuilder: (context, imageProvider) { // you can access to imageProvider
-                      return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
-                        backgroundImage: imageProvider,
-                      );
-                    },
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding:  EdgeInsets.symmetric(
+                horizontal: 20.w
+              ),
+              child: Icon(
+                Icons.delete,
+                size: 30.sp,
+                color: Colors.white,
+              ),
+            ),
+          ),
+
+          key: UniqueKey(),
+          onDismissed: (_){
+              MainCubit()..removeFromFav(estateId:
+              favoriteModel.data!.appModelsEstate![index].favorite!.id!,
+                  model: 'estates');
+          },
+          child: Container(
+            height: 125.h,
+
+            margin: EdgeInsets.symmetric(vertical: 10.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0x1fd5ddeb),
+                  offset: Offset(0, 3),
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            padding: EdgeInsets.only(right: 15),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        FavoriteDetailsScreen(favoriteModel.data!.appModelsEstate![index]),
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  Container(
+                    height: 80.w,
+                    width: 80.w,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.fill,
+                      imageUrl: "https://taif-app.com/storage/app/${favoriteModel.data!.appModelsEstate![index].favorite!.image}",
+
+                      errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
+                      imageBuilder: (context, imageProvider) { // you can access to imageProvider
+                        return CircleAvatar( // or any widget that use imageProvider like (PhotoView)
+                          backgroundImage: imageProvider,
+                        );
+                      },
+                    ),
+
+
                   ),
 
-
-                ),
-
-                SizedBox(
-                  width: 30.w,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 13.h,
-                      ),
-                      Text(
-                        '${favoriteModel.data!.appModelsEstate![index].favorite!.title}',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 18.sp,
-                          color: const Color(0xff003e4f),
+                  SizedBox(
+                    width: 30.w,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 13.h,
                         ),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        Text(
+                          '${favoriteModel.data!.appModelsEstate![index].favorite!.title}',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 18.sp,
+                            color: const Color(0xff003e4f),
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/save.png',
+                                height: 18.h,
+                                width: 12.w,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'العقارات',
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff7a90b7),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Image.asset(
+                                'images/location.png',
+                                height: 18.h,
+                                width: 20.w,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'الحوية',
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 10.sp,
+                                  color: const Color(0xff7a90b7),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Image.asset(
+                                'images/eye.png',
+                                height: 18.h,
+                                width: 20.w,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '${favoriteModel.data!.appModelsEstate![index].favorite!.views}',
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 12.sp,
+                                  color: const Color(0xff7a90b7),
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Row(
                           children: [
                             Image.asset(
-                              'images/save.png',
-                              height: 18.h,
-                              width: 12.w,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'العقارات',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 14.sp,
-                                color: const Color(0xff7a90b7),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Image.asset(
-                              'images/location.png',
-                              height: 18.h,
-                              width: 20.w,
+                              'images/price.png',
+                              width: 15,
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              'الحوية',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 10.sp,
-                                color: const Color(0xff7a90b7),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'عروض العقار',
+                                style: TextStyle(
+                                  fontFamily: 'JF Flat',
+                                  fontSize: 11,
+                                  color: const Color(0xff007c9d),
+                                ),
+                                textAlign: TextAlign.left,
                               ),
-                              textAlign: TextAlign.center,
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Image.asset(
-                              'images/eye.png',
-                              height: 18.h,
-                              width: 20.w,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '${favoriteModel.data!.appModelsEstate![index].favorite!.views}',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 12.sp,
-                                color: const Color(0xff7a90b7),
-                              ),
-                              textAlign: TextAlign.center,
-                            )
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'images/price.png',
-                            width: 15,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'عروض العقار',
-                              style: TextStyle(
-                                fontFamily: 'JF Flat',
-                                fontSize: 11,
-                                color: const Color(0xff007c9d),
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 13.h,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                        SizedBox(
+                          height: 13.h,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

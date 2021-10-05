@@ -173,12 +173,13 @@ class _AddHarajsScreenState extends State<AddHarajsScreen> {
                     ),
                     if(profileImage==null)
                       addFromGalleryItems(
-                          title: 'صورة شخصية', icon: Icons.camera_alt, function: () async {
+                          title: 'صورة شخصية',
+                          icon: Icons.camera_alt,
+                          function: () async {
                         print(profileImage);
                         await getImage();
                         print(profileImage);
-                        setState(() {
-
+                        setState((){
                         });
                       })
                     else

@@ -4,6 +4,7 @@ import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/models/services_model.dart';
+import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen_subject.dart';
 
 class ServicesProviderDetailsScreen extends StatelessWidget {
   Data? data;
@@ -136,27 +137,38 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'إرسال رسالة خاصة',
-                style: TextStyle(
-                  fontFamily: 'JF Flat',
-                  fontSize: 18.sp,
-                  color: const Color(0xff003e4f),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PrivateChatSubjectScreen(
+                  subjectId: data!.id!,
+                  model: 'App\\Models\\HomeService',
+                )),
+              );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'إرسال رسالة خاصة',
+                  style: TextStyle(
+                    fontFamily: 'JF Flat',
+                    fontSize: 18.sp,
+                    color: const Color(0xff003e4f),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                width: 15.w,
-              ),
-              Image.asset(
-                'images/chat.png',
-                height: 25,
-                width: 25,
-              )
-            ],
+                SizedBox(
+                  width: 15.w,
+                ),
+                Image.asset(
+                  'images/chat.png',
+                  height: 25,
+                  width: 25,
+                )
+              ],
+            ),
           )
         ],
       ),

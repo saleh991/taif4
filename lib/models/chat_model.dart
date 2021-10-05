@@ -2,112 +2,88 @@
 /// current_chat : null
 
 class ChatModel {
-  List<Chats>? _chats;
-  Chats? _currentChat;
+  List<Chats>? chats;
+  Chats? currentChat;
 
-  List<Chats>? get chats => _chats;
-  Chats? get currentChat => _currentChat;
+
 
   ChatModel({
-      List<Chats>? chats,
-    Chats? currentChat}){
-    _chats = chats;
-    _currentChat = currentChat;
-}
+     this.chats,
+    this.currentChat
+  });
 
   ChatModel.fromJson(dynamic json) {
     if (json['chats'] != null) {
-      _chats = [];
+      chats = [];
       json['chats'].forEach((v) {
-        _chats?.add(Chats.fromJson(v));
+        chats!.add(Chats.fromJson(v));
       });
     }
-    _currentChat = Chats.fromJson(json['current_chat']);
+    if (json['current_chat'] != null)
+    currentChat = Chats.fromJson(json['current_chat']);
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    if (_chats != null) {
-      map['chats'] = _chats?.map((v) => v.toJson()).toList();
+    if (chats != null) {
+      map['chats'] = chats?.map((v) => v.toJson()).toList();
     }
-    map['current_chat'] = _currentChat;
+    map['current_chat'] = currentChat;
     return map;
   }
 
 }
 
-/// id : 1
-/// anotherUser : {"id":11,"phone":"112233","created_at":"2021-08-20T12:38:05.000000Z","updated_at":"2021-08-21T03:53:53.000000Z","package_id":4,"start":null,"end":null,"active":1,"image":null,"code":"5935","api_token":null,"name":"مسوق الكتروني","email":"a@a.a","package_ads":350,"package_comments":0}
-/// messages : [{"id":1,"user_id":4,"content":"test message","created_at":"2021-08-29T18:05:55.000000Z","updated_at":"2021-08-29T18:05:55.000000Z","to_user_id":11,"chat_id":1}]
-/// subject : {"id":1,"title":"استراحة وشالية","user_id":11,"area":"2000","price":299999,"type":"villa","category":"offer","description":"الشاليه يوفر الأستمتاع الكامل والراحه التامه لجميع أفراد العائله\r\nمرافق الشاليه \r\nعدد1صاله واسعه للجلوس بجلسه عربيه بشاشة بلازما وجلسه افرنجي مطله على المسبح\r\nعدد 2 غرفة نوم غرفة رئيسيه بسرير عائلي غرفة نوم للمرافقين مكونه من 3 اسره \r\nوكل غرفه بدورة مياه عربي وأفرنجي مستقله مجهزه بغسالة ملابس \r\nوحسب الرغبه يوجد مسبح داخلي قسمين قسم للأطفال وقسم للبالغين والمسبح مجهز بسخان وفلاتر بتقنيه عاليه\r\nويتوفر بالشاليه مطبخ مجهز بكامل الأجهزه والأدوات\r\nبالشاليه حوش واسع مغطى بالانجيله ومجهز بألعاب حركيه للأطفال وكراسي للجلوس \r\nوحسب الرغبه والأحتياج يوجد قسم أضافي ملحق بالشاليه\r\nمكون من مجلس كبير بجلسه عربيه ودورة مياه مستقله وحوش مغطى بالأنجليه \r\nومن ناحية نظافة الشاليه  نهتم بتعقيمه بعد كل مستأجر والبطاطين والمفارش نغيرها بأخرى نظيفه من المغسله بعد خروج  كل مستاجر\r\n_______________________\r\n_______________________\r\nإجار الشاليه لليوم الواحد من دون مسبح بسعر 450 ريال فقط\r\n_______________________\r\n_____________________\r\nإجار الشاليه مع المسبح لليوم الواحد بسعر 600 ريال فقط\r\n______________________\r\n______________________\r\nإجار الشاليه مع المسبح لمدة يومين بسعر 1100 ريال","show_phone":1,"comments_enabled":1,"ownership":"delegate","auth_option":"staying","side_id":1,"image":"https://opencart3.const-tech.biz/tf/storage/app/estates/4-1629518250.jpg","location_lat":"19.7561079","location_lng":"41.929559399999995","views":8,"created_at":"2021-08-21T03:57:30.000000Z","updated_at":"2021-08-27T07:22:17.000000Z","street_wide":0}
-/// lastMessage : {"id":1,"user_id":4,"content":"test message","created_at":"2021-08-29T18:05:55.000000Z","updated_at":"2021-08-29T18:05:55.000000Z","to_user_id":11,"chat_id":1}
 
 class Chats {
-  int? _id;
-  AnotherUser? _anotherUser;
-  List<Messages>? _messages;
-  Subject? _subject;
-  LastMessage? _lastMessage;
-
-  int? get id => _id;
-  AnotherUser? get anotherUser => _anotherUser;
-  List<Messages>? get messages => _messages;
-  Subject? get subject => _subject;
-  LastMessage? get lastMessage => _lastMessage;
+  int? id;
+  AnotherUser? anotherUser;
+  List<Messages>? messages;
+  Subject? subject;
+  LastMessage? lastMessage;
 
   Chats({
-      int? id, 
-      AnotherUser? anotherUser, 
-      List<Messages>? messages, 
-      Subject? subject, 
-      LastMessage? lastMessage}){
-    _id = id;
-    _anotherUser = anotherUser;
-    _messages = messages;
-    _subject = subject;
-    _lastMessage = lastMessage;
-}
+      this.id,
+    this.anotherUser,
+    this.messages,
+    this.subject,
+    this.lastMessage});
 
   Chats.fromJson(dynamic json) {
-    _id = json['id'];
-    _anotherUser = json['anotherUser'] != null ? AnotherUser.fromJson(json['anotherUser']) : null;
+    id = json['id'];
+    anotherUser = json['anotherUser'] != null ?
+    AnotherUser.fromJson(json['anotherUser']) : null;
     if (json['messages'] != null) {
-      _messages = [];
+      messages = [];
       json['messages'].forEach((v) {
-        _messages?.add(Messages.fromJson(v));
+        messages?.add(Messages.fromJson(v));
       });
     }
-    _subject = json['subject'] != null ? Subject.fromJson(json['subject']) : null;
-    _lastMessage = json['lastMessage'] != null ? LastMessage.fromJson(json['lastMessage']) : null;
+    subject = json['subject'] != null ? Subject.fromJson(json['subject']) : null;
+    lastMessage = json['lastMessage'] != null ? LastMessage.fromJson(json['lastMessage']) : null;
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map['id'] = _id;
-    if (_anotherUser != null) {
-      map['anotherUser'] = _anotherUser?.toJson();
+    map['id'] = id;
+    if (anotherUser != null) {
+      map['anotherUser'] = anotherUser?.toJson();
     }
-    if (_messages != null) {
-      map['messages'] = _messages?.map((v) => v.toJson()).toList();
+    if (messages != null) {
+      map['messages'] = messages?.map((v) => v.toJson()).toList();
     }
-    if (_subject != null) {
-      map['subject'] = _subject?.toJson();
+    if (subject != null) {
+      map['subject'] = subject?.toJson();
     }
-    if (_lastMessage != null) {
-      map['lastMessage'] = _lastMessage?.toJson();
+    if (lastMessage != null) {
+      map['lastMessage'] = lastMessage?.toJson();
     }
     return map;
   }
 
 }
 
-/// id : 1
-/// user_id : 4
-/// content : "test message"
-/// created_at : "2021-08-29T18:05:55.000000Z"
-/// updated_at : "2021-08-29T18:05:55.000000Z"
-/// to_user_id : 11
-/// chat_id : 1
+
 
 class LastMessage {
   int? _id;
@@ -167,30 +143,12 @@ class LastMessage {
 
 }
 
-/// id : 1
-/// title : "استراحة وشالية"
-/// user_id : 11
-/// area : "2000"
-/// price : 299999
-/// type : "villa"
-/// category : "offer"
-/// description : "الشاليه يوفر الأستمتاع الكامل والراحه التامه لجميع أفراد العائله\r\nمرافق الشاليه \r\nعدد1صاله واسعه للجلوس بجلسه عربيه بشاشة بلازما وجلسه افرنجي مطله على المسبح\r\nعدد 2 غرفة نوم غرفة رئيسيه بسرير عائلي غرفة نوم للمرافقين مكونه من 3 اسره \r\nوكل غرفه بدورة مياه عربي وأفرنجي مستقله مجهزه بغسالة ملابس \r\nوحسب الرغبه يوجد مسبح داخلي قسمين قسم للأطفال وقسم للبالغين والمسبح مجهز بسخان وفلاتر بتقنيه عاليه\r\nويتوفر بالشاليه مطبخ مجهز بكامل الأجهزه والأدوات\r\nبالشاليه حوش واسع مغطى بالانجيله ومجهز بألعاب حركيه للأطفال وكراسي للجلوس \r\nوحسب الرغبه والأحتياج يوجد قسم أضافي ملحق بالشاليه\r\nمكون من مجلس كبير بجلسه عربيه ودورة مياه مستقله وحوش مغطى بالأنجليه \r\nومن ناحية نظافة الشاليه  نهتم بتعقيمه بعد كل مستأجر والبطاطين والمفارش نغيرها بأخرى نظيفه من المغسله بعد خروج  كل مستاجر\r\n_______________________\r\n_______________________\r\nإجار الشاليه لليوم الواحد من دون مسبح بسعر 450 ريال فقط\r\n_______________________\r\n_____________________\r\nإجار الشاليه مع المسبح لليوم الواحد بسعر 600 ريال فقط\r\n______________________\r\n______________________\r\nإجار الشاليه مع المسبح لمدة يومين بسعر 1100 ريال"
-/// show_phone : 1
-/// comments_enabled : 1
-/// ownership : "delegate"
-/// auth_option : "staying"
-/// side_id : 1
-/// image : "https://opencart3.const-tech.biz/tf/storage/app/estates/4-1629518250.jpg"
-/// location_lat : "19.7561079"
-/// location_lng : "41.929559399999995"
-/// views : 8
-/// created_at : "2021-08-21T03:57:30.000000Z"
-/// updated_at : "2021-08-27T07:22:17.000000Z"
-/// street_wide : 0
+
 
 class Subject {
   int? _id;
   String? _title;
+
   int? _userId;
   String? _area;
   int? _price;

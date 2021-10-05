@@ -40,11 +40,18 @@ class _EstateScreenState extends State<EstateScreen> {
             ),
           ),
           actions: [
-            InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, notificationsRoute);
-                },
-                child: Image.asset('images/notification_icon.png'))
+            InkWell(onTap:(){
+              Navigator.pushNamed(context, notificationsRoute);
+            },child: Padding(
+              padding:  EdgeInsets.symmetric(
+                  horizontal: 12.w
+              ),
+              child: Icon(
+                Icons.notifications,
+                color: Color(0xFF007C9D),
+                size: 35.sp,
+              ),
+            ),)
           ],
         ),
         body: BlocProvider(
@@ -188,20 +195,21 @@ class _EstateScreenState extends State<EstateScreen> {
                                   Radius.circular(5),
                                 ),
                               ),
-                              child: Center(
+                              child: Align(
+                                alignment: Alignment.center,
                                 child: DropdownButtonHideUnderline(
                                   child: Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: DropdownButton<String>(
                                       iconEnabledColor: Color(0xFF06A1CB),
-                                      iconSize: 22.sp,
+                                      iconSize: 30.sp,
                                       icon: Icon(Icons.keyboard_arrow_down),
                                       hint: Text(
                                         '$value',
                                         style: TextStyle(
                                             color: Color(0xFF06A1CB),
                                             fontFamily: fontName,
-                                            fontSize: 24.sp),
+                                            fontSize: 18.sp),
                                       ),
                                       // Not necessary for Option 1
                                       items: [

@@ -32,10 +32,19 @@ class TourismGuidingScreen extends StatelessWidget {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: BlocProvider(
         create:
-            (context) => LocationsCubit()..getGuiding()..getUserData(),
+            (context) => LocationsCubit()..getGuiding(),
         child: BlocConsumer<LocationsCubit,LocationsState>(
           listener: (context, state) {
           },
@@ -43,9 +52,7 @@ class TourismGuidingScreen extends StatelessWidget {
             var guidingCubit = LocationsCubit
                 .get(context)
                 .guidingModel;
-            var userCubit = LocationsCubit.
-            get(context).
-            userDataModel;
+
             if ((state is GuidingSuccessState && guidingCubit.data != null)
             ) {
               return SingleChildScrollView(

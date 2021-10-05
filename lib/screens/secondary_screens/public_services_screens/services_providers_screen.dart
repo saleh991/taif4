@@ -29,12 +29,18 @@ class ServicesProviderScreen extends StatelessWidget {
               ),
             ),
             actions: [
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, notificationsRoute);
-                },
-                child: Image.asset('images/notification_icon.png'),
-              ),
+              InkWell(onTap:(){
+                Navigator.pushNamed(context, notificationsRoute);
+              },child: Padding(
+                padding:  EdgeInsets.symmetric(
+                    horizontal: 12.w
+                ),
+                child: Icon(
+                  Icons.notifications,
+                  color: Color(0xFF007C9D),
+                  size: 35.sp,
+                ),
+              ),)
             ],
           ),
           body: BlocProvider(
@@ -90,7 +96,7 @@ class ServicesProviderScreen extends StatelessWidget {
                                                 '$value',
                                                 style: TextStyle(
                                                   fontFamily: 'JF Flat',
-                                                  fontSize: 16,
+                                                  fontSize: 18.sp,
                                                   color:
                                                       const Color(0xff3a3a3a),
                                                 ),
@@ -131,7 +137,7 @@ class ServicesProviderScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return Container(
                                       alignment: Alignment.center,
-                                      height: 68.h,
+
                                       width: 407.w,
                                       margin: EdgeInsets.symmetric(
                                           horizontal: 15.w, vertical: 5.h),
@@ -143,59 +149,62 @@ class ServicesProviderScreen extends StatelessWidget {
                                             width: 1.0,
                                             color: const Color(0xa1c5c0c0)),
                                       ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.circle,
-                                            size: 10,
-                                            color: Colors.yellow,
-                                          ),
-                                          SizedBox(
-                                            width: 25.w,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${cubit.data![index].name}',
-                                                style: TextStyle(
-                                                  fontFamily: fontName,
-                                                  fontSize: 14,
-                                                  color:
-                                                      const Color(0xff754dad),
+                                      child: Padding(
+                                        padding:  EdgeInsets.all(5.0.h),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              size: 10,
+                                              color: Colors.yellow,
+                                            ),
+                                            SizedBox(
+                                              width: 25.w,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  '${cubit.data![index].name}',
+                                                  style: TextStyle(
+                                                    fontFamily: fontName,
+                                                    fontSize: 14,
+                                                    color:
+                                                        const Color(0xff754dad),
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                '${cubit.data![index].category!.name}',
-                                                style: TextStyle(
-                                                  fontFamily: fontName,
-                                                  fontSize: 14,
-                                                  color:
-                                                      const Color(0xfff70909),
+                                                Text(
+                                                  '${cubit.data![index].category!.name}',
+                                                  style: TextStyle(
+                                                    fontFamily: fontName,
+                                                    fontSize: 14,
+                                                    color:
+                                                        const Color(0xfff70909),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Expanded(child: SizedBox()),
-                                          defaultButton(
-                                              function: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ServicesProviderDetailsScreen(
-                                                                data: cubit
-                                                                        .data![
-                                                                    index])));
-                                                // Navigator.pushNamed(
-                                                //     context, servicesProviderDetailsRoute);
-                                              },
-                                              title: 'عرض'),
-                                          SizedBox(
-                                            width: 25.w,
-                                          )
-                                        ],
+                                              ],
+                                            ),
+                                            Expanded(child: SizedBox()),
+                                            defaultButton(
+                                                function: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ServicesProviderDetailsScreen(
+                                                                  data: cubit
+                                                                          .data![
+                                                                      index])));
+                                                  // Navigator.pushNamed(
+                                                  //     context, servicesProviderDetailsRoute);
+                                                },
+                                                title: 'عرض'),
+                                            SizedBox(
+                                              width: 25.w,
+                                            )
+                                          ],
+                                        ),
                                       ));
                                 })
                           ],

@@ -1,6 +1,4 @@
 
-// ignore_for_file: must_be_immutable
-
 import 'package:equatable/equatable.dart';
 
 import '../../../../models/add_guide_model.dart';

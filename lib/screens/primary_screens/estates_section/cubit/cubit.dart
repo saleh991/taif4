@@ -276,7 +276,7 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
     required String auth_option,
     required String ownership,
     required String payType,
-
+    required String streetWide,
     required String area,
     required String price,
     required String description,
@@ -317,6 +317,7 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
       "description":description,
       "price":price,
       "area":area,
+      "street_wide":streetWide,
       "ownership":ownership,
       "estate_category_id":es.toString(),
       "show_phone":show_phone,

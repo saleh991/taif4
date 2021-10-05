@@ -28,7 +28,16 @@ class HarajDetailsScreen extends StatelessWidget {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: SizedBox(
         width: ScreenUtil().screenWidth,
         child: Column(
@@ -76,55 +85,6 @@ class HarajDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 23.h,
             ),
-// <<<<<<< HEAD
-            // Image.network(
-            //   'https://taif-app.com/storage/app/${data.main_image}',
-            //   height: 178.h,
-            //   width: 246.w,
-            //   fit: BoxFit.contain,
-            // ),
-
-
-            CachedNetworkImage(
-              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}',
-              // imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrv7f1Xb07z6-VGI5fJWc6-Wkasr33ugqXQ&usqp=CAU",
-              placeholder: (context, url) =>
-              const Center(
-                child: CircularProgressIndicator(),),
-              errorWidget: (context, url,
-                  error) =>
-                  Image.asset("images/no_image_avilable.png"),
-              height: 178.h,
-              width: 246.w,
-              fit: BoxFit.fill,
-            ),
-
-            SizedBox(
-              height: 35.h,
-            ),
-
-            // Image.network(
-            //   'https://taif-app.com/storage/app/${data.main_image}',
-            //   height: 219.h,
-            //   width: 380.w,
-            //   fit: BoxFit.contain,
-            // ),
-
-
-            CachedNetworkImage(
-              imageUrl: 'https://taif-app.com/storage/app/${data.main_image}' ,
-              // imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrv7f1Xb07z6-VGI5fJWc6-Wkasr33ugqXQ&usqp=CAU",
-              placeholder: (context, url) =>
-              const Center(
-                child: CircularProgressIndicator(),),
-              errorWidget: (context, url,
-                  error) =>
-                  Image.asset("images/no_image_avilable.png"),
-              height: 219.h,
-              width: 380.w,
-              fit: BoxFit.fill,
-            ),
-// =======
             CachedNetworkImage(
               fit: BoxFit.fill,
               height: 178.h,
@@ -132,20 +92,24 @@ class HarajDetailsScreen extends StatelessWidget {
               imageUrl: 'https://taif-app.com/storage/app/${data.main_image}',
 
               errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
-// >>>>>>> origin/amjad
 
 
             SizedBox(
               height: 35.h,
             ),
-            Text(
-            data.message.toString(),
-              style: TextStyle(
-                fontFamily: fontName,
-                fontSize: 15.sp,
-                color: const Color(0xff3897b2),
+            Padding(
+              padding:  EdgeInsets.symmetric(
+                horizontal: 20.w
               ),
-              textAlign: TextAlign.center,
+              child: Text(
+              data.message.toString(),
+                style: TextStyle(
+                  fontFamily: fontName,
+                  fontSize: 15.sp,
+                  color: const Color(0xff3897b2),
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),

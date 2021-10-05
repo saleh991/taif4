@@ -5,11 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/guiding_model.dart';
 import 'package:taif/models/user_data_model.dart' as us;
+import 'package:taif/screens/primary_screens/estates_section/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
@@ -54,7 +56,16 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
               ),
               actions: [InkWell(onTap:(){
                 Navigator.pushNamed(context, notificationsRoute);
-              },child: Image.asset('images/notification_icon.png'))],      ),
+              },child: Padding(
+                padding:  EdgeInsets.symmetric(
+                    horizontal: 12.w
+                ),
+                child: Icon(
+                  Icons.notifications,
+                  color: Color(0xFF007C9D),
+                  size: 35.sp,
+                ),
+              ),)],      ),
             body: SizedBox(
               width: ScreenUtil().screenWidth,
               child: SingleChildScrollView(
@@ -196,6 +207,22 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: 35.h,
                     ),
+                    for(var im in data.images!)
+                      Column(
+                        children: [
+                          CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            height: 219.h,
+                            width: 380.w,
+                            imageUrl: 'https://taif-app.com/storage/app/${im.path}',
+
+                            errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+
+                          SizedBox(
+                            height: 35.h,
+                          ),
+                        ],
+                      ),
                     Padding(
                       padding:  EdgeInsets.symmetric(horizontal: 20.w),
                       child: Text(
@@ -378,11 +405,11 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                                 btnOkText: 'ابلاغ',
                                 btnCancelText: 'الغاء',
                                 btnOkOnPress: () {
-                                  LocationsCubit()..addReportTourism(
-                                    report_title: _causeController.text,
+                                  LocationsCubit()..addReportTourism(report_title:
+                                  _causeController.text,
                                       report_content: _detailsController.text,
                                       report_on_class: 'App\\Models\\LocationService'
-                                      ,//ChangeModel
+
                                   ).then((value) {
                                     Fluttertoast.showToast(
                                         msg: 'تم ارسال البلاغ',
@@ -403,20 +430,34 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                                 border: Border.all(
                                     width: 1.0, color: const Color(0x5c06a1cb)),
                               ),
-                              child: Image.asset('images/flag.png'),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: SvgPicture.asset('images/flag.svg',
+                                  color: Colors.red,
+
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: 17.w,
                           ),
-                          Container(
-                            height: 31.h,
-                            width: 31.w,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1.0, color: const Color(0x5c06a1cb)),
+                          InkWell(
+                            onTap: (){
+
+                            },
+                            child: Container(
+                              height: 31.h,
+                              width: 31.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.0, color: const Color(0x5c06a1cb)),
+                              ),
+                              child: SvgPicture.asset('images/favorite_heart.svg',
+                                color: Color(0xFF009fcf),
+
+                              ),
                             ),
-                            child: Image.asset('images/heart.png'),
                           ),
                           SizedBox(
                             width: 17.w,
@@ -433,6 +474,7 @@ class TourismGuidingDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+
                     SizedBox(
                       height:35.h,
                     ),

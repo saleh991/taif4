@@ -113,16 +113,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   @override
   void initState() {
-    // lat=center.latitude.toString();
-    // long=center.longitude.toString();
+    lat=center.latitude.toString();
+    long=center.longitude.toString();
     otherImage=[];
     super.initState();
-    // MarkerId markerId = MarkerId('orgin');
-    // Marker marker =
-    // Marker(markerId: markerId,
-    //     icon: BitmapDescriptor.defaultMarker ,
-    //     position: center);
-    // markers[markerId] = marker;
+    MarkerId markerId = MarkerId('orgin');
+    Marker marker =
+    Marker(markerId: markerId,
+        icon: BitmapDescriptor.defaultMarker ,
+        position: center);
+    markers[markerId] = marker;
     _detailsController = TextEditingController();
     _titleController=TextEditingController();
   }
@@ -157,7 +157,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         ),
         actions: [InkWell(onTap:(){
           Navigator.pushNamed(context, notificationsRoute);
-        },child: Image.asset('images/notification_icon.png'))],      ),
+        },child: Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Icon(
+            Icons.notifications,
+            color: Color(0xFF007C9D),
+            size: 35.sp,
+          ),
+        ),)],      ),
       body: BlocProvider(
         create:
             (context) => cu,
@@ -171,7 +180,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
                   children: [
-
                     SizedBox(
                       height: 25.h,
                     ),
@@ -341,7 +349,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-
                     Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(

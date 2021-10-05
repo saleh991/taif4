@@ -183,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 homeItem(
                   img: 'images/house.svg',
-                  title: 'خدمات عامة',
+                  title: 'الخدمات',
                   function: () {
                     Navigator.pushNamed(context, servicesProvidersRoute);
                   },

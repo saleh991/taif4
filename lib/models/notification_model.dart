@@ -2,8 +2,6 @@
 /// code : 200
 /// data : [{"id":3,"user_id":4,"url":null,"content":"تم رفض طلب اضافة موقع","seen":1,"created_at":"2021-08-19T00:39:39.000000Z","updated_at":"2021-08-19T11:22:28.000000Z"},{"id":4,"user_id":4,"url":null,"content":"تم قبول طلب اضافة موقع","seen":1,"created_at":"2021-08-19T00:39:45.000000Z","updated_at":"2021-08-19T11:22:28.000000Z"}]
 
-// ignore_for_file: unnecessary_question_mark
-
 class NotificationModel {
   bool? _status;
   int? _code;

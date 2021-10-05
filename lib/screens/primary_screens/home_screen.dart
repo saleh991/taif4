@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/components/components.dart';
+import 'package:taif/controller/app_controller.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
 import 'package:taif/helper/constants.dart';
@@ -17,6 +19,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print(AppController.instance.getId());
     return Scaffold(
       body: Column(
         children: [
@@ -43,25 +47,15 @@ class HomeScreen extends StatelessWidget {
                               // color: Colors.red,
                               // height: double.infinity,
                               width: 414.w,
-                              child: Image.network(
-                                'https://taif-app.com/storage/app/${e
-                                    .image}',
-                                fit: BoxFit.cover,
-                                loadingBuilder: (BuildContext context, Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  }
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
-                                },
-                              ),
+                              child: CachedNetworkImage(
+                                fit: BoxFit.fill,
+
+                                imageUrl: "https://taif-app.com/storage/app/${e
+                                    .image}",
+
+
+                                errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+
                             );
                           }).toList(),
                           options: CarouselOptions(
@@ -115,6 +109,7 @@ class HomeScreen extends StatelessWidget {
                                     },
                                     title: 'تعرف على الطائف',
                                     color: Color(0xc2022f3b),
+
                                   ),
                                   tapHomeItem(
                                     function: () {

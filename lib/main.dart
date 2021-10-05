@@ -87,8 +87,6 @@ class _MainAppState extends State<MainApp> {
           initialRoute: launchScreenRoute,
           routes: {
             launchScreenRoute: (context) => LaunchScreen(),
-
-
             chooseLanguageRoute: (context) => ChooseLanguageScreen(),
             outBoardingRoute: (context) => OutBoardingScreen(),
             welcomeRoute: (context) => WelcomeScreen(),

@@ -42,7 +42,7 @@ class NotificationsScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
 
                       return notificationsItem(
-                          index: index, notificationModel: cubit.notificationModel);
+                          index: cubit.notificationModel.data!.length-index-1, notificationModel: cubit.notificationModel);
 
                     },
                     itemCount:cubit.notificationModel.data!.length),

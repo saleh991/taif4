@@ -23,8 +23,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
       //AppController.instance.outBoarding() ? welcomeRoute: outBoardingRoute
 
       String route = AppController.instance.loggedIn() ? bottomNavRoute :
-      AppController.instance.outBoarding() ? welcomeRoute: outBoardingRoute;
-      // chooseLanguageRoute;
+      // AppController.instance.outBoarding() ? welcomeRoute: outBoardingRoute;
+      chooseLanguageRoute;
       Navigator.pushReplacementNamed(context, route);
     });
   }
@@ -50,7 +50,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
             duration: Duration(milliseconds: 2500),
             child: Image(
               image: AssetImage('images/logo.png'),
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
         ),

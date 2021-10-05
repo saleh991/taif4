@@ -17,12 +17,7 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.setLocale(Locale('ar'));
-    String route = AppController.instance.outBoarding() ? welcomeRoute: outBoardingRoute;
-    Navigator.pushReplacementNamed(
-      context,
-      route,
-    );
+
     return Scaffold(
       body: Stack(
         children: [

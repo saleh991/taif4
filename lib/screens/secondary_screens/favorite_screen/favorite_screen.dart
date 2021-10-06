@@ -5,6 +5,7 @@ import 'package:taif/components/components.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/screens/secondary_screens/favorite_screen/item_my_favorite.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -55,10 +56,17 @@ class FavoriteScreen extends StatelessWidget {
                        height: 26.h,
                      ),
                      Expanded(
-                       child: favoriteItem(
+                       child:
+
+                       ItemMyFavorite(
                          function: () {},
                          favoriteModel: cubit,
                        ),
+
+                       // favoriteItem(
+                       //   function: () {},
+                       //   favoriteModel: cubit,
+                       // ),
                      ),
                    ],
                  ),

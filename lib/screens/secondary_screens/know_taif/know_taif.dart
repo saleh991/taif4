@@ -64,6 +64,9 @@ class _KnowTaifScreenState extends State<KnowTaifScreen> {
           listener: (context, state) {},
           builder: (context, state) {
             var cubit = TaifCubit.get(context).taifModel;
+            for(int i=0;i< cubit.data!.length;i++)
+            print(cubit.data![i].locationLat!.toString());
+
             if (state is GetTaifSuccessState) {
               if(first)
                 {

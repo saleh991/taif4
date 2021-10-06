@@ -4,29 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:taif/models/estate_model.dart';
+import 'package:taif/models/favorite_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/estate_details2_screen.dart';
 
+import 'favorite_details.dart';
 
-class ItemMyAdds extends StatefulWidget {
+
+class ItemMyFavorite extends StatefulWidget {
 
   final VoidCallback function;
-  final EstateModel estateModel;
+  final FavoriteModel favoriteModel;
 
-  const ItemMyAdds({Key? key,required this.function ,required this.estateModel }) : super(key: key);
+  const ItemMyFavorite({Key? key,required this.function ,required this.favoriteModel }) : super(key: key);
 
 
   @override
-  _ItemMyAddsState createState() => _ItemMyAddsState();
+  _ItemMyFavoriteState createState() => _ItemMyFavoriteState();
 }
 
-class _ItemMyAddsState extends State<ItemMyAdds> {
+class _ItemMyFavoriteState extends State<ItemMyFavorite> {
+  @override
+  void initState() {
+    super.initState();
+
+    print(">>>>>>>?????????");
+    print(widget.favoriteModel.data!.appModelsEstate![0].favorite);
+  }
   @override
   Widget build(BuildContext context) {
    return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: widget.estateModel.data!.length,
+        itemCount: widget.favoriteModel.data!.appModelsEstate!.length,
         itemBuilder: (context, index) {
+          if(widget.favoriteModel.data!.appModelsEstate![index].favorite !=null)
           return Container(
             height: 115.h,
             child: Stack(
@@ -51,11 +62,19 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
 
                   child: InkWell(
                     onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) =>
+                      //         EstateDetailsScreen(widget.estateModel.data![index]),
+                      //   ),
+                      // );
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              EstateDetailsScreen(widget.estateModel.data![index]),
+                              FavoriteDetailsScreen(widget.favoriteModel.data!.appModelsEstate![index]),
                         ),
                       );
                     },
@@ -73,7 +92,7 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
                               fit: BoxFit.fill,
                               imageUrl:
                               // "https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg",
-                              "https://taif-app.com/storage/app/${widget.estateModel.data![index].mainImage}",
+                              "https://taif-app.com/storage/app/${widget.favoriteModel.data!.appModelsEstate![index].favorite!.image}",
 
                               errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
                               imageBuilder: (context, imageProvider) { // you can access to imageProvider
@@ -102,7 +121,7 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
                               // * -- title
                               Center(
                                 child: Text(
-                                  '${widget.estateModel.data![index].title}',
+                                  '${widget.favoriteModel.data!.appModelsEstate![index].favorite!.title}',
                                   style: TextStyle(
                                     fontFamily: 'JF Flat',
                                     fontSize: 18.sp,
@@ -131,12 +150,12 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
                                         children: [
 
                                           designRow("save", "العقارات"),
-                                          designRow("person", "???????"),
+                                          designRow("location", "الحوية"),
 
                                           Expanded(child: Row(
                                             children: [
-                                              designRow("speech", '${widget.estateModel.data![index].comments != null ? widget.estateModel.data![index].comments!.length : ''}'),
-                                              designRow("eye", '${widget.estateModel.data![index].views}'),
+                                              designRow("speech", "0"),
+                                              designRow("eye", '${widget.favoriteModel.data!.appModelsEstate![index].favorite!.views}'),
 
                                             ],
                                           ),
@@ -149,63 +168,28 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
 
                                       Expanded(
                                         child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
 
+
+
+                                          designRow("price",'عروض العقار'),
+
                                           Expanded(
-                                              child:
-                                              Text(
-                                                    widget.estateModel.data![index].createdAt.toString().substring(0,10),
-                                                    style: TextStyle(
-                                                      fontFamily: 'JF Flat',
-                                                      fontSize: 12.sp,
-                                                      color: const Color(0xff7a90b7),
-                                                    ),
-                                                    textAlign: TextAlign.start,
-                                                    maxLines: 2,
+                                            child:
+                                            Text(
+                                              "حذف",
+                                              style: TextStyle(
+                                                fontFamily: 'JF Flat',
+                                                fontSize: 12.sp,
+                                                color: const Color(0xffFD6164),
                                               ),
+                                              textAlign: TextAlign.start,
+                                              maxLines: 2,
+                                            ),
                                           ),
 
 
-                                          designRow("price", widget.estateModel.data![index].category!.id==2?
-                                          'طلبات العقار':'عروض العقار'),
-
-                                          Expanded(
-                                              child:Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-
-                                                  Expanded(
-                                                    child:
-                                                    Text(
-                                                      "تعديل",
-                                                      style: TextStyle(
-                                                        fontFamily: 'JF Flat',
-                                                        fontSize: 12.sp,
-                                                        color: const Color(0xff399432),
-                                                      ),
-                                                      textAlign: TextAlign.start,
-                                                      maxLines: 2,
-                                                    ),
-                                                  ),
-
-
-                                                  Expanded(
-                                                    child:
-                                                    Text(
-                                                      "حذف",
-                                                      style: TextStyle(
-                                                        fontFamily: 'JF Flat',
-                                                        fontSize: 12.sp,
-                                                        color: const Color(0xffFD6164),
-                                                      ),
-                                                      textAlign: TextAlign.start,
-                                                      maxLines: 2,
-                                                    ),
-                                                  ),
-
-                                                ],
-                                              ),
-                                          ),
 
                                                 ],
                                               )
@@ -245,6 +229,9 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
               ],
             ),
           );
+
+          else
+            return SizedBox();
         });
   }
 

@@ -38,7 +38,7 @@ import 'package:taif/screens/primary_screens/profile_screen.dart';
 import 'package:taif/screens/secondary_screens/contracts_section_screens/contracts_screen.dart';
 import 'package:taif/screens/secondary_screens/contracts_section_screens/request_rental_right_screen.dart';
 import 'package:taif/screens/secondary_screens/documentation_screen/documentation_screen.dart';
-import 'package:taif/screens/secondary_screens/favorite_screen.dart';
+import 'package:taif/screens/secondary_screens/favorite_screen/favorite_screen.dart';
 import 'package:taif/screens/secondary_screens/know_taif/know_taif.dart';
 import 'package:taif/screens/secondary_screens/my_adds/my_ads_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/tourism_guiding_section/add_guide_screen.dart';

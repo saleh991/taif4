@@ -174,19 +174,19 @@ class _ItemMyAddsState extends State<ItemMyAdds> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
 
-                                                  Expanded(
-                                                    child:
-                                                    Text(
-                                                      "تعديل",
-                                                      style: TextStyle(
-                                                        fontFamily: 'JF Flat',
-                                                        fontSize: 12.sp,
-                                                        color: const Color(0xff399432),
-                                                      ),
-                                                      textAlign: TextAlign.start,
-                                                      maxLines: 2,
-                                                    ),
-                                                  ),
+                                                  // Expanded(
+                                                  //   child:
+                                                  //   Text(
+                                                  //     "تعديل",
+                                                  //     style: TextStyle(
+                                                  //       fontFamily: 'JF Flat',
+                                                  //       fontSize: 12.sp,
+                                                  //       color: const Color(0xff399432),
+                                                  //     ),
+                                                  //     textAlign: TextAlign.start,
+                                                  //     maxLines: 2,
+                                                  //   ),
+                                                  // ),
 
 
                                                   Expanded(

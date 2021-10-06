@@ -167,24 +167,7 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
     });
   }
 
-  void createChat({
-    required int subjectId,
-  }) {
-    emit(CreateNewChatLoadingState());
-    DioHelper.init();
-    DioHelper.getData(url: 'chats', query: {
-      'user_id': AppController.instance.getId(),
-      'subject_id': subjectId,
-    }).then((value) {
-      if (value.statusCode == 200) {
-        print('createChat');
-        emit(CreateNewChatSuccessState());
-      }
-    }).catchError((e) {
-      print('createChat error $e');
-      emit(CreateNewChatErrorState());
-    });
-  }
+
 
 void getCommentEstate({
   required int estateId,

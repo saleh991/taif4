@@ -18,8 +18,7 @@ class ChatCubit extends Cubit<ChatState> {
     DioHelper.init();
     DioHelper.getData(url: 'chats?user_id=${AppController.instance.getId()}')
         .then((value) {
-      print('i am here chat ');
-      print('user id ${AppController.instance.getId()}');
+      print(value.data);
       if (value.statusCode == 200) {
         print('here chat');
         chatModel = ChatModel.fromJson(value.data);
@@ -30,15 +29,36 @@ class ChatCubit extends Cubit<ChatState> {
       emit(ChatErrorState());
     });
   }
+
+  void getSingleChat({required int chatId}) {
+    emit(ChatLoadingState());
+    DioHelper.init();
+    DioHelper.getData(url: 'chats/$chatId?user_id=${AppController.instance.getId()}')
+        .then((value) {
+      print(value.data);
+      if (value.statusCode == 200) {
+        print('here chat');
+        chatModel = ChatModel.fromJson(value.data);
+      }
+      emit(ChatSuccessState());
+    }).catchError((e) {
+      print('chat error estate  $e');
+      emit(ChatErrorState());
+    });
+  }
+
+
   void createChat({
     required int subjectId,
     required String model
 }) {
     emit(ChatLoadingState());
     DioHelper.init();
-    DioHelper.getData(url: 'chats?user_id=${AppController.instance.getId()}&subject_class=$model&subject_id=11')
+    DioHelper.getData(url: 'chats/create?user_id=${AppController.instance.getId()}&subject_class=$model&subject_id=$subjectId')
         .then((value) {
+      print("value.data");
       print(value.data);
+      print("value.data");
 
       if (value.statusCode == 200) {
         print('here chat');
@@ -55,21 +75,24 @@ class ChatCubit extends Cubit<ChatState> {
   void sendMessage({
     required String content,
     required int chatId,
+
   }) {
-    emit(SendMessageLoadingState());
+
     DioHelper.init();
     DioHelper.postData(url: 'chats', data: {
       'content': content,
       'user_id': AppController.instance.getId(),
       'chat_id': chatId,
+
     }).then((value) {
+      print(value.data);
      if(value.statusCode == 201){
-       getAllChats();
-       emit(SendMessageSuccessState());
+
+
      }
     }).catchError((e) {
       print('Error Login Screen $e');
-      emit(SendMessageErrorState());
+
     });
   }
 

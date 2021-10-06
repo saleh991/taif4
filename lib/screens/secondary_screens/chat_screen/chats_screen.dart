@@ -53,14 +53,14 @@ class ChatScreen extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     itemCount: cubit.chats!.length,
                     itemBuilder: (context, index) {
-                      print('${cubit.chats!.length}');
+
                       return chatItem(
-                        index: index,
+                        index:cubit.chats!.length-index-1,
                         function: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PrivateChatScreen(cubit.chats![index],index),
+                              builder: (context) => PrivateChatScreen(chatId:cubit.chats![cubit.chats!.length-index-1].id!),
                             ),
                           );
                         },

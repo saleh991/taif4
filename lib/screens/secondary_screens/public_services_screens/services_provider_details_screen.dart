@@ -139,13 +139,13 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
-              Navigator.push(
+             /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => PrivateChatSubjectScreen(
                   subjectId: data!.id!,
                   model: 'App\\Models\\HomeService',
                 )),
-              );
+              );*/
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

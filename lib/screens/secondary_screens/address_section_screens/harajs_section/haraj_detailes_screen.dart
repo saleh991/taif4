@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:taif/models/haraj_model.dart';
+import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen_subject.dart';
 
 class HarajDetailsScreen extends StatelessWidget {
 
@@ -110,6 +111,46 @@ class HarajDetailsScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
+            ),
+            SizedBox(
+              height: 35.h,
+            ),
+            GestureDetector(
+              onTap: (){
+                 Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PrivateChatSubjectScreen(
+                  subjectId: data.id!,
+                  model: 'App\\Models\\Haraj',
+                )),
+              );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'إرسال رسالة خاصة',
+                    style: TextStyle(
+                      fontFamily: 'JF Flat',
+                      fontSize: 18.sp,
+                      color: const Color(0xff003e4f),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  Image.asset(
+                    'images/chat.png',
+                    height: 25,
+                    width: 25,
+                  )
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: 35.h,
             ),
           ],
         ),

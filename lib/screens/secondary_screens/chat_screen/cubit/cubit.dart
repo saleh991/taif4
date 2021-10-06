@@ -60,7 +60,8 @@ class ChatCubit extends Cubit<ChatState> {
       print(value.data);
       print("value.data");
 
-      if (value.statusCode == 200) {
+      if (value.statusCode == 200)
+      {
         print('here chat');
         chatModel = ChatModel.fromJson(value.data);
       }

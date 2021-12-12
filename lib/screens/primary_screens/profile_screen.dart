@@ -28,8 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
 
-
-
   }
 
   @override
@@ -67,11 +65,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               height: 5.h,
                             ),
                             if (state is EditProfileSuccessState)
+
                               Text(
                                 '${cubit.data!.name}',
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
-                                  fontSize: 29.sp,
+                                  fontSize: 20.sp,
                                   color: const Color(0xff003e4f),
                                   letterSpacing: -0.58,
                                 ),
@@ -81,11 +80,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Column(
                                 children: [
 
+                                  SizedBox(height: 6,),
+
                                   Text(
                                     '${cubit.data!.name}',
                                     style: TextStyle(
                                       fontFamily: 'JF Flat',
-                                      fontSize: 29.sp,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20.sp,
                                       color: const Color(0xff003e4f),
                                       letterSpacing: -0.58,
                                     ),
@@ -94,49 +96,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   SizedBox(
                                     height: 14.h,
                                   ),
-                                  if (cubit.data!.currentSub!=null)
-                                    Text(
-                                      'مشترك',
-                                      style: TextStyle(
-                                        fontFamily: 'JF Flat',
-                                        fontSize: 23.sp,
-                                        color: const Color(0xff003e4f),
-                                        letterSpacing: -0.58,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  else
-                                    Text(
-                                      'غير مشترك',
-                                      style: TextStyle(
-                                        fontFamily: 'JF Flat',
-                                        fontSize: 23.sp,
-                                        color: const Color(0xff003e4f),
-                                        letterSpacing: -0.58,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
+
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      if (cubit.data!.currentSub!=null)
+                                        Text(
+                                          'مشترك',
+                                          style: TextStyle(
+                                            fontFamily: 'JF Flat',
+                                            fontSize: 20.sp,
+                                            color: const Color(0xff003e4f),
+                                            letterSpacing: -0.58,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      else
+                                        Text(
+                                          'غير مشترك',
+                                          style: TextStyle(
+                                            fontFamily: 'JF Flat',
+                                            fontSize: 20.sp,
+                                            color: const Color(0xff003e4f),
+                                            letterSpacing: -0.58,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+
+
+
+                                      SizedBox(width: 5,),
+
+                                      if (cubit.data!.currentSub != null)
+                                        Text(
+                                          '( ${cubit.data!.currentSub!.package!.name} )',
+                                          style: TextStyle(
+                                            fontFamily: 'JF Flat',
+                                            fontSize: 19.sp,
+                                            color: Color.fromRGBO(0, 62, 79, 1),
+                                          ),
+                                        ),
+
+                                    ],
+                                  )
+
                                 ],
                               ),
                             SizedBox(
                               height: 3.h,
                             ),
-                            if (cubit.data!.currentSub != null)
-                              Text(
-                                '${cubit.data!.currentSub!.package!.name}',
-                                style: TextStyle(
-                                  fontFamily: 'JF Flat',
-                                  fontSize: 19.sp,
-                                  color: Color.fromRGBO(0, 62, 79, 1),
-                                ),
-                              ),
+
                             if (cubit.data!.currentSub != null)
                               if(cubit.data!.end!=null)
                               Text(
                                 '${cubit.data!.end}',
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
-                                  fontSize: 19.sp,
+                                  fontSize: 16.sp,
                                   color: Color.fromRGBO(149, 160, 178, 1),
                                 ),
                               ),
@@ -156,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     '${cubit.data!.currentSub!.package!.adsCount}',
                                     style: TextStyle(
                                       fontFamily: 'JF Flat',
-                                      fontSize: 19.sp,
+                                      fontSize: 16.sp,
                                       color: Color.fromRGBO(149, 160, 178, 1),
                                     ),
                                   ),
@@ -186,8 +203,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ).then((value) => setState(() {}));
                   },
                   color: Color(0xFF009fcf),
-                  widthImge:22.w ,
-                  height:22.h ,
+                  widthImge:23.0 ,
+                  height:24.0 ,
                   title: 'تعديل ملفي الشخصي',
                   icon: 'images/profile.svg'
               ),
@@ -201,8 +218,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.pushNamed(context, searchRoute);
                 },
                 title: 'بحث',
-                height: 18.h,
-                widthImge: 18.w,
+                height: 18.0,
+                widthImge: 18.0,
                 icon: 'images/search.svg',
               ),
               Divider(
@@ -215,8 +232,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.pushNamed(context, myAdsRoute);
                 },
                 color: Color(0xFF009fcf),
-                height: 21.h,
-                widthImge: 24.w,
+                height: 21.0,
+                widthImge: 24.0,
                 title: 'إعلاناتي',
                 icon: 'images/myAdds.svg',
               ),
@@ -225,8 +242,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 thickness: 1.5,
               ),
               profileItemSvg(
-                height: 23.h,
-                widthImge: 25.w,
+                height: 23.0,
+                widthImge: 25.0,
                 color: Color(0xFF009fcf),
                 function: () {
                   Navigator.pushNamed(context, favoriteRoute);
@@ -242,8 +259,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 function: () {
                   Navigator.pushNamed(context, englishSectionRoute);
                 },
-                height: 23.h,
-                widthImge: 18.w,
+                height: 23.0,
+                widthImge: 18.0,
                 color: Color(0xFF009fcf),
                 title: 'القسم الانكليزي',
                 icon: 'images/terms.svg',
@@ -267,31 +284,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               profileItemSvg(
                 function: () {
-                  if(cubit!=null)
-                    {
-                      if (cubit.data!.currentSub != null)
-                        {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MembershipScreenSub(user: cubit,)),
-                          );
-                        }
-                      else{
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
-                        );
-                      }
-
-                    }
-
+                  Navigator.pushNamed(context, "/order");
                 },
-                title: 'خطط الاشتراكات',
-                icon: 'images/member_card.svg',
-                height: 18.h,
-                widthImge: 22.w,
                 color: Color(0xFF009fcf),
+                height: 21.0,
+                widthImge: 24.0,
+                title: 'طلبات المواقع',
+                icon: 'images/myAdds.svg',
               ),
+              Divider(
+                height: 0,
+                thickness: 1.5,
+              ),
+
+
+              // profileItemSvg(
+              //   function: () {
+              //     if(cubit!=null)
+              //       {
+              //         if (cubit.data!.currentSub != null)
+              //           {
+              //             Navigator.push(
+              //               context,
+              //               MaterialPageRoute(builder: (context) => MembershipScreenSub(user: cubit,)),
+              //             );
+              //           }
+              //         else{
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+              //           );
+              //         }
+              //
+              //       }
+              //
+              //   },
+              //   title: 'خطط الاشتراكات',
+              //   icon: 'images/member_card.svg',
+              //   height: 18.0,
+              //   widthImge: 22.0,
+              //   color: Color(0xFF009fcf),
+              // ),
       
               Divider(
                 height: 0,
@@ -301,8 +334,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 function: () {},
                 title: 'اتفاقية الاستخدام',
                 icon: 'images/terms.svg',
-                height: 23.h,
-                widthImge: 18.w,
+                height: 23.0,
+                widthImge: 18.0,
                 color: Color(0xFF009fcf),
               ),
               Divider(
@@ -317,8 +350,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 title: 'شارك التطبيق',
                 icon: 'images/share.svg',
-                height: 21.h,
-                widthImge: 20.w,
+                height: 21.0,
+                widthImge: 20.0,
                 color: Color(0xFF009fcf),
               ),
               Divider(
@@ -331,8 +364,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 title: 'تواصل معنا',
                 icon: 'images/call.svg',
-                height: 23.h,
-                widthImge: 20.w,
+                height: 23.0,
+                widthImge: 20.0,
                 color: Color(0xFF009fcf),
               ),
               Divider(

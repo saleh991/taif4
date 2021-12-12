@@ -13,6 +13,8 @@ int userId = AppController.instance.getId();
 //https://taif-app.com/api/
 
 const String URL = 'https://taif-app.com/api/';
+const String URLAPP = 'https://taif-app.com/api/';
+const String URLStorge = 'https://taif-app.com/storage/app/';
 const String LOGIN = 'login';
 const String COMMENT = 'comments';
 const String REGISTER = 'register';

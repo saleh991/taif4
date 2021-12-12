@@ -31,46 +31,18 @@ class EstateModel {
     _code = json['code'];
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    if (_data != null) {
-      map['data'] = _data?.map((v) => v.toJson()).toList();
-    }
-    map['status'] = _status;
-    map['code'] = _code;
-    return map;
-  }
 
 }
 
-/// id : 1
-/// title : "استراحة وشالية"
-/// category : {"id":1,"name":"عروض عقارية","created_at":"2021-09-01T19:13:22.000000Z","updated_at":"2021-09-01T19:13:22.000000Z"}
-/// type : "villa"
-/// auth_option : "staying"
-/// ownership : "delegate"
-/// area : "2000"
-/// street_wide : 0
-/// price : 299999
-/// description : "الشاليه يوفر الأستمتاع الكامل والراحه التامه لجميع أفراد العائله\r\nمرافق الشاليه \r\nعدد1صاله واسعه للجلوس بجلسه عربيه بشاشة بلازما وجلسه افرنجي مطله على المسبح\r\nعدد 2 غرفة نوم غرفة رئيسيه بسرير عائلي غرفة نوم للمرافقين مكونه من 3 اسره \r\nوكل غرفه بدورة مياه عربي وأفرنجي مستقله مجهزه بغسالة ملابس \r\nوحسب الرغبه يوجد مسبح داخلي قسمين قسم للأطفال وقسم للبالغين والمسبح مجهز بسخان وفلاتر بتقنيه عاليه\r\nويتوفر بالشاليه مطبخ مجهز بكامل الأجهزه والأدوات\r\nبالشاليه حوش واسع مغطى بالانجيله ومجهز بألعاب حركيه للأطفال وكراسي للجلوس \r\nوحسب الرغبه والأحتياج يوجد قسم أضافي ملحق بالشاليه\r\nمكون من مجلس كبير بجلسه عربيه ودورة مياه مستقله وحوش مغطى بالأنجليه \r\nومن ناحية نظافة الشاليه  نهتم بتعقيمه بعد كل مستأجر والبطاطين والمفارش نغيرها بأخرى نظيفه من المغسله بعد خروج  كل مستاجر\r\n_______________________\r\n_______________________\r\nإجار الشاليه لليوم الواحد من دون مسبح بسعر 450 ريال فقط\r\n_______________________\r\n_____________________\r\nإجار الشاليه مع المسبح لليوم الواحد بسعر 600 ريال فقط\r\n______________________\r\n______________________\r\nإجار الشاليه مع المسبح لمدة يومين بسعر 1100 ريال"
-/// created_at : "2021-08-21T03:57:30.000000Z"
-/// location_lat : "19.7561079"
-/// location_lng : "41.929559399999995"
-/// main_image : "estates/4-1629518250.jpg"
-/// images : [{"id":42,"path":"images/_1_.jpg-4-1629518250.jpg","viewable_type":"App\\Models\\Estate","viewable_id":1,"created_at":"2021-08-21T03:57:31.000000Z","updated_at":"2021-08-21T03:57:31.000000Z"},{"id":43,"path":"images/2021_1_3_15_39_54_332.jpg-4-1629518251.jpg","viewable_type":"App\\Models\\Estate","viewable_id":1,"created_at":"2021-08-21T03:57:31.000000Z","updated_at":"2021-08-21T03:57:31.000000Z"},{"id":44,"path":"images/تنزيل.jfif-4-1629518251.jfif","viewable_type":"App\\Models\\Estate","viewable_id":1,"created_at":"2021-08-21T03:57:31.000000Z","updated_at":"2021-08-21T03:57:31.000000Z"}]
-/// media : []
-/// views : 8
-/// comments : [{"id":3,"user_id":4,"subject_id":1,"content":"test comment","created_at":"2021-08-28T15:20:12.000000Z","updated_at":"2021-08-28T15:20:12.000000Z","subject_class":"App\\Models\\Estate"}]
-/// user : {"id":11,"phone":"112233","created_at":"2021-08-20T12:38:05.000000Z","updated_at":"2021-08-21T03:53:53.000000Z","package_id":4,"start":null,"end":null,"active":1,"image":null,"code":"5935","api_token":null,"name":"مسوق الكتروني","email":"a@a.a","package_ads":350,"package_comments":0}
-/// side : {"id":1,"name":"شرق","created_at":"2021-08-12T07:18:26.000000Z","updated_at":"2021-08-12T07:18:26.000000Z"}
-/// show_phone : 1
-/// comments_enabled : 1
-
 class EstateData {
   int? _id;
+  int? old_years;
+  int? mortgaged;
   String? _title;
   Category? _category;
   String? _type;
+  String? type_ar;
+  String? district;
   String? _authOption;
   String? _ownership;
   String? _area;
@@ -90,7 +62,16 @@ class EstateData {
   Side? _side;
   int? _showPhone;
   int? _commentsEnabled;
+  bool? _twenty_four_hours_spend;
 
+  set twenty_four_hours_spend(bool? value) {
+    _twenty_four_hours_spend = value;
+  }
+
+
+  bool? get twenty_four_hours_spend =>
+      _twenty_four_hours_spend;
+  // bool? get twenty_four_hours_spend => _twenty_four_hours_spend;
   int? get id => _id;
   String? get title => _title;
   Category? get category => _category;
@@ -115,8 +96,10 @@ class EstateData {
   int? get commentsEnabled => _commentsEnabled;
 
   EstateData({
-      int? id, 
-      String? title, 
+      int? mortgaged,
+      int? id,
+      int? old_years,
+      String? title,
       Category? category, 
       String? type, 
       String? authOption, 
@@ -124,19 +107,23 @@ class EstateData {
       String? area, 
       int? streetWide, 
       int? price, 
-      String? description, 
+      bool? twenty_four_hours_spend,
+      String? description,
       String? createdAt, 
-      String? locationLat, 
+      String? type_ar,
+      String? district,
+      String? locationLat,
       String? locationLng, 
       String? mainImage, 
       List<Images>? images, 
-      List<dynamic>? media, 
+      List<dynamic>? media,
       int? views, 
       List<Comments>? comments, 
       User? user, 
       Side? side, 
       int? showPhone, 
       int? commentsEnabled}){
+    _twenty_four_hours_spend = twenty_four_hours_spend;
     _id = id;
     _title = title;
     _category = category;
@@ -162,10 +149,15 @@ class EstateData {
 }
 
   EstateData.fromJson(dynamic json) {
+    _twenty_four_hours_spend = json['twenty_four_hours_spend'];
+    old_years = json['old_years'];
+    mortgaged = json['mortgaged'];
     _id = json['id'];
     _title = json['title'];
     _category = json['category'] != null ? Category.fromJson(json['category']) : null;
     _type = json['type'];
+    type_ar = json['type_ar'];
+    district = json['district'];
     _authOption = json['auth_option'];
     _ownership = json['ownership'];
     _area = json['area'];
@@ -201,45 +193,6 @@ class EstateData {
     _commentsEnabled = json['comments_enabled'];
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['title'] = _title;
-    if (_category != null) {
-      map['category'] = _category?.toJson();
-    }
-    map['type'] = _type;
-    map['auth_option'] = _authOption;
-    map['ownership'] = _ownership;
-    map['area'] = _area;
-    map['street_wide'] = _streetWide;
-    map['price'] = _price;
-    map['description'] = _description;
-    map['created_at'] = _createdAt;
-    map['location_lat'] = _locationLat;
-    map['location_lng'] = _locationLng;
-    map['main_image'] = _mainImage;
-    if (_images != null) {
-      map['images'] = _images?.map((v) => v.toJson()).toList();
-    }
-    if (_media != null) {
-      map['media'] = _media?.map((v) => v.toJson()).toList();
-    }
-    map['views'] = _views;
-    if (_comments != null) {
-      map['comments'] = _comments?.map((v) => v.toJson()).toList();
-    }
-    if (_user != null) {
-      map['user'] = _user?.toJson();
-    }
-    if (_side != null) {
-      map['side'] = _side?.toJson();
-    }
-    map['show_phone'] = _showPhone;
-    map['comments_enabled'] = _commentsEnabled;
-    return map;
-  }
-
 }
 
 /// id : 1
@@ -271,18 +224,9 @@ class Side {
 
   Side.fromJson(dynamic json) {
     _id = json['id'];
-    _name = json['name'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['name'] = _name;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    return map;
+    _name = json['name']??"";
+    _createdAt = json['created_at']??"";
+    _updatedAt = json['updated_at']??"";
   }
 
 }
@@ -309,12 +253,12 @@ class User {
   String? _createdAt;
   String? _updatedAt;
   int? _packageId;
-  dynamic? _start;
-  dynamic? _end;
+  var _start;
+  var _end;
   int? _active;
-  dynamic? _image;
+  var _image;
   String? _code;
-  dynamic? _apiToken;
+  var _apiToken;
   String? _name;
   String? _email;
   int? _packageAds;
@@ -341,13 +285,13 @@ class User {
       String? phone, 
       String? createdAt, 
       String? updatedAt, 
-      int? packageId, 
-      dynamic? start, 
-      dynamic? end, 
-      int? active, 
-      dynamic? image, 
-      String? code, 
-      dynamic? apiToken, 
+      int? packageId,
+      var start,
+    var end,
+      int? active,
+    var image,
+      String? code,
+    var apiToken,
       String? name, 
       String? email, 
       int? packageAds, 
@@ -371,40 +315,20 @@ class User {
 
   User.fromJson(dynamic json) {
     _id = json['id'];
-    _phone = json['phone'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-    _packageId = json['package_id'];
-    _start = json['start'];
-    _end = json['end'];
-    _active = json['active'];
-    _image = json['image'];
-    _code = json['code'];
-    _apiToken = json['api_token'];
-    _name = json['name'];
-    _email = json['email'];
-    _packageAds = json['package_ads'];
-    _packageComments = json['package_comments'];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['phone'] = _phone;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    map['package_id'] = _packageId;
-    map['start'] = _start;
-    map['end'] = _end;
-    map['active'] = _active;
-    map['image'] = _image;
-    map['code'] = _code;
-    map['api_token'] = _apiToken;
-    map['name'] = _name;
-    map['email'] = _email;
-    map['package_ads'] = _packageAds;
-    map['package_comments'] = _packageComments;
-    return map;
+    _phone = json['phone']??"";
+    _createdAt = json['created_at']??"";
+    _updatedAt = json['updated_at']??"";
+    _packageId = json['package_id']??0;
+    _start = json['start'].toString();
+    _end = json['end'].toString();
+    _active = json['active']??0;
+    _image = json['image'].toString();
+    _code = json['code']??"";
+    _apiToken = json['api_token'].toString();
+    _name = json['name']??"";
+    _email = json['email']??"";
+    _packageAds = json['package_ads']??0;
+    _packageComments = json['package_comments']??0;
   }
 
 }
@@ -454,23 +378,11 @@ class Comments {
   Comments.fromJson(dynamic json) {
     _id = json['id'];
     _user = json['user'] != null ? User.fromJson(json['user']) : null;
-    _subjectId = json['subject_id'];
-    _content = json['content'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-    _subjectClass = json['subject_class'];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = _id;
-
-    map['subject_id'] = _subjectId;
-    map['content'] = _content;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    map['subject_class'] = _subjectClass;
-    return map;
+    _subjectId = json['subject_id']??"";
+    _content = json['content']??"";
+    _createdAt = json['created_at']??"";
+    _updatedAt = json['updated_at']??"";
+    _subjectClass = json['subject_class']??"";
   }
 
 }
@@ -514,24 +426,12 @@ class Images {
 
   Images.fromJson(dynamic json) {
     _id = json['id'];
-    _path = json['path'];
-    _viewableType = json['viewable_type'];
-    _viewableId = json['viewable_id'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
+    _path = json['path']??"";
+    _viewableType = json['viewable_type']??"";
+    _viewableId = json['viewable_id']??0;
+    _createdAt = json['created_at']??"";
+    _updatedAt = json['updated_at']??"";
   }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['path'] = _path;
-    map['viewable_type'] = _viewableType;
-    map['viewable_id'] = _viewableId;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    return map;
-  }
-
 }
 
 /// id : 1
@@ -563,18 +463,9 @@ class Category {
 
   Category.fromJson(dynamic json) {
     _id = json['id'];
-    _name = json['name'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map['id'] = _id;
-    map['name'] = _name;
-    map['created_at'] = _createdAt;
-    map['updated_at'] = _updatedAt;
-    return map;
+    _name = json['name']??"";
+    _createdAt = json['created_at']??"";
+    _updatedAt = json['updated_at']??"";
   }
 
 }

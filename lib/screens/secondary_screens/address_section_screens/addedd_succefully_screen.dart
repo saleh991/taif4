@@ -2,10 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/harajs_screen_new.dart';
+import 'package:taif/screens/secondary_screens/public_services_screens/services_providers_screen.dart';
 
-class AddedSuccefullyScreen extends StatelessWidget {
-  const AddedSuccefullyScreen({Key? key}) : super(key: key);
+import 'harajs_section/harajs_screen.dart';
+//
+// class AddedSuccefullyScreen extends StatefulWidget {
+//   const AddedSuccefullyScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   State<StatefulWidget> createState() {
+//     // TODO: implement createState
+//     throw UnimplementedError();
+//   }
 
+
+// }
+
+
+class AddedSuccefullyScreen extends StatefulWidget {
+
+
+  final String? directionScrean;
+
+  const AddedSuccefullyScreen({Key? key, this.directionScrean}) : super(key: key);
+
+  @override
+_AddedSuccefullyScreenState createState() => _AddedSuccefullyScreenState();
+}
+
+class _AddedSuccefullyScreenState extends State<AddedSuccefullyScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +52,7 @@ class AddedSuccefullyScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(31.0),
                   color: const Color(0xffffffff),
                   border:
-                      Border.all(width: 1.0, color: const Color(0xff007c9d)),
+                  Border.all(width: 1.0, color: const Color(0xff007c9d)),
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xffd5ddeb),
@@ -40,10 +66,11 @@ class AddedSuccefullyScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '.. تمت الأضافة بنجاح',
+                      widget.directionScrean!=null?
+                      'تم إضافة موضوعك بنجاح ..':"تم إضافة موضوعك بنجاح ويجري مراجعتة من قبل الادارة ونشرة",
                       style: TextStyle(
                         fontFamily: 'JF Flat',
-                        fontSize: 30,
+                        fontSize: 25,
                         color: const Color(0xff007c9d),
                       ),
                       textAlign: TextAlign.center,
@@ -51,39 +78,39 @@ class AddedSuccefullyScreen extends StatelessWidget {
                     SizedBox(
                       height: 35.h,
                     ),
-                    Text(
-                      'يتم الآن مراجعة الطلب وسيتم نشرة بعد المراجعة شكراً لكم',
-                      style: TextStyle(
-                        fontFamily: 'JF Flat',
-                        fontSize: 18,
-                        color: const Color(0xff2f4552),
-                        letterSpacing: -0.36,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '0506499275',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 38,
-                            color: const Color(0xff007c9d),
-                            letterSpacing: -0.76,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Image.asset('images/phone2.png')
-                      ],
-                    ),
+                    // Text(
+                    //   'يتم الآن مراجعة الطلب وسيتم نشرة بعد المراجعة شكراً لكم',
+                    //   style: TextStyle(
+                    //     fontFamily: 'JF Flat',
+                    //     fontSize: 18,
+                    //     color: const Color(0xff2f4552),
+                    //     letterSpacing: -0.36,
+                    //   ),
+                    //   textAlign: TextAlign.center,
+                    // ),
+                    // SizedBox(
+                    //   height: 25.h,
+                    // ),
+                    // Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       '0506499275',
+                    //       style: TextStyle(
+                    //         fontFamily: 'JF Flat',
+                    //         fontSize: 38,
+                    //         color: const Color(0xff007c9d),
+                    //         letterSpacing: -0.76,
+                    //       ),
+                    //       textAlign: TextAlign.center,
+                    //     ),
+                    //     SizedBox(
+                    //       width: 5.w,
+                    //     ),
+                    //     Image.asset('images/phone2.png')
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 35.h,
                     ),
@@ -92,8 +119,32 @@ class AddedSuccefullyScreen extends StatelessWidget {
                         height: 51.h,
                         child: defaultButton(
                             function: () {
+
                               Navigator.pushReplacementNamed(
                                   context, bottomNavRoute);
+
+
+
+                              if(widget.directionScrean=="estate"){
+                                Navigator.pushNamed(context, estateRoute);
+                              }
+                              if(widget.directionScrean=="haraj"){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          HarajsScreenNew()),
+                                );
+                              }
+                              if(widget.directionScrean=="services"){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ServicesProviderScreen()),
+                                );
+                              }
+
                             },
                             title: 'العودة للرئيسية'))
                   ],
@@ -107,9 +158,3 @@ class AddedSuccefullyScreen extends StatelessWidget {
     );
   }
 }
-
-/*
-Container(
-  
-  )
-*/

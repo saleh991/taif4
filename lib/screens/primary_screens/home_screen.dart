@@ -9,9 +9,11 @@ import 'package:taif/controller/app_controller.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/screens/primary_screens/tourism/tourism.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/address_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/events_sections/events_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/harajs_screen.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/harajs_screen_new.dart';
 import 'package:taif/screens/secondary_screens/know_taif/know_taif.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -97,6 +99,11 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+
+
+
+
+
                               Row(
                                 children: [
                                   tapHomeItem(
@@ -177,7 +184,8 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AddressScreen()),
+                              Tourism()),
+                      //AddressScreen
                     );
                   },
                 ),
@@ -196,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              HarajsScreen()),
+                              HarajsScreenNew()),
                     );
                   },
                 ),

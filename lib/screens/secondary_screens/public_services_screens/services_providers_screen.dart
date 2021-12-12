@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:taif/screens/secondary_screens/public_services_screens/add_provider_service.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/cubit/cubit.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/cubit/states.dart';
 import 'package:taif/screens/secondary_screens/public_services_screens/services_provider_details_screen.dart';
@@ -13,8 +15,7 @@ class ServicesProviderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             backgroundColor: Color(0xFFEFF2F7),
             elevation: 0,
@@ -43,7 +44,8 @@ class ServicesProviderScreen extends StatelessWidget {
               ),)
             ],
           ),
-          body: BlocProvider(
+          body: SafeArea(
+              child: BlocProvider(
             create: (context) => ServicesCubit()..getServicesCategory(),
             child: BlocConsumer<ServicesCubit, ServicesState>(
                 listener: (context, state) {},
@@ -58,6 +60,36 @@ class ServicesProviderScreen extends StatelessWidget {
                         width: ScreenUtil().screenWidth,
                         child: Column(
                           children: [
+
+
+
+                            SizedBox(
+                              height: 15.h,
+                            ),
+
+                            Center(
+                              child: SizedBox(
+                                  width: 354.w,
+                                  height: 51.h,
+                                  child: languagesButton(
+                                    title: 'أضافة خدمه جديد',
+                                    function: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => AddProvidersServices(
+                                              section:cubitG.homeServiceCategoriesModel.data!
+                                            )),
+                                      );
+
+                                      // print(categoryCubit.data!.length);
+                                    },
+                                    color: Color(0xFF007C9D),
+                                  )),
+                            ),
+
+
+
                             SizedBox(
                               height: 15.h,
                             ),
@@ -76,11 +108,14 @@ class ServicesProviderScreen extends StatelessWidget {
                                       vertical: 2.h, horizontal: 6.w),
                                   child: Row(
                                     children: [
-                                      Image.asset(
-                                        'images/placeholder.png',
-                                        height: 30.h,
-                                        width: 30.w,
-                                      ),
+                                      // Image.asset(
+                                      //   'images/placeholder.png',
+                                      //   height: 24.h,
+                                      //   width: 30.w,
+                                      // ),
+
+                                      SvgPicture.asset("images/business.svg", height: 30.h,
+                                        width: 30.w,),
                                       SizedBox(
                                         width: 20.w,
                                       ),
@@ -88,6 +123,7 @@ class ServicesProviderScreen extends StatelessWidget {
                                         child: StatefulBuilder(
                                           builder: (context, setState) {
                                             return DropdownButton<String>(
+                                              underline: Container(),
                                               isExpanded: true,
                                               iconSize: 35,
                                               iconEnabledColor:
@@ -130,6 +166,15 @@ class ServicesProviderScreen extends StatelessWidget {
                                     ],
                                   )),
                             ),
+
+
+
+                            SizedBox(
+                              height: 20.h,
+                            ),
+
+
+
                             ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
@@ -138,7 +183,8 @@ class ServicesProviderScreen extends StatelessWidget {
                                   return Container(
                                       alignment: Alignment.center,
 
-                                      width: 407.w,
+                                      // width: 407.w,
+                                      height: 70,
                                       margin: EdgeInsets.symmetric(
                                           horizontal: 15.w, vertical: 5.h),
                                       decoration: BoxDecoration(
@@ -152,6 +198,8 @@ class ServicesProviderScreen extends StatelessWidget {
                                       child: Padding(
                                         padding:  EdgeInsets.all(5.0.h),
                                         child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.circle,
@@ -163,18 +211,31 @@ class ServicesProviderScreen extends StatelessWidget {
                                             ),
                                             Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
+
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
+
+                                                Expanded(child: Text(
                                                   '${cubit.data![index].name}',
                                                   style: TextStyle(
                                                     fontFamily: fontName,
                                                     fontSize: 14,
                                                     color:
-                                                        const Color(0xff754dad),
+                                                    const Color(0xff754dad),
                                                   ),
+                                                ), ),
+
+
+                                                SizedBox(
+                                                  height: 10.h,
                                                 ),
-                                                Text(
+
+                                                Expanded(child:
+                                                Text("الخدمة :  "+
                                                   '${cubit.data![index].category!.name}',
                                                   style: TextStyle(
                                                     fontFamily: fontName,
@@ -183,23 +244,66 @@ class ServicesProviderScreen extends StatelessWidget {
                                                         const Color(0xfff70909),
                                                   ),
                                                 ),
+                                                ),
+
+                                                SizedBox(
+                                                  height: 5.h,
+                                                ),
+
                                               ],
                                             ),
                                             Expanded(child: SizedBox()),
-                                            defaultButton(
-                                                function: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              ServicesProviderDetailsScreen(
-                                                                  data: cubit
-                                                                          .data![
-                                                                      index])));
-                                                  // Navigator.pushNamed(
-                                                  //     context, servicesProviderDetailsRoute);
-                                                },
-                                                title: 'عرض'),
+
+                                            // defaultButton(
+                                            //     function: () {
+                                            //       Navigator.push(
+                                            //           context,
+                                            //           MaterialPageRoute(
+                                            //               builder: (context) =>
+                                            //                   ServicesProviderDetailsScreen(
+                                            //                       data: cubit
+                                            //                               .data![
+                                            //                           index])));
+                                            //       // Navigator.pushNamed(
+                                            //       //     context, servicesProviderDetailsRoute);
+                                            //     },
+                                            //     title: 'عرض'
+                                            // ),
+
+                                            ElevatedButton(
+                                              onPressed: (){
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ServicesProviderDetailsScreen(
+                                                                data: cubit
+                                                                    .data![
+                                                                index])));
+                                              },
+                                              child:SizedBox(
+                                                width: 100,
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "عرض",
+                                                    style: TextStyle(
+                                                      fontFamily: 'JF Flat',
+                                                      fontSize: 18.sp,
+                                                      color: const Color(0xffffffff),
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: defaultColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                ),
+                                              ),
+                                            ),
+
                                             SizedBox(
                                               width: 25.w,
                                             )

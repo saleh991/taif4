@@ -6,9 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/models/DataHeraj.dart';
 import 'package:taif/models/chat_model.dart';
 import 'package:taif/models/english_section_model.dart';
 import 'package:taif/models/estate_model.dart';
@@ -294,7 +296,7 @@ Widget contactTextField({
       maxLines: line,
       controller: controller,
       style: TextStyle(
-          fontFamily: 'JF Flat', fontSize: 20.sp, color: Colors.black),
+          fontFamily: 'JF Flat', fontSize: 15.sp, color: Colors.black),
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: hint,
@@ -305,9 +307,7 @@ Widget contactTextField({
         hintText: hint,
         hintStyle: TextStyle(
           fontFamily: 'JF Flat',
-
-
-          fontSize: 20.sp,
+          fontSize: 15.sp,
           color: const Color(0x853a3a3a),
         ),
       ),
@@ -338,11 +338,12 @@ Widget notificationsItem(
             ),
           ),
         ),
-        trailing: Icon(
-          Icons.delete,
-          size: 30.h,
-          color: Colors.red,
-        ),
+        trailing:SvgPicture.asset("images/delete.svg",height: 20,width: 15,),
+        // Icon(
+        //   Icons.delete,
+        //   size: 30.h,
+        //   color: Colors.red,
+        // ),
         title: Text(
           notificationModel.data![index].content.toString(),
           style: TextStyle(
@@ -430,7 +431,7 @@ Widget profileItemSvg({
               title,
               style: TextStyle(
                 fontFamily: 'JF Flat',
-                fontSize: 19.sp,
+                fontSize: 16.sp,
                 color: Color.fromRGBO(0, 62, 79, 1),
               ),
             ),
@@ -524,11 +525,15 @@ ListView itemsListView({
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              'images/save.png',
-                              height: 18.h,
-                              width: 12.w,
-                            ),
+                            // Image.asset(
+                            //   'images/save.png',
+                            //   // 'images/save.png',
+                            //   height: 18.h,
+                            //   width: 12.w,
+                            // ),
+
+                            // SvgPicture.asset('images/save.png'),
+                            SvgPicture.asset("images/save.svg",height: 12.h, width: 10.w,),
                             SizedBox(
                               width: 5,
                             ),
@@ -564,11 +569,13 @@ ListView itemsListView({
                             SizedBox(
                               width: 5,
                             ),
-                            Image.asset(
-                              'images/speech.png',
-                              height: 18.h,
-                              width: 20.w,
-                            ),
+                            // Image.asset(
+                            //   'images/speech.png',
+                            //   height: 18.h,
+                            //   width: 20.w,
+                            // ),
+
+                            SvgPicture.asset('images/speech.svg',),
                             SizedBox(
                               width: 10,
                             ),
@@ -584,11 +591,12 @@ ListView itemsListView({
                             SizedBox(
                               width: 5,
                             ),
-                            Image.asset(
-                              'images/eye.png',
-                              height: 18.h,
-                              width: 20.w,
-                            ),
+                            // Image.asset(
+                            //   'images/eye.png',
+                            //   height: 18.h,
+                            //   width: 20.w,
+                            // ),
+                            SvgPicture.asset('images/eye.svg',),
                             SizedBox(
                               width: 10,
                             ),
@@ -610,10 +618,12 @@ ListView itemsListView({
                       if(estateModel.data![index].category!.id == 1)
                         Row(
                         children: [
-                          Image.asset(
-                            'images/price.png',
-                            width: 15,
-                          ),
+                          // Image.asset(
+                          //   'images/price.png',
+                          //   width: 15,
+                          // ),
+
+                          SvgPicture.asset('images/price.svg',width: 15,),
                           SizedBox(
                             width: 10,
                           ),
@@ -1460,15 +1470,19 @@ InkWell secondlistViewItem(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
+                      flex: 2,
                       child: Column(
+
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Image.asset(
-                                'images/save.png',
-                                height: 18.h,
-                                width: 12.w,
-                              ),
+                              SvgPicture.asset("images/save.svg",height: 12.h, width: 10.w,),
+                              // Image.asset(
+                              //   'images/save.png',
+                              //   height: 18.h,
+                              //   width: 12.w,
+                              // ),
                               SizedBox(
                                 width: 5.w,
                               ),
@@ -1525,8 +1539,8 @@ InkWell secondlistViewItem(
                       child: Column(
                         children: [
                           if(locationModel.data![index].km!>0)
-                          Image.asset(
-                            'images/map.png',
+                          SvgPicture.asset(
+                            'images/map.svg',
                             width: 25.w,
                             height: 25.h,
                           ),
@@ -1541,7 +1555,7 @@ InkWell secondlistViewItem(
                             ' k.m',
                             style: TextStyle(
                               fontFamily: 'Noto Kufi Arabic',
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               color: const Color(0xff003e4f),
                             ),
                             textAlign: TextAlign.center,
@@ -1862,7 +1876,8 @@ InkWell tourismGuidingViewItem(
 
 InkWell harajslistViewItem(
     {required VoidCallback function,
-    required HarajModel harajModel,
+    required DataHeraj harajModel,
+    // required HarajModel harajModel,
     required int index,
       required String categoryName,
 
@@ -1883,7 +1898,7 @@ InkWell harajslistViewItem(
 
             child: CachedNetworkImage(
               fit: BoxFit.fill,
-              imageUrl: "https://taif-app.com/storage/app/${harajModel.data![index].main_image}",
+              imageUrl: "https://taif-app.com/storage/app/${harajModel.data![index].mainImage}",
 
               errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),
               imageBuilder: (context, imageProvider) { // you can access to imageProvider
@@ -1909,7 +1924,7 @@ InkWell harajslistViewItem(
                 harajModel.data![index].title.toString(),
                 style: TextStyle(
                   fontFamily: 'JF Flat',
-                  fontSize: 22.sp,
+                  fontSize: 18.sp,
                   color: const Color(0xff003e4f),
                 ),
                 textAlign: TextAlign.right,
@@ -1924,15 +1939,22 @@ InkWell harajslistViewItem(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
+                      flex: 2,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
+
+
                           Row(
                             children: [
-                              Image.asset(
-                                'images/save.png',
-                                height: 18.h,
-                                width: 12.w,
-                              ),
+                              // Image.asset(
+                              //   'images/save.png',
+                              //   height: 18.h,
+                              //   width: 12.w,
+                              // ),
+
+                              SvgPicture.asset("images/save.svg",height: 12.h, width: 10.w,),
                               SizedBox(
                                 width: 5.w,
                               ),
@@ -1947,11 +1969,11 @@ InkWell harajslistViewItem(
                               ),
                             ],
                           ),
+
                           SizedBox(
                             height: 12.h,
                           ),
                           SizedBox(
-
                             child: Text(
                               DateFormat('yyyy-MM-dd','en').format(DateTime.parse(harajModel.data![index].createdAt.toString())),
                               style: TextStyle(
@@ -1965,10 +1987,12 @@ InkWell harajslistViewItem(
                         ],
                       ),
                     ),
-                    SizedBox(width:22.w,),
+                    SizedBox(width:11.w,),
+
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
 
 
@@ -1981,39 +2005,39 @@ InkWell harajslistViewItem(
                                 fontSize: 14.sp,
                                 color: const Color(0xff007c9d),
                               ),
-                              textAlign: TextAlign.right,
+                              textAlign: TextAlign.center,
                             ),
                           )
                         ],
                       ),
                     ),
-                    SizedBox(width: 22.w,),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if(harajModel.data![index].km!>0)
-                          Image.asset(
-                            'images/map.png',
-                            width: 25.w,
-                            height: 25.h,
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          if(harajModel.data![index].km!>0)
-                          Text(
-                            '${harajModel.data![index].km} k.m',
-                            style: TextStyle(
-                              fontFamily: 'Noto Kufi Arabic',
-                              fontSize: 14.sp,
-                              color: const Color(0xff003e4f),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
+                    SizedBox(width: 11.w,),
+                    // Expanded(
+                    //   child: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       if(harajModel.data![index].km!>0)
+                    //       SvgPicture.asset(
+                    //         'images/map.svg',
+                    //         width: 25.w,
+                    //         height: 21.h,
+                    //       ),
+                    //       SizedBox(
+                    //         height: 12.h,
+                    //       ),
+                    //       if(harajModel.data![index].km!>0)
+                    //       Text(
+                    //         '${harajModel.data![index].km} k.m',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Noto Kufi Arabic',
+                    //           fontSize: 12.sp,
+                    //           color: const Color(0xff003e4f),
+                    //         ),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
 
                   ],
                 ),
@@ -2134,19 +2158,19 @@ InkWell eventListViewItem(
                     SizedBox(
                       width: 10,
                     ),
-                    if(eventModel.data![index].km! >0)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '${eventModel.data![index].km!} k.m',
-                        style: TextStyle(
-                          fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
+                    // if(eventModel.data![index].km! >0)
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text(
+                    //     '${eventModel.data![index].km!} k.m',
+                    //     style: TextStyle(
+                    //       fontFamily: 'Noto Kufi Arabic',
+                    //       fontSize: 14.sp,
+                    //       color: const Color(0xff003e4f),
+                    //     ),
+                    //     textAlign: TextAlign.right,
+                    //   ),
+                    // ),
                   ],
                 ),
               )
@@ -2260,19 +2284,19 @@ InkWell offerListViewItem(
                     SizedBox(
                       width: 10,
                     ),
-                    if(offerModel.data![index].km! >0)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '${offerModel.data![index].km} km',
-                        style: TextStyle(
-                          fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
+                    // if(offerModel.data![index].km! >0)
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text(
+                    //     '${offerModel.data![index].km} km',
+                    //     style: TextStyle(
+                    //       fontFamily: 'Noto Kufi Arabic',
+                    //       fontSize: 14.sp,
+                    //       color: const Color(0xff003e4f),
+                    //     ),
+                    //     textAlign: TextAlign.right,
+                    //   ),
+                    // ),
                   ],
                 ),
               )
@@ -2387,19 +2411,19 @@ InkWell taifListViewItem(
                     SizedBox(
                       width: 10,
                     ),
-                    if(taifModel.data![index].km! >0)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '${taifModel.data![index].km} k.m',
-                        style: TextStyle(
-                          fontFamily: 'Noto Kufi Arabic',
-                          fontSize: 14.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
+                    // if(taifModel.data![index].km! >0)
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text(
+                    //     '${taifModel.data![index].km} k.m',
+                    //     style: TextStyle(
+                    //       fontFamily: 'Noto Kufi Arabic',
+                    //       fontSize: 14.sp,
+                    //       color: const Color(0xff003e4f),
+                    //     ),
+                    //     textAlign: TextAlign.right,
+                    //   ),
+                    // ),
                   ],
                 ),
               )
@@ -2422,7 +2446,7 @@ Container servicesPlacesItem(String neighborhood) {
         neighborhood,
         style: TextStyle(
           fontFamily: 'JF Flat',
-          fontSize: 20.sp,
+          fontSize: 17.sp,
           color: const Color(0xffffffff),
         ),
         textAlign: TextAlign.center,

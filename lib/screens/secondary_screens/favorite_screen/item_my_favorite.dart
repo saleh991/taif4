@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:taif/backEndPe/all_Bloc/blocs/all_my_favorite_bloc.dart';
+import 'package:taif/backEndPe/all_Bloc/blocs/all_my_order_estate_bloc.dart';
 import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/favorite_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/estate_details2_screen.dart';
@@ -175,18 +178,25 @@ class _ItemMyFavoriteState extends State<ItemMyFavorite> {
 
                                           designRow("price",'عروض العقار'),
 
+
                                           Expanded(
-                                            child:
-                                            Text(
-                                              "حذف",
-                                              style: TextStyle(
-                                                fontFamily: 'JF Flat',
-                                                fontSize: 12.sp,
-                                                color: const Color(0xffFD6164),
+                                            child:InkWell(
+                                              onTap: (){
+                                                BlocProvider.of<AllMyFavoriteBloc>(context, listen: false).add(
+                                                    deleteItemInMyFavorite(id:widget.favoriteModel.data!.appModelsEstate![index].id!));
+
+                                              },
+                                              child: Text(
+                                                "حذف",
+                                                style: TextStyle(
+                                                  fontFamily: 'JF Flat',
+                                                  fontSize: 12.sp,
+                                                  color: const Color(0xffFD6164),
+                                                ),
+                                                textAlign: TextAlign.start,
+                                                maxLines: 2,
                                               ),
-                                              textAlign: TextAlign.start,
-                                              maxLines: 2,
-                                            ),
+                                            )
                                           ),
 
 

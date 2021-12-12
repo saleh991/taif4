@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
@@ -14,7 +15,6 @@ class AddressScreen extends StatelessWidget {
 
   var value = 'اختر نشاط';
   var id = 0;
-
 
 
 
@@ -87,7 +87,11 @@ class AddressScreen extends StatelessWidget {
                           padding:  EdgeInsets.symmetric(horizontal: 12.w),
                           child: Row(
                             children: [
-                               Image.asset('images/placeholder.png'),
+                              SvgPicture.asset("images/placeholder.svg",
+                                height: 32.h,
+                                width: 32.w,
+                              ),
+                               // Image.asset('images/placeholder.png'),
                              SizedBox(
                                width: 6.w,
                              ),
@@ -96,6 +100,7 @@ class AddressScreen extends StatelessWidget {
                                child: StatefulBuilder(
                                   builder: (context, setState){
                                     return DropdownButton<String>(
+                                      underline: Container(),
                                       isExpanded: true,
                                       iconSize: 35,
                                       iconEnabledColor: Color(0xFF007C9D),
@@ -135,24 +140,24 @@ class AddressScreen extends StatelessWidget {
                       height: 25.h,
                     ),
                    if (userCubit.data!.currentSub != null)
-                      if (userCubit.data!.currentSub!.remainningAds != 0)
-                    Column(
-                      children: [
-                        SizedBox(
-                            width: 354.w,
-                            height: 51.h,
-                            child: languagesButton(
-                              title:  "طلب إضافة موقع سياحي جديد",
-                              function: () {
-                                Navigator.pushNamed(context, addressConditionRoute);
-                              },
-                              color: Color(0xFF007C9D),
-                            )),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                      ],
-                    ),
+                    //   if (userCubit.data!.currentSub!.remainningAds != 0)
+                    // Column(
+                    //   children: [
+                    //     SizedBox(
+                    //         width: 354.w,
+                    //         height: 51.h,
+                    //         child: languagesButton(
+                    //           title:  "طلب إضافة موقع سياحي جديد",
+                    //           function: () {
+                    //             Navigator.pushNamed(context, addressConditionRoute);
+                    //           },
+                    //           color: Color(0xFF007C9D),
+                    //         )),
+                    //     SizedBox(
+                    //       height: 12.h,
+                    //     ),
+                    //   ],
+                    // ),
 
                     Column(
                       children: [

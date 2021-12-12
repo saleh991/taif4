@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,6 +67,8 @@ class HarajsScreen extends StatelessWidget {
                       SizedBox(
                         height: 16.h,
                       ),
+
+                       // * Drowp Down List
                       Container(
                         padding: EdgeInsets.all(2.h),
                         width: ScreenUtil().screenWidth - 40,
@@ -81,8 +84,13 @@ class HarajsScreen extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 5.w),
                             child: Row(
                               children: [
-                                Image.asset(
-                                  'images/placeholder.png',
+                                // Image.asset(
+                                //   'images/placeholder.png',
+                                //   height: 32.h,
+                                //   width: 32.w,
+                                // ),
+                                //
+                                SvgPicture.asset("images/placeholder.svg",
                                   height: 32.h,
                                   width: 32.w,
                                 ),
@@ -91,6 +99,7 @@ class HarajsScreen extends StatelessWidget {
                                   child: StatefulBuilder(
                                     builder: (context, setState) {
                                       return DropdownButton<String>(
+                                        underline: Container(),
                                         isExpanded: true,
                                         iconSize: 35.sp,
                                         iconEnabledColor: Color(0xFF007C9D),
@@ -126,19 +135,23 @@ class HarajsScreen extends StatelessWidget {
                       ),
 
 
+
+                      // * 'أضافة حراج
                       SizedBox(
                           width: 354.w,
                           height: 51.h,
                           child: languagesButton(
-                            title: 'أضافة حراج',
+                            title: 'أضافة موضوع جديد',
                             function: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HarajCondtionsScreen(
-                                          harajCategory: categoryCubit,
-                                        )),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => HarajCondtionsScreen(
+                              //             harajCategory: categoryCubit,
+                              //           )),
+                              // );
+
+                              // print(categoryCubit.data!.length);
                             },
                             color: Color(0xFF007C9D),
                           )),
@@ -151,6 +164,7 @@ class HarajsScreen extends StatelessWidget {
                         Container(
                           width: 394.w,
                           height: 135.h,
+                          margin: EdgeInsets.only(left: 10,right: 10,bottom: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             border: Border.all(
@@ -163,21 +177,21 @@ class HarajsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: harajslistViewItem(
-                              categoryName:
-                                  harajsCubit.data![index].category!.name!,
-                              harajModel: harajsCubit,
-                              index: index,
-
-                              function: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            HarajDetailsScreen(
-                                              data: harajsCubit.data![index],
-                                            )));
-                              }),
+                          // child: harajslistViewItem(
+                          //     categoryName:
+                          //         harajsCubit.data![index].category!.name!,
+                          //     harajModel: harajsCubit,
+                          //     index: index,
+                          //
+                          //     function: () {
+                          //       Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) =>
+                          //                   HarajDetailsScreen(
+                          //                     data: harajsCubit.data![index],
+                          //                   )));
+                          //     }),
                         ),
                       SizedBox(
                         height: 25.h,

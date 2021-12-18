@@ -34,25 +34,28 @@ class TaifCubit extends Cubit<TaifState> {
         print(value.data);
         print('taif');
         taifModel = TaifModel.fromJson(value.data);
-        for(var lo in taifModel.data!)
-        {  lo.km=0;
-        if(lo.locationLng!=null)
-        {
-          double _distanceInMeters = Geolocator.distanceBetween(
-            double?.tryParse(lo.locationLat!)!,
-            double?.tryParse(lo.locationLng!)!,
-            currentLocation.latitude!,
-            currentLocation.longitude!,
-          );
-          print("_distanceInMeters");
-          print(_distanceInMeters/1000);
-          lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
-          print( lo.km);
-          print("_distanceInMeters");
-        }
+        // for(var lo in taifModel.data!)
+        // {  lo.km=0;
+        // if(lo.locationLng!=null)
+        // {
+        //   double _distanceInMeters = Geolocator.distanceBetween(
+        //     double?.tryParse(lo.locationLat!)!,
+        //     double?.tryParse(lo.locationLng!)!,
+        //     currentLocation.latitude!,
+        //     currentLocation.longitude!,
+        //   );
+        //   print("_distanceInMeters");
+        //   print(_distanceInMeters/1000);
+        //   lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+        //   print( lo.km);
+        //   print("_distanceInMeters");
+        // }
+        //
+        // }
 
-        }
-
+      }else{
+        print("error load know taif");
+        print(">>>>>>>>>>>>>>>>>>");
       }
       emit(GetTaifSuccessState());
     }).catchError((e) {

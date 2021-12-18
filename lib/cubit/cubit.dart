@@ -12,9 +12,9 @@ import 'package:taif/models/notification_model.dart';
 import 'package:taif/models/settings_model.dart';
 import 'package:taif/models/slider_model.dart';
 import 'package:taif/screens/primary_screens/home_screen.dart';
-import 'package:taif/screens/primary_screens/notifications_screen.dart';
+import 'package:taif/screens/primary_screens/notifications/notifications_screen.dart';
 import 'package:taif/screens/primary_screens/profile_screen.dart';
-import 'package:taif/screens/primary_screens/search_screen.dart';
+import 'package:taif/screens/primary_screens/search/search_screen.dart';
 
 import '../global.dart';
 

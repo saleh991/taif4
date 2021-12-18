@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/components/components.dart';
+import 'package:taif/controller/app_controller.dart';
 import 'package:taif/cubit/cubit.dart';
 import 'package:taif/cubit/state.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/screens/primary_screens/tourism/tourism.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/address_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/events_sections/events_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/harajs_screen.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/harajs_section/harajs_screen_new.dart';
 import 'package:taif/screens/secondary_screens/know_taif/know_taif.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,9 +21,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print(AppController.instance.getId());
     return Scaffold(
       body: Column(
         children: [
+
           BlocProvider(
             create: (context) =>
             MainCubit()
@@ -93,6 +99,11 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+
+
+
+
+
                               Row(
                                 children: [
                                   tapHomeItem(
@@ -148,6 +159,8 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
+
+
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,
@@ -157,40 +170,41 @@ class HomeScreen extends StatelessWidget {
               crossAxisSpacing: 10.0,
               children: [
                 homeItem(
-                  img: 'images/building.png',
+                  img: 'images/building.svg',
                   title: 'العقارات',
                   function: () {
                     Navigator.pushNamed(context, estateRoute);
                   },
                 ),
                 homeItem(
-                  img: 'images/travel.png',
+                  img: 'images/travel.svg',
                   title: 'السياحة',
                   function: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AddressScreen()),
+                              Tourism()),
+                      //AddressScreen
                     );
                   },
                 ),
                 homeItem(
-                  img: 'images/house.png',
-                  title: 'خدمات عامة',
+                  img: 'images/house.svg',
+                  title: 'الخدمات',
                   function: () {
                     Navigator.pushNamed(context, servicesProvidersRoute);
                   },
                 ),
                 homeItem(
-                  img: 'images/sem.png',
+                  img: 'images/sem.svg',
                   title: 'حراج منوع',
                   function: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              HarajsScreen()),
+                              HarajsScreenNew()),
                     );
                   },
                 ),

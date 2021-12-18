@@ -24,6 +24,8 @@ class _BottomNavigationControllerState
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: cubit.screen[cubit.currentIndex],
+
+
             bottomNavigationBar: BottomNavigationBar(
               onTap: (index) {
                 cubit.changeState(index);

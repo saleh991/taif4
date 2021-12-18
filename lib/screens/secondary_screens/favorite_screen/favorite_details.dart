@@ -13,8 +13,8 @@ import 'package:taif/models/estate_model.dart';
 import 'package:taif/models/favorite_model.dart';
 import 'package:taif/models/user_data_model.dart' as us;
 
-import 'address_section_screens/cubit/cubit.dart';
-import 'address_section_screens/cubit/states.dart';
+import '../address_section_screens/cubit/cubit.dart';
+import '../address_section_screens/cubit/states.dart';
 
 class FavoriteDetailsScreen extends StatefulWidget {
   final AppModelsEstate favoriteData;

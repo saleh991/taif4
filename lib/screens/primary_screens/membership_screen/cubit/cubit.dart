@@ -26,6 +26,7 @@ class PackagesCubit extends Cubit<PackagesState> {
   BankTransactionsModel bankTransactionsModel = BankTransactionsModel();
   UserDataModel userDataModel = UserDataModel();
 
+
   void getPackages() {
     emit(PackagesLoadingState());
     DioHelper.init();
@@ -40,6 +41,8 @@ class PackagesCubit extends Cubit<PackagesState> {
       emit(PackagesErrorState());
     });
   }
+
+
 
   void getUserData() {
 

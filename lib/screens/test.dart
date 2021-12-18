@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:taif/components/components.dart';
 
 class Test extends StatelessWidget {
@@ -13,13 +13,14 @@ class Test extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Center(
-              child: Text('obt1'.tr()),
+              child: Text("كل عقارات الطائف"),
+              // child: Text('obt1'.tr()),
             ),
             languagesButton(title: 'languages', function: (){
-              Locale local = context.locale;
-              context.setLocale(
-                context.locale == Locale('en')? Locale('ar'):Locale('en'),
-              );
+              // Locale local = context.locale;
+              // context.setLocale(
+              //   context.locale == Locale('en')? Locale('ar'):Locale('en'),
+              // );
             }, color: Colors.black),
           ],
         ),

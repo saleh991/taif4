@@ -84,13 +84,14 @@ class TaifDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 23.h,
               ),
-              CachedNetworkImage(
-                fit: BoxFit.fill,
-                height: 178.h,
-                width: 246.w,
-                imageUrl: "https://taif-app.com/storage/app/${data.image}",
-
-                errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+              // data.image==null?Container():
+              // CachedNetworkImage(
+              //   fit: BoxFit.fill,
+              //   height: 178.h,
+              //   width: 246.w,
+              //   imageUrl: "https://taif-app.com/storage/app/${data.image}",
+              //
+              //   errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
 
               SizedBox(
                 height: 35.h,

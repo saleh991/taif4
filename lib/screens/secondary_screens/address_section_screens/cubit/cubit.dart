@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -24,6 +26,7 @@ import 'package:taif/models/offers_model.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/models/guide_model.dart';
 import 'package:taif/models/add_guide_model.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/addedd_succefully_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/states.dart';
 
 
@@ -277,6 +280,9 @@ class LocationsCubit extends Cubit<LocationsState> {
       emit(GetHarajCategoryErrorState());
     });
   }
+
+
+
 var value = 0;
 
   void changeLocationValue(val) {
@@ -398,29 +404,38 @@ var value = 0;
     }
     DioHelper.init();
     DioHelper.getData(url: OFFERS).then((value) {
-      if (value.statusCode == 200) {
-        print('getOffer ');
-        offersModel =OffersModel.fromJson(value.data);
-        for(var lo in offersModel.data!)
-        {  lo.km=0;
-        if(lo.locationLng!=null)
-        {
-          double _distanceInMeters = Geolocator.distanceBetween(
-            double?.tryParse(lo.locationLat!)!,
-            double?.tryParse(lo.locationLng!)!,
-            currentLocation.latitude!,
-            currentLocation.longitude!,
-          );
-          print("_distanceInMeters");
-          print(_distanceInMeters/1000);
-          lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
-          print( lo.km);
-          print("_distanceInMeters");
-        }
+      try{
+        if (value.statusCode == 200) {
+          print('getOffer ');
+          offersModel =OffersModel.fromJson(value.data);
+          for(var lo in offersModel.data!)
+          {
+            // lo.km=0;
+          if(lo.locationLng!=null)
+          {
+            double _distanceInMeters = Geolocator.distanceBetween(
+              double?.tryParse(lo.locationLat!)!,
+              double?.tryParse(lo.locationLng!)!,
+              currentLocation.latitude!,
+              currentLocation.longitude!,
+            );
+            print("_distanceInMeters");
+            print(_distanceInMeters/1000);
+            // lo.km=double.tryParse((_distanceInMeters/1000).toStringAsFixed(3));
+            // print( lo.km);
+            print("_distanceInMeters");
+          }
 
-        }
+          }
 
+        }else{
+          print(value.data.toString());
+        }
+      }catch(e){
+        print("::::::::::::::::::::::::::");
+        print(e.toString());
       }
+
       emit(OfferSuccessState());
     }).catchError((e) {
       print('getOffer error $e');
@@ -509,6 +524,7 @@ var value = 0;
 
 
   Future<void> addHaraj({
+    required context,
     required String haraj_category_id,
 
     required String title,
@@ -519,6 +535,27 @@ var value = 0;
     required String message,
     required String user_id,
   }) async {
+
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: Container(
+          width: 80.0,
+          height: 80.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: CupertinoActivityIndicator(),
+          ),
+        ),
+      ),
+    );
+
     List<String> fileImagesName=[];
     List<String> videoImagesName=[];
     List imagesFile=[];
@@ -555,15 +592,23 @@ var value = 0;
 
     DioHelper.postData(url: 'harajs',
         data: formData).then((value) {
-      print("value.data");
-      print(value.data);
-      print("value.data");
+
+      print(value.data.toString()+"::::::::");
+
       if(value.statusCode! >= 200&&value.statusCode!<= 300){
         print("value.data");
         print(value.data);
         print("value.data");
+        if(value.data["status"]==true){
+          Navigator.push(
+            context,
+          MaterialPageRoute(builder: (context) => AddedSuccefullyScreen(directionScrean: "haraj",)),
+           );
+        }
 
 
+      }else{
+        print("errror");
       }
     }).catchError((e) {
       print('Error   $e');
@@ -574,6 +619,7 @@ var value = 0;
 
 
   Future<void> addOffer({
+    required  context,
     required String title,
     File? image,
 
@@ -582,6 +628,27 @@ var value = 0;
     required String message,
 
   }) async {
+
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: Container(
+          width: 80.0,
+          height: 80.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: CupertinoActivityIndicator(),
+          ),
+        ),
+      ),
+    );
+
     String fileName = '';
     if(image!=null)
       fileName =image.path.split('/').last;
@@ -590,13 +657,23 @@ var value = 0;
       "user_id":AppController.instance.getId(),
       "tag_id":"3",
       if(image!=null)
-        "image":
-        await MultipartFile.fromFile(image.path, filename:fileName),
+        "image": await MultipartFile.fromFile(image.path, filename:fileName),
       'title': title,
       'location_lat': location_lat,
       'location_lng': location_lng,
       'content': message,
     });
+
+    print("bodySend??  "+{
+      "user_id":AppController.instance.getId(),
+      "tag_id":"3",
+      if(image!=null)
+        "image": await MultipartFile.fromFile(image.path, filename:fileName),
+      'title': title,
+      'location_lat': location_lat,
+      'location_lng': location_lng,
+      'content': message,
+    }.toString());
 
 
     DioHelper.postData(url: 'posts',
@@ -610,9 +687,26 @@ var value = 0;
         print(value.data);
         print("value.data");
 
+        Map data=value.data;
+
+        if(data["status"]){
+
+
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => AddedSuccefullyScreen()),
+              ModalRoute.withName('/')
+          );
+
+        }else{
+          Navigator.pop(context);
+        }
+
+
 
       }
     }).catchError((e) {
+      Navigator.pop(context);
       print('Error   $e');
 
     });
@@ -682,7 +776,7 @@ var value = 0;
     });
   }
 
-  Future<void> addReportTourism({
+  Future<dynamic> addReportTourism({
     required String report_title,
     required String report_content,
     required String report_on_class,
@@ -701,6 +795,34 @@ var value = 0;
     });
     DioHelper.postData(url: 'reports',
         data: formData).then((value) {
+      if(value.statusCode! >= 200&&value.statusCode!<= 300){
+        print("value.data");
+        print(value.data);
+        print("value.data");
+      }
+    }).catchError((e) {
+      print('Error   $e');
+
+    });
+  }
+
+
+
+  Future<void> changeSatasDataIn_estate({
+  required int id
+  }) async {
+
+    DioHelper.init();
+    // FormData formData = FormData.fromMap({
+    //
+    //   'report_title': report_title,
+    //   'report_content': report_content,
+    //   'report_by': AppController.instance.getId(),
+    //   'report_on': '1',
+    //   'report_on_class': report_on_class,
+    //
+    // });
+    DioHelper.getData(url: '/refresh/estates/$id').then((value) {
       if(value.statusCode! >= 200&&value.statusCode!<= 300){
         print("value.data");
         print(value.data);

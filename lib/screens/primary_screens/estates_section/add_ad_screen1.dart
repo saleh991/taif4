@@ -162,51 +162,51 @@ class _AddAdScreen1State extends State<AddAdScreen1> {
                     SizedBox(
                       height: 25.h,
                     ),
-                    if(profileImage==null)
-                      addFromGalleryItems(
-                          title: 'ارفق صورة', icon: Icons.camera_alt, function: () async {
-                        print(profileImage);
-                        await getImage();
-                        print(profileImage);
-                        setState(() {
-
-                        });
-                      })
-                    else
-                      Column(
-                        children: [
-                          Container(
-                            height: 130.h,
-                            width: 130.h,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: FileImage(profileImage!,
-                                    ),
-                                    fit: BoxFit.fill
-                                )
-                            ),
-                          ),
-                          SizedBox(
-                            width: 150.w,
-                            child: languagesButtonWithIcon(
-                              title:  "تغير الصورة ",
-                              icon: Icon(
-                                Icons.camera_alt_outlined,
-                              ),
-                              function: () async {
-                                print(profileImage);
-                                await getImage();
-                                print(profileImage);
-                                setState(() {
-
-                                });
-                              },
-                              color: Color(0xff25afff),
-                            ),
-                          )
-                        ],
-                      ),
+                    // if(profileImage==null)
+                    //   addFromGalleryItems(
+                    //       title: 'ارفق صورة', icon: Icons.camera_alt, function: () async {
+                    //     print(profileImage);
+                    //     await getImage();
+                    //     print(profileImage);
+                    //     setState(() {
+                    //
+                    //     });
+                    //   })
+                    // else
+                    //   Column(
+                    //     children: [
+                    //       Container(
+                    //         height: 130.h,
+                    //         width: 130.h,
+                    //         decoration: BoxDecoration(
+                    //             shape: BoxShape.circle,
+                    //             image: DecorationImage(
+                    //                 image: FileImage(profileImage!,
+                    //                 ),
+                    //                 fit: BoxFit.fill
+                    //             )
+                    //         ),
+                    //       ),
+                    //       SizedBox(
+                    //         width: 150.w,
+                    //         child: languagesButtonWithIcon(
+                    //           title:  "تغير الصورة ",
+                    //           icon: Icon(
+                    //             Icons.camera_alt_outlined,
+                    //           ),
+                    //           function: () async {
+                    //             print(profileImage);
+                    //             await getImage();
+                    //             print(profileImage);
+                    //             setState(() {
+                    //
+                    //             });
+                    //           },
+                    //           color: Color(0xff25afff),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -215,7 +215,8 @@ class _AddAdScreen1State extends State<AddAdScreen1> {
                     ),
                     if(otherImage.isEmpty)
                       addFromGalleryItems(
-                          title: 'أرفق صور إضافية',
+                          title: 'أرفق الصور للعقار',
+                          // title: 'أرفق صور إضافية',
                           icon: Icons.photo_library_sharp,
                           function: () async {
                             await  selectImages();
@@ -269,61 +270,62 @@ class _AddAdScreen1State extends State<AddAdScreen1> {
                         ],
                       ),
 
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    if(video==null)
-                      addFromGalleryItems(
-                          title: 'أرفق فيديو',
-                          icon: Icons.video_call_outlined,
-                          function: () async{
-                            await  getVideo();
-                            print("video");
-                            print(video);
-                            print("video");
-                            setState(() {
-
-                            });
-                          })else
-                      Column(
-                        children: [
-                          Container(
-                            height: 300.h,
-                            width: ScreenUtil().screenWidth*0.9,
-                            child: _videoPlayerController!.value.isInitialized
-                                ? InkWell(
-                              onTap: (){
-                                _videoPlayerController!.value.isPlaying
-                                    ? _videoPlayerController!.pause()
-                                    : _videoPlayerController!.play();
-                              },
-                              child: AspectRatio(
-                                aspectRatio: _videoPlayerController!.value.aspectRatio,
-                                child: VideoPlayer(_videoPlayerController!),
-                              ),
-                            )
-                                : Container(),
-                          ),
-                          SizedBox(
-                            width: 150.w,
-                            child: languagesButtonWithIcon(
-                              title:  "تغير الفيديو ",
-                              icon: Icon(
-                                Icons.video_call_outlined,
-                              ),
-                              function: () async {
-                                print(video);
-                                await getVideo();
-                                print(video);
-                                setState(() {
-
-                                });
-                              },
-                              color: Color(0xff25afff),
-                            ),
-                          )
-                        ],
-                      ),
+                    // SizedBox(
+                    //   height: 10.h,
+                    //
+                    // ),
+                    // if(video==null)
+                    //   addFromGalleryItems(
+                    //       title: 'أرفق فيديو',
+                    //       icon: Icons.video_call_outlined,
+                    //       function: () async{
+                    //         await  getVideo();
+                    //         print("video");
+                    //         print(video);
+                    //         print("video");
+                    //         setState(() {
+                    //
+                    //         });
+                    //       })else
+                    //   Column(
+                    //     children: [
+                    //       Container(
+                    //         height: 300.h,
+                    //         width: ScreenUtil().screenWidth*0.9,
+                    //         child: _videoPlayerController!.value.isInitialized
+                    //             ? InkWell(
+                    //           onTap: (){
+                    //             _videoPlayerController!.value.isPlaying
+                    //                 ? _videoPlayerController!.pause()
+                    //                 : _videoPlayerController!.play();
+                    //           },
+                    //           child: AspectRatio(
+                    //             aspectRatio: _videoPlayerController!.value.aspectRatio,
+                    //             child: VideoPlayer(_videoPlayerController!),
+                    //           ),
+                    //         )
+                    //             : Container(),
+                    //       ),
+                    //       SizedBox(
+                    //         width: 150.w,
+                    //         child: languagesButtonWithIcon(
+                    //           title:  "تغير الفيديو ",
+                    //           icon: Icon(
+                    //             Icons.video_call_outlined,
+                    //           ),
+                    //           function: () async {
+                    //             print(video);
+                    //             await getVideo();
+                    //             print(video);
+                    //             setState(() {
+                    //
+                    //             });
+                    //           },
+                    //           color: Color(0xff25afff),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
 
                     SizedBox(
                       height: 20.h,
@@ -340,15 +342,6 @@ class _AddAdScreen1State extends State<AddAdScreen1> {
                     ),
 
 
-
-
-
-
-
-
-
-
-
                     SizedBox(
                       height: 25.h,
                     ),
@@ -358,29 +351,29 @@ class _AddAdScreen1State extends State<AddAdScreen1> {
                         child: languagesButton(
                           title: 'استمرار',
                           function: () {
-                            if(profileImage==null)
-                              {
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.INFO,
-                                  animType: AnimType.BOTTOMSLIDE,
-                                  title: 'نقص في المعلومات',
-                                  desc: 'يجب ارفاق صورة ',
-                                  btnOkText: 'تم',
-
-                                  btnOkOnPress: () {},
-                                )..show();
-                              }
-                            else{
+                            // if(profileImage==null)
+                            //   {
+                            //     AwesomeDialog(
+                            //       context: context,
+                            //       dialogType: DialogType.ERROR,
+                            //       animType: AnimType.BOTTOMSLIDE,
+                            //       title: 'نقص في المعلومات',
+                            //       desc: 'يجب ارفاق صورة ',
+                            //       btnOkText: 'تم',
+                            //
+                            //       btnOkOnPress: () {},
+                            //     )..show();
+                            //   }
+                            // else{
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => AddAdScreen2(
-                                  image: profileImage!,
+                                  image: profileImage,
                                   payType: widget.payType,
                                   otherImages: otherImage,
                                 )),
                               );
-                            }
+                            // }
 
 
 

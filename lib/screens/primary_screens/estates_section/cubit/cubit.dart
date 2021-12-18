@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/dio/dio_helper.dart';
@@ -14,6 +17,7 @@ import 'package:taif/models/terms_model.dart';
 import 'package:taif/models/user_comment.dart';
 import 'package:taif/models/user_data_model.dart';
 import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/addedd_succefully_screen.dart';
 
 class EstatesCubit extends Cubit<EstatesState> {
   EstatesCubit() : super(EstatesInitState());
@@ -30,6 +34,8 @@ class EstatesCubit extends Cubit<EstatesState> {
   MapModel mapModel = MapModel();
 EstateCommentModel estateCommentModel = EstateCommentModel();
 EstateOnlyModel estateOnlyModel = EstateOnlyModel();
+
+
   void getEstates() {
     emit(EstatesLoadingState());
     DioHelper.init();
@@ -89,6 +95,7 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
         .then((value) {
       print('i am here estate ');
       print('user id ${AppController.instance.getId()}');
+      print('users/${AppController.instance.getId()}');
       if (value.statusCode == 200) {
         print('here profile estate');
         userDataModel = UserDataModel.fromJson(value.data);
@@ -96,7 +103,7 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
       getCategories();
       emit(UserDataSuccessState());
     }).catchError((e) {
-      print('userData error estate  $e');
+      print('userData error estate ?????  $e');
       emit(UserDataErrorState());
     });
   }
@@ -130,7 +137,7 @@ EstateOnlyModel estateOnlyModel = EstateOnlyModel();
       getEstates();
       emit(GetCategoriesSuccessState());
     }).catchError((e) {
-      print('userData error estate  $e');
+      print('userData error estate getCategories $e');
       emit(GetCategoriesErrorState());
     });
   }
@@ -255,6 +262,8 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
 
   Future<void> addEstate({
 
+    required  context,
+    required String districts,
     required String type,
     required String auth_option,
     required String ownership,
@@ -266,33 +275,70 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
     required String title,
     required String location_lat,
     required String location_lng,
-    required File image,
-    required List<File> images,
+     File? image,
+     List<File>? images,
     required int es,
     required int show_phone,
     required int comments_enabled,
-    required int side_id
+    required int side_id,
+
+    required String mortgaged,
+    required String phone,
+    required String old_years,
 
 
 
   }) async {
+
+
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: Container(
+          width: 80.0,
+          height: 80.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: CupertinoActivityIndicator(),
+          ),
+        ),
+      ),
+    );
+
     String fileName = '';
 
-      fileName =image.path.split('/').last;
+
+    if(image!=null) {
+      fileName = image.path
+          .split('/')
+          .last;
+    }
     DioHelper.init();
     List<String> fileImagesName=[];
 
     List imagesFile=[];
-
-
-    for(int i=0;i<images.length;i++){
-      fileImagesName.add(images[i].path.split('/').last);
-      imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+    if(images!=null) {
+      for(int i=0;i<images.length;i++){
+        fileImagesName.add(images[i].path.split('/').last);
+        imagesFile.add(await MultipartFile.fromFile(images[i].path, filename:fileImagesName[i])) ;
+      }
     }
-    var formData = FormData.fromMap({
+
+    Map<String,dynamic> body={
+      "old_years":old_years.toString(),
+      // "old_years":old_years.toString(),
+      "phone":phone.toString(),
+      "mortgaged":int.parse(mortgaged),
       "side_id":side_id.toString(),
       "user_id":AppController.instance.getId().toString(),
-     "type":type,
+      "type":type,
+      "district":districts,
       "auth_option":auth_option,
       "location_lng":location_lng,
       "location_lat":location_lat,
@@ -306,24 +352,50 @@ estateCommentModel = EstateCommentModel.fromJson(value.data);
       "show_phone":show_phone,
       "comments_enabled":comments_enabled,
       "pay_type":payType,
-        "image":
-        await MultipartFile.fromFile(image.path, filename:fileName),
+
+      if(image!=null)
+        "image": await MultipartFile.fromFile(image.path, filename:fileName),
+      // if(imagesFile!=null)
       for(int i=0;i<imagesFile.length;i++)
         "images[$i]":
         imagesFile[i],
 
 
 
-    });
+    };
+    var formData = FormData.fromMap(body);
+    print(body.toString());
     DioHelper.postData(url: 'estates', data: formData).then((value) {
+
 
       print("value.data");
       print(value.data);
       print(value.statusCode);
       print("value.data");
+      Map data=value.data;
+
+
+
+
+      print(data["status"]);
+
+      if(data["status"]){
+
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => AddedSuccefullyScreen(directionScrean: "estate",)),
+            ModalRoute.withName('/')
+        );
+
+      }else{
+        Navigator.pop(context);
+      }
+
 
 
     }).catchError((e) {
+      Navigator.pop(context);
       print('Error  Screen $e');
 
     });

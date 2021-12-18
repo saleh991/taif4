@@ -31,15 +31,15 @@ class _addOffersScreenState extends State<addOffersScreen> {
 
   late TextEditingController _titleController;
   late TextEditingController _messageController;
-
+  static const LatLng center = const LatLng(21.437273, 40.512714);
 
 
   File? profileImage;
 
+bool checkBoxValue=false;
 
 
   var picker = ImagePicker();
-  static const LatLng center = const LatLng(21.437273, 40.512714);
   Map<MarkerId, Marker> markers = {};
   String? long;
   String? lat;
@@ -83,6 +83,9 @@ class _addOffersScreenState extends State<addOffersScreen> {
 
   @override
   void initState() {
+
+    lat=center.latitude.toString();
+    long=center.longitude.toString();
     MarkerId markerId = MarkerId('orgin');
     Marker marker =
     Marker(markerId: markerId,
@@ -90,9 +93,13 @@ class _addOffersScreenState extends State<addOffersScreen> {
         position: center);
     markers[markerId] = marker;
 
+    markers[markerId] = marker;
+
     _titleController = TextEditingController();
 
     _messageController = TextEditingController();
+
+
 
 
 
@@ -158,7 +165,7 @@ class _addOffersScreenState extends State<addOffersScreen> {
                     ),
                     if(profileImage==null)
                       addFromGalleryItems(
-                          title: 'صورة شخصية', icon: Icons.camera_alt, function: () async {
+                          title: 'اضافه صورة ', icon: Icons.camera_alt, function: () async {
                         print(profileImage);
                         await getImage();
                         print(profileImage);
@@ -201,6 +208,34 @@ class _addOffersScreenState extends State<addOffersScreen> {
                           )
                         ],
                       ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+
+                     Row(
+                       children: [
+
+                         Checkbox(
+                             value: checkBoxValue,
+                             activeColor: Colors.green,
+                             onChanged:(newValue){
+                               setState(() {
+                                 checkBoxValue = newValue!;
+                                 print(newValue);
+                               });
+                             }
+                         ),
+
+                         SizedBox(width: 10,),
+
+                         Expanded(
+                             child:Text('لا اريد اضاقه صوره')
+                         )
+
+                       ],
+                     ),
+
+
                     SizedBox(
                       height: 10.h,
                     ),
@@ -330,17 +365,20 @@ class _addOffersScreenState extends State<addOffersScreen> {
                         child: languagesButton(
                           title: 'إضافة ونشر',
                           function: () {
-                            if(profileImage==null)
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.INFO,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: 'نقص في المعلومات',
-                                desc: 'يجب اضافة صورة شخصية',
-                                btnOkText: 'تم',
+                            if(checkBoxValue==false){
+                              if(profileImage==null)
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.INFO,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: 'نقص في المعلومات',
+                                  desc: 'يجب اضافة صورة شخصية',
+                                  btnOkText: 'تم',
 
-                                btnOkOnPress: () {},
-                              )..show();
+                                  btnOkOnPress: () {},
+                                )..show();
+
+                            }
 
                             else   if(_titleController.text.length==0||_titleController.text.trim()=='')
                               AwesomeDialog(
@@ -369,15 +407,16 @@ class _addOffersScreenState extends State<addOffersScreen> {
 
 
                             cu.addOffer(
+                                context: context,
                                 location_lat: lat!,
                                 location_lng: long!,
                                 title: _titleController.text,
                                 image: profileImage,
                                 message: _messageController.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => AddedSuccefullyScreen()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => AddedSuccefullyScreen()),
+                            // );
                             }
 
 

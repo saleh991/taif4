@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,64 +58,78 @@ class AddOfferCondtionsScreen extends StatelessWidget {
                       ),
                       SizedBox(
 
-                        child: Column(children: [
-                          Center(child: Image.asset('images/map.png')),
-                          Center(
-                            child: Container(
-                              width: 383.w,
-                              height: 500.h,
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xffd5ddeb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 6,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'دفع الرسوم والشروط',
-                                    style: TextStyle(
-                                      fontFamily: 'JF Flat',
-                                      fontSize: 22,
-                                      color: const Color(0xff002a36),
-                                      decoration: TextDecoration.underline,
+                        child: Stack(children: [
+
+                          // Center(child: Image.asset('images/map.png')),
+                          Padding(
+                              padding: EdgeInsets.only(top: 90),
+                            child: Center(
+                              child: Container(
+                                width: 383.w,
+                                height: 500.h,
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xffd5ddeb),
+                                      offset: Offset(0, 3),
+                                      blurRadius: 6,
                                     ),
-                                    textAlign: TextAlign.right,
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Text(
-                                    cubit.data!.content!,
-                                    style: TextStyle(
-                                      fontFamily: 'JF Flat',
-                                      fontSize: 16,
-                                      color: const Color(0xff003e4f),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 90,),
+                                    Text(
+                                      'دفع الرسوم والشروط',
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 22,
+                                        color: const Color(0xff002a36),
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                      textAlign: TextAlign.right,
                                     ),
-                                    textAlign: TextAlign.right,
-                                  )
-                                ],
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Text(
+                                      cubit.data!.content!,
+                                      style: TextStyle(
+                                        fontFamily: 'JF Flat',
+                                        fontSize: 16,
+                                        color: const Color(0xff003e4f),
+                                      ),
+                                      textAlign: TextAlign.right,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
 
+
+                          Center(child: SvgPicture.asset('images/map.svg')),
                         ]),
                       ),
+
+                      SizedBox(height: 30,),
                       SizedBox(
                           width: 354.w,
                           height: 51.h,
                           child: languagesButton(
                             title: 'أتعهد وأوافق على الشروط',
                             function: () {
-                              Navigator.pushNamed(context, addAddressRoute);
+                              // Navigator.pushNamed(context, addAddressRoute);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => addOffersScreen()),
+                              );
+
                             },
                             color: Color(0xFF007C9D),
                           )),

@@ -32,6 +32,8 @@ class ChatCubit extends Cubit<ChatState> {
 
   void getSingleChat({required int chatId}) {
 
+    emit(ChatLoadingState());
+
     DioHelper.init();
     DioHelper.getData(url: 'chats/$chatId?user_id=${AppController.instance.getId()}')
         .then((value) {

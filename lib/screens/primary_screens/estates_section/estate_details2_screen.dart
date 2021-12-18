@@ -2,6 +2,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/controller/app_controller.dart';
 import 'package:taif/screens/secondary_screens/chat_screen/private_chat_screen_subject.dart';
@@ -17,6 +19,8 @@ import 'package:taif/screens/primary_screens/estates_section/cubit/states.dart';
 import 'package:taif/screens/primary_screens/membership_screen/membership_screen.dart';
 import 'package:taif/screens/secondary_screens/address_section_screens/cubit/cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../global.dart';
 
 class EstateDetailsScreen extends StatefulWidget {
   final EstateData estateData;
@@ -52,6 +56,14 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
     _detailsController = TextEditingController();
     _commentController = TextEditingController();
     _causeController= TextEditingController();
+
+
+    print(widget.estateData.twenty_four_hours_spend);
+    print(widget.estateData.twenty_four_hours_spend);
+    print(AppController.instance.getId().toString());
+    print(":::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+    print(widget.estateData.user!.id);
+    print(":::::::::::::::::::::::::::::::::::::::::::::::::::::::");
   }
 
   @override
@@ -92,6 +104,8 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
           ),
         ),)],
       ),
+
+
       body: BlocProvider(
         create: (context) => EstatesCubit()..getUserData(),
         child: BlocConsumer<EstatesCubit, EstatesState>(
@@ -107,102 +121,67 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                 child: Column(
                   //crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                          height: 230.h,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          }),
-                      items: widget.estateData.images != null
-                          ? widget.estateData.images!.map((id) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  return Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
-                                      // decoration: BoxDecoration(color: Colors.amber),
-                                      child:   CachedNetworkImage(
-                                        fit: BoxFit.fill,
 
-                                        imageUrl: "https://taif-app.com/storage/app/${id.path}",
+                    // *Slider ------------------
+                    widget.estateData.images==null?Container():
+                    widget.estateData.images!.isEmpty?Container():
+                    Stack(
+                      children: [
+                        CarouselSlider(
+                          options: CarouselOptions(
+                              height: 230.h,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              }),
+                          items: widget.estateData.images != null
+                              ? widget.estateData.images!.map((id) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin:
+                                  EdgeInsets.symmetric(horizontal: 5.0),
+                                  // decoration: BoxDecoration(color: Colors.amber),
+                                  child:   CachedNetworkImage(
+                                    fit: BoxFit.fill,
 
-                                        errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
-                                      );
-                                },
-                              );
-                            }).toList()
-                          : imgList.map((id) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  return Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5.0),
-                                      decoration:
-                                          BoxDecoration(color: Colors.amber),
-                                      child: CachedNetworkImage(
-                                        fit: BoxFit.fill,
-                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                        imageUrl: "$id",
+                                    imageUrl: "https://taif-app.com/storage/app/${id.path}",
 
-                                        errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
-                                     );
-                                },
-                              );
-                            }).toList(),
+                                    errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+                                );
+                              },
+                            );
+                          }).toList()
+                              : imgList.map((id) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin:
+                                  EdgeInsets.symmetric(horizontal: 5.0),
+                                  decoration:
+                                  BoxDecoration(color: Colors.amber),
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    placeholder: (context, url) => CircularProgressIndicator(),
+                                    imageUrl: "$id",
+
+                                    errorWidget: (context, url, error) => Image.asset('images/ee.png',fit: BoxFit.fill,),),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+
+                      ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: widget.estateData.images != null
-                          ? widget.estateData.images!
-                              .asMap()
-                              .entries
-                              .map((entry) {
-                              return GestureDetector(
-                                onTap: () =>
-                                    _controller.animateToPage(entry.key),
-                                child: Container(
-                                  width: 12.0.w,
-                                  height: 12.0.h,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 4.0),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: (Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Color(0xFF1F8716))
-                                          .withOpacity(_current == entry.key
-                                              ? 0.9
-                                              : 0.4)),
-                                ),
-                              );
-                            }).toList()
-                          : imgList.asMap().entries.map((entry) {
-                              return GestureDetector(
-                                onTap: () =>
-                                    _controller.animateToPage(entry.key),
-                                child: Container(
-                                  width: 12.0.w,
-                                  height: 12.0.h,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 4.0),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: (Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? Colors.white
-                                              : Color(0xFF1F8716))
-                                          .withOpacity(_current == entry.key
-                                              ? 0.9
-                                              : 0.4)),
-                                ),
-                              );
-                            }).toList(),
-                    ),
+
+
+
+
+
                     Container(
                       width: ScreenUtil().screenWidth,
                       height: 43.h,
@@ -224,55 +203,36 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    listTileItem(
-                      Image.asset('images/area.png'),
-                      'المساحة ',
-                      Text(
-                        '${widget.estateData.area} م',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 21.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
+
+
+                   Center(
+                     child:  Wrap(
+                       alignment: WrapAlignment.center,
+                       spacing: 15,
+                       runSpacing: 15,
+                       children: [
+
+
+
+                         listTileItemColumn(title: "المساحة", supTitle: "${widget.estateData.area} م2 "),
+                         listTileItemColumn(title: "الواجهة", supTitle: '${widget.estateData.side!.name}'),
+                         listTileItemColumn(title: "عرض الشارع ", supTitle: '${widget.estateData.streetWide} م '),
+
+                         listTileItemColumn(title: "نوع العقار", supTitle: '${widget.estateData.type_ar} '),
+                         listTileItemColumn(title: "هل العقار مرهون", supTitle: '${widget.estateData.mortgaged==1?"نعم":"لا"} '),
+
+                         listTileItemColumn(title: "عمر العقار", supTitle: '${widget.estateData.old_years??"0"} '),
+                         listTileItemColumn(title: "صفة المعلن", supTitle: '${widget.estateData.ownership=="owner"?"صاحب العقار":"مفوض للعقار"} '),
+
+                       ],
+                     ),
+                   ),
+
                     SizedBox(
-                      height: 10.h,
+                      height: 24.h,
                     ),
-                    if (widget.estateData.side != null)
-                      listTileItem(
-                        Image.asset('images/direction.png'),
-                        'الواجهة ',
-                        Text(
-                          '${widget.estateData.side!.name}',
-                          style: TextStyle(
-                            fontFamily: 'JF Flat',
-                            fontSize: 21.sp,
-                            color: const Color(0xff003e4f),
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    listTileItem(
-                      Image.asset('images/road.png'),
-                      'عرض الشارع ',
-                      Text(
-                        '${widget.estateData.streetWide} م ',
-                        style: TextStyle(
-                          fontFamily: 'JF Flat',
-                          fontSize: 21.sp,
-                          color: const Color(0xff003e4f),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -281,13 +241,14 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           decoration:widget.estateData.authOption=='staying'? BoxDecoration(
                               color: Color(0xFF1F8716),
                               border: Border.all(
-                                  color: Colors.black,
+                                  color: Color(0xFF1F8716),
+                                  // color: Colors.black,
                                   width: 2
                               ),
                               borderRadius: BorderRadius.circular(12)
                           ):
                           BoxDecoration(
-                              color: Color(0xFF1F8716),
+                              color: Color(0xFFB6BDBF),
 
                               borderRadius: BorderRadius.circular(12)
                           ),
@@ -307,16 +268,18 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           ),
 
                         ),
+
+
                         Container(
                           decoration:widget.estateData.authOption=='trading'? BoxDecoration(
-                              color: Color(0xFF06A1CB),
+                              color: Color(0xFF1F8716),
                               border: Border.all(
-                                  color: Colors.black,
+                                  color: Color(0xFF1F8716),
                                   width: 2
                               ),
                               borderRadius: BorderRadius.circular(12)
                           ):BoxDecoration(
-                              color: Color(0xFF06A1CB),
+                              color: Color(0xFFB6BDBF),
 
                               borderRadius: BorderRadius.circular(12)
                           ),
@@ -338,14 +301,14 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         ),
                         Container(
                           decoration:widget.estateData.authOption=='all'?  BoxDecoration(
-                              color:  Color(0xFF007C9D),
+                              color:  Color(0xFF1F8716),
                               border: Border.all(
-                                  color: Colors.black,
+                                  color: Color(0xFF1F8716),
                                   width: 2
                               ),
                               borderRadius: BorderRadius.circular(12)
                           ):BoxDecoration(
-                              color:  Color(0xFF007C9D),
+                              color:  Color(0xFFB6BDBF),
 
                               borderRadius: BorderRadius.circular(12)
                           ),
@@ -372,11 +335,16 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
+
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
                         //height: 320.h,
-                        width: 389.w,
+                        width: MediaQuery.of(context).size.width,
+                        constraints: BoxConstraints(
+                          minHeight: 160
+                        ),
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Color.fromRGBO(211, 203, 203, 1),
@@ -390,7 +358,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           child: Column(
                             children: [
                               Text(
-                                '${widget.estateData.description}',
+                                '${widget.estateData.description.toString().replaceAll(Global.exp2, '')}',
                                 style: TextStyle(
                                   fontFamily: 'JF Flat',
                                   fontSize: 15.sp,
@@ -403,6 +371,9 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         ),
                       ),
                     ),
+
+
+
                     SizedBox(
                       height: 13.h,
                     ),
@@ -411,6 +382,123 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+
+
+                          // *    refresh
+
+            //             print(AppController.instance.getId().toString());
+            // print(":::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            // print(widget.estateData.user!.id);
+
+                          if(AppController.instance.getId().toString()==widget.estateData.user!.id.toString())
+                          // if( widget.estateData.twenty_four_hours_spend==false)
+                          InkWell(
+                            onTap: (){
+
+                              if(widget.estateData.twenty_four_hours_spend==false){
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.WARNING,
+                                  animType: AnimType.SCALE,
+
+                                  body: Padding(
+                                    padding:  EdgeInsets.all(12.0.w),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'سيتم تحديث تاريخ العنصر لتغير مكان ظهوره',
+                                          style: TextStyle(
+                                            fontFamily: 'JF Flat',
+                                            fontSize: 16.sp,
+                                            color: const Color(0xff003e4f),
+                                          ),
+                                          textAlign: TextAlign.right,
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+
+
+                                  btnCancelOnPress: () {
+                                  },
+                                  btnOkText: 'ارسال',
+                                  btnCancelText: 'الغاء',
+                                  btnOkOnPress: () {
+                                    LocationsCubit()..changeSatasDataIn_estate(
+                                        id:widget.estateData.id!
+                                    ).then((value) {
+                                      setState(() {
+                                        widget.estateData.twenty_four_hours_spend = true;
+                                      });
+
+                                      Fluttertoast.showToast(
+                                          msg: 'تم ارسال بنجاح',
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 2,
+                                          backgroundColor: Colors.grey,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    });
+                                  },
+                                )..show();
+                              }else{
+
+
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.WARNING,
+                                  animType: AnimType.SCALE,
+
+                                  body: Padding(
+                                    padding:  EdgeInsets.all(12.0.w),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'تم التحديث اليوم',
+                                          style: TextStyle(
+                                            fontFamily: 'JF Flat',
+                                            fontSize: 16.sp,
+                                            color: const Color(0xff003e4f),
+                                          ),
+                                          textAlign: TextAlign.right,
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+
+
+                                  btnCancelOnPress: () {
+                                  },
+                                  btnCancelText: 'الغاء',
+
+                                )..show();
+                              }
+
+                            },
+                            child: Container(
+                              height: 31.h,
+                              width: 31.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.0, color: const Color(0x5c06a1cb)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Icon(Icons.refresh)
+                                // SvgPicture.asset('images/flag.svg',
+                                //   color: Colors.red,
+                                //
+                                // ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 17.w,
+                          ),
+
                           InkWell(
                             onTap: (){
                               AwesomeDialog(
@@ -462,31 +550,107 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                           hint: '',
                                           controller: _detailsController
                                       ),
+
+                                      SizedBox(height: 4.h,),
+
+
+                                      Row(
+                                        children: [
+
+                                          Expanded(child: ElevatedButton(onPressed: (){
+                                            Navigator.pop(context);
+                                          },
+                                              child: Text("الغاء"),
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(Colors.red),
+                                            ),
+                                          ),
+
+                                          ),
+
+                                          SizedBox(width: 4.h,),
+
+
+                                          Expanded(child: ElevatedButton(onPressed: (){
+                                            if(_detailsController.text.length>10){
+                                                LocationsCubit()..addReportTourism(report_title:
+                                                _causeController.text,
+                                                    report_content: _detailsController.text,
+                                                    report_on_class: 'App\\Models\\Estate'
+
+                                                ).then((value) {
+                                                  print(value);
+                                                  Fluttertoast.showToast(
+                                                      msg: 'تم ارسال البلاغ',
+                                                      toastLength: Toast.LENGTH_SHORT,
+                                                      gravity: ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 2,
+                                                      backgroundColor: Colors.grey,
+                                                      textColor: Colors.white,
+                                                      fontSize: 16.0);
+                                                });
+
+                                                Navigator.pop(context);
+                                              }else{
+                                                Fluttertoast.showToast(
+                                                    msg: 'يجب أن يكون طول النص محتوى البلاغ على الأقل 10 حروفٍ/حرفًا',
+                                                    toastLength: Toast.LENGTH_SHORT,
+                                                    gravity: ToastGravity.BOTTOM,
+                                                    timeInSecForIosWeb: 2,
+                                                    backgroundColor: Colors.grey,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0);
+                                              }
+                                          },
+                                              child: Text("ابلاغ"),
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(Colors.teal),
+                                            ),
+                                          ),
+
+                                          ),
+
+                                        ],
+                                      ),
+
                                     ],
                                   ),
                                 ),
-                                btnCancelOnPress: () {
 
-                                },
-                                btnOkText: 'ابلاغ',
-                                btnCancelText: 'الغاء',
-                                btnOkOnPress: () {
-                                  LocationsCubit()..addReportTourism(report_title:
-                                  _causeController.text,
-                                    report_content: _detailsController.text,
-                                      report_on_class: 'App\\Models\\Estate'
 
-                                  ).then((value) {
-                                    Fluttertoast.showToast(
-                                        msg: 'تم ارسال البلاغ',
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 2,
-                                        backgroundColor: Colors.grey,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0);
-                                  });
-                                },
+                                // btnCancelOnPress: () {
+                                // },
+                                // btnOkText: 'ابلاغ',
+                                // btnCancelText: 'الغاء',
+                                // btnOkOnPress: () {
+                                //   if(_detailsController.text.length>10){
+                                //     LocationsCubit()..addReportTourism(report_title:
+                                //     _causeController.text,
+                                //         report_content: _detailsController.text,
+                                //         report_on_class: 'App\\Models\\Estate'
+                                //
+                                //     ).then((value) {
+                                //       Fluttertoast.showToast(
+                                //           msg: 'تم ارسال البلاغ',
+                                //           toastLength: Toast.LENGTH_SHORT,
+                                //           gravity: ToastGravity.BOTTOM,
+                                //           timeInSecForIosWeb: 2,
+                                //           backgroundColor: Colors.grey,
+                                //           textColor: Colors.white,
+                                //           fontSize: 16.0);
+                                //     });
+                                //   }else{
+                                //     Fluttertoast.showToast(
+                                //         msg: 'يجب أن يكون طول النص محتوى البلاغ على الأقل 10 حروفٍ/حرفًا',
+                                //         toastLength: Toast.LENGTH_SHORT,
+                                //         gravity: ToastGravity.BOTTOM,
+                                //         timeInSecForIosWeb: 2,
+                                //         backgroundColor: Colors.grey,
+                                //         textColor: Colors.white,
+                                //         fontSize: 16.0);
+                                //   }
+                                //
+                                // },
                               )..show();
                             },
                             child: Container(
@@ -541,11 +705,12 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                           Container(
                             height: 31.h,
                             width: 31.w,
+                            padding: EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1.0, color: const Color(0x5c06a1cb)),
                             ),
-                            child: Image.asset('images/share.png'),
+                            child: SvgPicture.asset('images/share2.svg',width: 16,height: 19,),
                           ),
                         ],
                       ),
@@ -611,7 +776,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
-                                  Image.asset('images/chat2.png')
+                                  SvgPicture.asset('images/chat2.svg')
                                 ],
                               ),
                             ),
@@ -648,7 +813,7 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
-                                  Image.asset('images/call2.png')
+                                  SvgPicture.asset('images/call22.svg')
                                 ],
                               ),
                             ),
@@ -656,6 +821,10 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                         ),
                       ],
                     ),
+
+
+
+
                     SizedBox(
                       height: 15.h,
                     ),
@@ -729,17 +898,20 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                       ),
                     if (widget.estateData.commentsEnabled == 1)
                       listTileItem(
-                          Image.asset('images/chat2.png'),
+                          // Image.asset('images/chat2.png'),
+                          SvgPicture.asset('images/chat2.svg'),
                           'التعليقات',
                           Text(
-                            '${widget.estateData.comments!.length}',
+                            '',
+                            // '${widget.estateData.comments!.length}',
                             style: TextStyle(
                               fontFamily: 'JF Flat',
                               fontSize: 21.sp,
                               color: const Color(0xff1f8716),
                             ),
                             textAlign: TextAlign.center,
-                          )),
+                          )
+                      ),
                     if (widget.estateData.comments!.length != 0)
                       BlocProvider(
                         create: (context)=>EstatesCubit(),
@@ -777,15 +949,17 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                                                  '${widget.estateData.comments![index].user!.name}',
                                                  style: TextStyle(
                                                    fontFamily: 'JF Flat',
-                                                   fontSize: 21.sp,
+                                                   fontSize: 15.sp,
+                                                   fontWeight: FontWeight.w700,
                                                    color: const Color(0xff5d9b58),
                                                  ),
                                                ),
                                                subtitle: Text(
                                                  '${widget.estateData.comments![index].content}',
                                                  style: TextStyle(
+                                                   fontWeight: FontWeight.w400,
                                                    fontFamily: 'JF Flat',
-                                                   fontSize: 19.sp,
+                                                   fontSize: 15,
                                                    color: const Color(0xff6a768b),
                                                  ),
                                                ),
@@ -805,52 +979,52 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
                       ),
 
 
-                    if(userCubit.data!=null)
-                    if (userCubit.data!.currentSub == null)
-                      Container(
-                        height: 95.h,
-                        width: 389.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(9.0),
-                          border: Border.all(
-                              width: 1.0, color: const Color(0x61f7901e)),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset('images/alert.png'),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Text(
-                                'أشترك بأحد الباقات واحصل على أضافة مواضيع أكثرومميزات أكثر',
-                                style: TextStyle(
-                                  fontFamily: fontName,
-                                  fontSize: 13.sp,
-                                  color: const Color(0xff754dad),
-                                ),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    if(userCubit.data!=null)
-                    if (userCubit.data!.currentSub == null)
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: defaultButton(
-                                function: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
-                                  );
-                                },
-                                title: 'اشترك الآن')),
-                      ),
+                    // if(userCubit.data!=null)
+                    // if (userCubit.data!.currentSub == null)
+                    //   Container(
+                    //     height: 95.h,
+                    //     width: 389.w,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(9.0),
+                    //       border: Border.all(
+                    //           width: 1.0, color: const Color(0x61f7901e)),
+                    //     ),
+                    //     child: Center(
+                    //       child: Row(
+                    //         mainAxisSize: MainAxisSize.min,
+                    //         children: [
+                    //           Image.asset('images/alert.png'),
+                    //           SizedBox(
+                    //             width: 10.w,
+                    //           ),
+                    //           Text(
+                    //             'أشترك بأحد الباقات واحصل على أضافة مواضيع أكثرومميزات أكثر',
+                    //             style: TextStyle(
+                    //               fontFamily: fontName,
+                    //               fontSize: 13.sp,
+                    //               color: const Color(0xff754dad),
+                    //             ),
+                    //             textAlign: TextAlign.center,
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // if(userCubit.data!=null)
+                    // if (userCubit.data!.currentSub == null)
+                    //   Padding(
+                    //     padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    //     child: Align(
+                    //         alignment: Alignment.centerLeft,
+                    //         child: defaultButton(
+                    //             function: () {
+                    //               Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(builder: (context) => MembershipScreen(sub: 0,)),
+                    //               );
+                    //             },
+                    //             title: 'اشترك الآن')),
+                    //   ),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -862,5 +1036,94 @@ class _EstateDetailsScreenState extends State<EstateDetailsScreen> {
         ),
       ),
     );
+  }
+
+
+
+  Widget listTileItemColumn({required String? title,required String? supTitle}){
+    return Column(
+      children: [
+
+        Container(
+          color:Colors.grey.shade200,
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width/4+14,
+            minHeight: 45,
+          ),
+          child:  Center(
+            child:Text(
+            title??"",
+            style: TextStyle(
+              fontFamily: 'JF Flat',
+              fontSize: 18.sp,
+              color: const Color(0xff06a1cb),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          ),
+        ),
+        Container(
+          color: Colors.white,
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width/4+14,
+            minHeight: 55,
+          ),
+          child: Center(
+            child:  Text(
+              supTitle??"",
+              style: TextStyle(
+                fontFamily: 'JF Flat',
+                fontSize: 14,
+                color: Colors.black,
+                fontWeight: FontWeight.w700
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+
+      ],
+    );
+  }
+
+
+  Widget listTileItem(Widget? svgPicture, String? title, Widget? wigget){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(left: 30,right: 30),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+
+          Expanded(
+            flex: 2,
+            child:
+          Row(
+            children: [
+              svgPicture!,
+
+              SizedBox(width: 10,),
+              Text(
+                title??"",
+                style: TextStyle(
+                  fontFamily: 'JF Flat',
+                  fontSize: 18.sp,
+                  color: const Color(0xff003e4f),
+                ),
+                textAlign: TextAlign.right,
+              ),
+
+            ],
+          ),
+          ),
+
+
+          Expanded(flex: 1,child:wigget!)
+        ],
+      ),
+
+    );
+
   }
 }

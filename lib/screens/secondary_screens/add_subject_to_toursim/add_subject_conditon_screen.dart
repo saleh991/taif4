@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,58 +69,87 @@ class AddSubjectCondtionsScreen extends StatelessWidget {
               ) ,
             ),
             SizedBox(
-              height: 28.h,
+              height: 58.h,
             ),
-            Center(child: Image.asset('images/map.png')),
-            SizedBox(
-              height: 122.h,
-            ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xffd5ddeb),
-                      offset: Offset(0, 3),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+
+
+
+
+            // Center(child: SvgPicture.asset('images/map.svg')),
+            // Center(child: Image.asset('images/map.png')),
+            // SizedBox(
+            //   height: 122.h,
+            // ),
+          Stack(
                   children: [
-                    Text(
-                      'دفع الرسوم والشروط',
-                      style: TextStyle(
-                        fontFamily: 'JF Flat',
-                        fontSize: 22,
-                        color: const Color(0xff002a36),
-                        decoration: TextDecoration.underline,
+
+          Padding(padding: EdgeInsets.only(top: 80,bottom: 50),
+            child: Center(
+                child: Container(
+                width: 383.w,
+                  height: 450.h,
+                  padding: EdgeInsets.only(left: 15,right: 15,top: 80),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xffd5ddeb),
+                        offset: Offset(0, 3),
+                        blurRadius: 6,
                       ),
-                      textAlign: TextAlign.right,
+                    ],
+                  ),
+                  child:Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'دفع الرسوم والشروط',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 22,
+                            color: const Color(0xff002a36),
+                            decoration: TextDecoration.underline,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Text(
+                          'الشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا',
+                          style: TextStyle(
+                            fontFamily: 'JF Flat',
+                            fontSize: 16,
+                            color: const Color(0xff003e4f),
+                          ),
+                          textAlign: TextAlign.right,
+                        )
+                      ],
                     ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Text(
-                      'الشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا\nالشروط الواجب مراعاتها لإستخدام التطبيق الخاص بنا',
-                      style: TextStyle(
-                        fontFamily: 'JF Flat',
-                        fontSize: 16,
-                        color: const Color(0xff003e4f),
-                      ),
-                      textAlign: TextAlign.right,
-                    )
-                  ],
+                )
                 ),
-              ),
+                ),
+
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(padding: EdgeInsets.only(top: 0),
+                        child: Container(
+                          // height: 120,
+                          width: 150,
+                          child:  Center(child: SvgPicture.asset('images/map.svg')),
+                        ),
+                      ),
+                    ),
+
+                  ],
+
             ),
+
             SizedBox(
-              height: 122.h,
+              height: 0.h,
+              // height: 122.h,
             ),
             SizedBox(
                 width: 354.w,

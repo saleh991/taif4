@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taif/components/components.dart';
 import 'package:taif/helper/constants.dart';
+import 'package:taif/models/data_districts.dart';
+import 'package:taif/screens/secondary_screens/address_section_screens/addedd_succefully_screen.dart';
 
 import 'cubit/cubit.dart';
 
@@ -12,14 +14,17 @@ class AddAdScreen3 extends StatefulWidget {
   String? long;
   String? lat;
   String? type ;
+  String? districts ;
   String? payType ;
   String? category ;
   String? authOption ;
   List<File> otherImages;
   File? image;
+  List<Sides>? side;
+
    AddAdScreen3({Key? key,this.long,this.lat,this.type,
      this.category,this.authOption,this.image,this.payType,
-     required this.otherImages
+     required this.otherImages,required this.districts,  this.side
    }) : super(key: key);
 
   @override
@@ -33,17 +38,24 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
   late TextEditingController _areaController;
   late TextEditingController _directionController;
   late TextEditingController _detailsController;
+  late TextEditingController _phoneController;
+  late TextEditingController _old_yearsController;
   String ownership='owner';
   int sw=0;
   int sideId=0;
   bool enableCom=false;
   bool showPhone=false;
-  String side='الواجهة';
+  String? sidename;
+  String? side;
+  String mortgaged=' هل العقار مرهون*';
+  int mortgagedId=0;
 
   @override
   void initState() {
 
     super.initState();
+    _old_yearsController = TextEditingController();
+    _phoneController = TextEditingController();
     _titleController = TextEditingController();
     _priceController = TextEditingController();
     _streetWideController = TextEditingController();
@@ -55,6 +67,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
   @override
   void dispose() {
     super.dispose();
+    _old_yearsController.dispose();
     _titleController.dispose();
     _priceController.dispose();
     _streetWideController.dispose();
@@ -66,7 +79,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      // drawer: Drawer(),
       appBar: AppBar(
         backgroundColor: Color(0xFFEFF2F7),
         elevation: 0,
@@ -92,96 +105,192 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
             size: 35.sp,
           ),
         ),)],      ),
+
+
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 17.w),
           child: Column(
             children: [
+
+              SizedBox(height: 40,),
+
+
               contactTextField(
-                hint: 'عنوان الموضوع',
+                hint: 'عنوان الاعلان',
                 controller: _titleController,
               ),
+
               SizedBox(
                 height: 12.h,
               ),
-              contactTextField(
-                hint: 'السعر',
-                controller: _priceController,
-                keyboardType: TextInputType.number,
+
+              Row(
+                children: [
+
+                  Expanded(child:
+                  contactTextField(
+                    hint: '  ثمن السلعة ريال',
+                    controller: _priceController,
+                    keyboardType: TextInputType.number,
+                  ),
+                  ),
+                  SizedBox(
+                    width: 8.h,
+                  ),
+                  Expanded(child: contactTextField(
+                    hint: 'عمر العقار ( سنة )*',
+                    controller: _old_yearsController,
+                    keyboardType: TextInputType.number,
+                  ),
+                  ),
+                ],
               ),
+
+
               SizedBox(
                 height: 12.h,
               ),
+
               contactTextField(
-                hint: 'عرض الشارع',
+                hint: 'رقم الهاتف',
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+              ),
+
+              SizedBox(
+                height: 12.h,
+              ),
+          Row(
+            children: [
+
+              Expanded(child:contactTextField(
+                hint: 'عرض الشارع (م٢)*',
                 controller: _streetWideController,
               ),
-              SizedBox(
-                height: 12.h,
               ),
-              contactTextField(
-                hint: 'مساحة العقار (متر مربع)',
+
+              SizedBox(
+                width: 8.h,
+              ),
+
+              Expanded(child:contactTextField(
+                hint: ' مساحة العقار (م٢)*',
                 controller: _areaController,
                 keyboardType: TextInputType.number,
               ),
+              ),
+              ]
+          ),
               SizedBox(
                 height: 18.h,
               ),
-              Container(
-                width: 380.w,
-                height: 43.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: const Color(0xffffffff),
-                  border: Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
-                ),
-                child: Center(
-                  child: DropdownButton<String>(
-                    iconEnabledColor: Colors.red,
-                    hint: Text(
-                      side,
-                      style: TextStyle(color: Color(0xFF3A3A3A)),
-                    ), // Not necessary for Option 1
-                    items: <String>['شرق', 'غرب', 'جنوب','شمال'].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (value1) {
-                      print(value1);
-                      if(value1=='شرق')
-                        {
-                          side=value1!;
-                          sideId=1;
-                        }
 
-                     else if(value1=='غرب')
-                      {
-                        side=value1!;
-                        sideId=2;
-                      }
-                      else if(value1=='جنوب')
-                      {
-                        side=value1!;
-                        sideId=3;
-                      }
-                      else if(value1=='شمال')
-                      {
-                        side=value1!;
-                        sideId=4;
-                      }
-                      setState(() {
 
-                      });
-                    },
+
+
+
+              Row(
+                children: [
+                  Expanded(child:
+                  Container(
+                    width: 380.w,
+                    height: 43.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: const Color(0xffffffff),
+                      border: Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
+                    ),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        underline: Container(),
+                        iconEnabledColor: Color(0xFF003E4F),
+                        hint: Text(
+                          side??"واجهة العقار *",
+                          style: TextStyle(color: Color(0xFF3A3A3A)),
+                        ), // Not necessary for// Option 1
+                        value: sidename,
+                        items: widget.side!.map((item) {
+                          return
+                            DropdownMenuItem(
+                            child:  Padding(padding: EdgeInsets.only(left: 0,right: 0),child:  Text(item.name??""),),
+
+                            value: item.id.toString(),
+                          );
+                        }).toList(),
+                        onChanged: (value1) {
+                          print(value1);
+                          print(value1);
+                          side=value1.toString();
+                          sideId=int.parse(value1.toString());
+                          setState(() {
+                            sidename=value1.toString();
+                          });
+                        },
+                      ),
+                    ),
+                  )
                   ),
-                ),
+                  SizedBox(
+                    width: 8.h,
+                  ),
+
+
+
+                  // * ---------------
+                  Expanded(child: Container(
+                    width: 380.w,
+                    height: 43.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: const Color(0xffffffff),
+                      border: Border.all(width: 1.0, color: const Color(0xffd5ddeb)),
+                    ),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        underline: Container(),
+                        iconEnabledColor: Color(0xFF003E4F),
+                        hint: Text(
+                          mortgaged,
+                          style: TextStyle(color: Color(0xFF3A3A3A)),
+                        ), // Not necessary for Option 1
+                        items: <String>[ 'غير مرهون','مرهون'].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+
+                            child:  Padding(padding: EdgeInsets.only(left: 10,right: 10),child: Text(value),),
+                            // child: new Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value1) {
+                          print(value1);
+                          if(value1=='مرهون')
+                          {
+
+                            mortgagedId=1;
+                          }
+
+                          else if(value1=='غير مرهون')
+                          {
+                            mortgaged=value1!;
+                            mortgagedId=0;
+                          }
+                          setState(() {
+
+                          });
+                        },
+                      ),
+                    ),
+                  ),)
+                ],
               ),
+
+
               SizedBox(
                 height: 18.h,
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -398,7 +507,7 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
               Align(
                 alignment: AlignmentDirectional.topStart,
                 child: Text(
-                  'علاقة المعلن بالعقار',
+                  'صفة المعلن',
                   style: TextStyle(
                     fontFamily: 'JF Flat',
                     fontSize: 22.sp,
@@ -504,6 +613,28 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
 
                           btnOkOnPress: () {},
                         )..show();
+                      else   if(_old_yearsController.text.length==0||_old_yearsController.text.trim()=='')
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.INFO,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'نقص في المعلومات',
+                          desc: 'يجب اضافة عمر العقار',
+                          btnOkText: 'تم',
+
+                          btnOkOnPress: () {},
+                        )..show();
+                      else   if(_phoneController.text.length==0||_phoneController.text.trim()=='')
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.INFO,
+                          animType: AnimType.BOTTOMSLIDE,
+                          title: 'نقص في المعلومات',
+                          desc: 'يجب اضافة رقم الهاتف',
+                          btnOkText: 'تم',
+
+                          btnOkOnPress: () {},
+                        )..show();
                       else   if(_priceController.text.length==0||_priceController.text.trim()=='')
                         AwesomeDialog(
                           context: context,
@@ -592,38 +723,38 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
                        {
                          sw=1;
                        }
-                       if(widget.type=='فيلا')
-                         {
-                           widget.type='villa';
-                         }
-                       else if(widget.type=='ارض')
-                       {
-                         widget.type='land';
-                       }
-                       else if(widget.type=='بناء')
-                       {
-                         widget.type='building';
-                       }
-                       else if(widget.type=='بيت شعبي')
-                       {
-                         widget.type='folk_house';
-                       }
-                       else if(widget.type=='شاليه')
-                       {
-                         widget.type='chalet';
-                       }
-                       else if(widget.type=='شقة')
-                       {
-                         widget.type='ownership_Apartment';
-                       }
-                       else if(widget.type=='طابق')
-                       {
-                         widget.type='ownership_floor';
-                       }
-                       else if(widget.type=='مزرعة')
-                       {
-                         widget.type='farm';
-                       }
+                       // if(widget.type=='فيلا')
+                       //   {
+                       //     widget.type='villa';
+                       //   }
+                       // else if(widget.type=='ارض')
+                       // {
+                       //   widget.type='land';
+                       // }
+                       // else if(widget.type=='بناء')
+                       // {
+                       //   widget.type='building';
+                       // }
+                       // else if(widget.type=='بيت شعبي')
+                       // {
+                       //   widget.type='folk_house';
+                       // }
+                       // else if(widget.type=='شاليه')
+                       // {
+                       //   widget.type='chalet';
+                       // }
+                       // else if(widget.type=='شقة')
+                       // {
+                       //   widget.type='ownership_Apartment';
+                       // }
+                       // else if(widget.type=='طابق')
+                       // {
+                       //   widget.type='ownership_floor';
+                       // }
+                       // else if(widget.type=='مزرعة')
+                       // {
+                       //   widget.type='farm';
+                       // }
                        int enCom=0;
                        if(enableCom)
                          {
@@ -638,7 +769,9 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
 
 
                         EstatesCubit()..addEstate(
+                          context: context,
                             type: widget.type!,
+                            districts: widget.districts!,
                             auth_option: widget.authOption!,
                             ownership: ownership,
                             area: _areaController.text,
@@ -648,17 +781,27 @@ class _AddAdScreen3State extends State<AddAdScreen3> {
                             location_lat: widget.lat!,
                             location_lng: widget.long!,
                             streetWide: _streetWideController.text,
-                            image: widget.image!,
+                            image: widget.image,
                               payType: widget.payType!,
                               es: sw,
                           show_phone: phone,
                           comments_enabled: enCom,
                           images: widget.otherImages,
-                          side_id: sideId
+                          side_id: sideId,
+                          phone: _phoneController.text,
+                          mortgaged: mortgagedId.toString(),
+                          old_years: _old_yearsController.text
                         );
-                        Navigator.pushReplacementNamed(
-                            context, addedSuccefullyRoute);
+                        // Navigator.pushReplacementNamed(
+                        //     context, addedSuccefullyRoute);
 
+
+                        //
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(builder: (BuildContext context) => AddedSuccefullyScreen(directionScrean: "estate",)),
+                        //     ModalRoute.withName('/')
+                        // );
 
                       }
                     },

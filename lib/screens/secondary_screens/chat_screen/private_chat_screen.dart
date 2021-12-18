@@ -27,8 +27,10 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
 
   Timer? _timer;
   int _start = 7;
+
   var cubit;
   ChatCubit cu= ChatCubit();
+
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer =  Timer.periodic(
@@ -40,6 +42,9 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
 
 
           _start=5;
+
+          ChatCubit()..getSingleChat(chatId: widget.chatId);
+
           cu..getSingleChat(chatId: widget.chatId);
           _scrollController.animateTo(
             _scrollController.position.maxScrollExtent,
@@ -106,17 +111,19 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
           ),
         ),)],      ),
       body: BlocProvider(
+
         create: (context) => cu..getSingleChat(chatId: widget.chatId,
+
            ),
         child:   BlocConsumer<ChatCubit, ChatState>(
           listener: (context, state) {
 
 
 
-
           },
           builder: (context, state) {
-            cubit = ChatCubit.get(context).chatModel;
+            var cubit = ChatCubit.get(context).chatModel;
+
 
             if (state is ChatSuccessState) {
 
@@ -296,7 +303,11 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                                   suffixIcon: BlocConsumer<ChatCubit, ChatState>(
                                     listener: (context, state) {
                                       if (state is ChatSuccessState) {
+<<<<<<< diaa_1
+                                        _contentController.text = '';
+=======
 
+>>>>>>> main
                                       }
                                     },
                                     builder: (context, state) {
@@ -328,6 +339,8 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
 
                                                 ));
                                                 _contentController.text='';
+<<<<<<< diaa_1
+=======
                                                 _scrollController.animateTo(
                                                   _scrollController.position.maxScrollExtent,
                                                   curve: Curves.easeOut,
@@ -339,10 +352,15 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                                                 if (!currentFocus.hasPrimaryFocus) {
                                                   currentFocus.unfocus();
                                                 }
+>>>>>>> main
                                                 setState(() {
 
                                                 });
 
+<<<<<<< diaa_1
+                                                FocusScope.of(context).unfocus();
+=======
+>>>>>>> main
 
                                               }
                                             },

@@ -62,7 +62,7 @@ class Data {
   int? _active;
   String? _image;
   String? _code;
-  dynamic? _apiToken;
+  var _apiToken;
   String? _name;
   String? _email;
   CurrentSub? _currentSub;
@@ -120,7 +120,7 @@ class Data {
     _active = json['active'];
     _image = json['image'];
     _code = json['code'];
-    _apiToken = json['api_token'];
+    _apiToken = json['api_token'].toString();
     _name = json['name'];
     _email = json['email'];
     _currentSub = json['currentSub'] != null ? CurrentSub.fromJson(json['currentSub']) : null;

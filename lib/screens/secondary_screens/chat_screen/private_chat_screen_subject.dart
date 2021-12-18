@@ -28,8 +28,10 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
 
   Timer? _timer;
   int _start = 7;
+
   var cubit;
   ChatCubit cu= ChatCubit();
+
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer =  Timer.periodic(
@@ -39,6 +41,16 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
           print('re');
           print('re');  print('re');
 
+
+
+            _start=5;
+            ChatCubit()..createChat(subjectId: widget.subjectId,
+                model: widget.model);
+
+
+        } else {
+
+            _start--;
 
           _start=5;
           cu..createChat(subjectId: widget.subjectId,
@@ -55,6 +67,7 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
         } else {
 
           _start--;
+
 
         }
       },
@@ -109,18 +122,26 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
           ),
         ),)],      ),
       body: BlocProvider(
+
+        create: (context) => ChatCubit()..createChat(subjectId: widget.subjectId,
+            model: widget.model),
+
         create: (context) =>    cu..createChat(subjectId: widget.subjectId,
             model: widget.model
         ),
+
         child:   BlocConsumer<ChatCubit, ChatState>(
           listener: (context, state) {
 
 
 
-
           },
           builder: (context, state) {
-            cubit = ChatCubit.get(context).chatModel;
+            var cubit = ChatCubit.get(context).chatModel;
+
+
+
+
 
             if (state is ChatSuccessState) {
 
@@ -301,6 +322,8 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
                                     listener: (context, state) {
                                       if (state is ChatSuccessState) {
 
+                                        _contentController.text = '';
+
                                       }
                                     },
                                     builder: (context, state) {
@@ -319,12 +342,22 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
                                             onPressed: () {
                                               if (checkData()) {
                                                 ChatCubit.get(context).sendMessage(
-                                                  content: _contentController.text,
-                                                  chatId: cubit.currentChat!.id!,
+
+                                                    content: _contentController.text,
+                                                    chatId: cubit.currentChat!.id!,
 
 
                                                 );
                                                 cubit.currentChat!.messages!.add(Messages(
+
+                                                  content: _contentController.text,
+                                                  userId: AppController.instance.getId(),
+                                                    toUserId: cubit.currentChat!.anotherUser!.id,
+                                                  createdAt: DateTime.now().toString()
+
+                                                ));
+                                                _contentController.text='';
+
                                                     content: _contentController.text,
                                                     userId: AppController.instance.getId(),
                                                     toUserId: cubit.currentChat!.anotherUser!.id,
@@ -343,9 +376,12 @@ class _PrivateChatSubjectScreenState extends State<PrivateChatSubjectScreen> {
                                                 if (!currentFocus.hasPrimaryFocus) {
                                                   currentFocus.unfocus();
                                                 }
+
                                                 setState(() {
 
                                                 });
+
+                                                FocusScope.of(context).unfocus();
 
 
                                               }

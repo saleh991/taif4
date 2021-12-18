@@ -31,7 +31,9 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void getSingleChat({required int chatId}) {
+
     emit(ChatLoadingState());
+
     DioHelper.init();
     DioHelper.getData(url: 'chats/$chatId?user_id=${AppController.instance.getId()}')
         .then((value) {
@@ -52,7 +54,7 @@ class ChatCubit extends Cubit<ChatState> {
     required int subjectId,
     required String model
 }) {
-    emit(ChatLoadingState());
+
     DioHelper.init();
     DioHelper.getData(url: 'chats/create?user_id=${AppController.instance.getId()}&subject_class=$model&subject_id=$subjectId')
         .then((value) {

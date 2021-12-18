@@ -143,6 +143,7 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
+
               Text(
                 'الاحياء التي يخدمها الفني',
                 style: TextStyle(
@@ -311,6 +312,7 @@ class ServicesProviderDetailsScreen extends StatelessWidget {
 
 
             ],
+
           )
 
 
